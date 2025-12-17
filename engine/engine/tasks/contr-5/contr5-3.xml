@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 3">
+<description>
+<![CDATA[Какой остаток дает число 2008*2009*2010*2011*2012 при делении на 13?
+]]><imgs><img>2.png</img>
+<img>0.png</img>
+<img>0.png</img>
+<img>8.png</img>
+<img>mult.png</img>
+<img>2.png</img>
+<img>0.png</img>
+<img>0.png</img>
+<img>9.png</img>
+<img>mult.png</img>
+<img>2.png</img>
+<img>0.png</img>
+<img>1.png</img>
+<img>0.png</img>
+<img>mult.png</img>
+<img>2.png</img>
+<img>0.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>mult.png</img>
+<img>2.png</img>
+<img>0.png</img>
+<img>1.png</img>
+<img>2.png</img>
+<img>equal.png</img>
+<img>1.png</img>
+<img>3.png</img>
+<img>a.png</img>
+<img>add.png</img>
+<img>b.png</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="2008*2009*2010*2011*2012" mod="13">
+</function>
+</verifier> </mathDescription>
+ </task>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Остаток от деления 2008 на 13">
+<description>
+<![CDATA[Какой остаток дает число 2008 при делении на 13?
+]]><imgs><img>2.PNG</img>
+<img>0.png</img>
+<img>0.png</img>
+<img>8.PNG</img>
+<img>equal.PNG</img>
+<img>1.PNG</img>
+<img>3.PNG</img>
+<img>a.PNG</img>
+<img>add.png</img>
+<img>b.PNG</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="2008" mod="13">
+</function>
+</verifier> </mathDescription>
+ </task>

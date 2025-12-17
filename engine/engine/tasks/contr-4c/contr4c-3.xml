@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 3">
+<description>
+<![CDATA[Найти все 5 значные натуральные числа, которые при изменении цифр числа по правилу: [1] [2] [3] [4] [5] -->[5] [4] [3] [2] [1] (в полученном числе 1 цифра не 0);  увеличиваются в 4  раза.
+]]><imgs><img>e_line.png</img>
+<img>d_line.png</img>
+<img>c_line.png</img>
+<img>b_line.png</img>
+<img>a_line.png</img>
+<img>equal.png</img>
+<img>a_line.png</img>
+<img>b_line.png</img>
+<img>c_line.png</img>
+<img>d_line.png</img>
+<img>e_line.png</img>
+<img>mult.png</img>
+<img>4.png</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet"> 
+<set type="NumericSet" first="1" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/>	</set>
+</sourceSet>
+<verifier type="ListVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Not">
+		<function type="Equals">
+		    <function type="Projection" axis="5">
+		<current-set-element/>
+</function>
+
+		<constElement>0</constElement>
+
+</function>
+
+</function>
+
+<function type="And">
+		<function type="Equals">
+		<function type="Mod">
+		<function type="ToDigit">
+		<function type="FunctionElement">
+    <function type="Projection" axis="5">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="4">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+</function>
+
+</function>
+
+		<function type="ToDigit">
+		<current-set-element/>
+</function>
+
+</function>
+
+		<constElement>0</constElement>
+
+</function>
+
+		<function type="Equals">
+		<function type="Div">
+		<function type="ToDigit">
+		<function type="FunctionElement">
+    <function type="Projection" axis="5">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="4">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+</function>
+
+</function>
+
+		<function type="ToDigit">
+		<current-set-element/>
+</function>
+
+</function>
+
+		<constElement>4</constElement>
+
+</function>
+
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

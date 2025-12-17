@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Гласные и согласные чередуются">
+<description>
+<![CDATA[Рассмотрим множество всех 6-буквенных слов в алфавите А = {к, л, м, о } (буквы в словах могут повторяться), удовлетворяющих следующим условиям :  гласные и согласные чередуются. Найдите в этом множестве порядковый номер слова "молоко".
+]]><imgs><img>m_green.PNG</img>
+<img>o_brown.PNG</img>
+<img>l_green.PNG</img>
+<img>o_brown.PNG</img>
+<img>k_green.PNG</img>
+<img>o_brown.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>6</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>3</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="IndexVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="And">
+<constElement>1</constElement>
+<for name="i" first="1" last="${length}-1" inc="1">
+<function type="Not">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}+1">
+		<current-set-element/>
+</function>
+</function>
+</function>
+</function>
+</for></function>
+
+</function>
+<indexingElement><constElement><constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+</constElement></indexingElement>
+</verifier> </mathDescription>
+ </task>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача Б-6-3. АКАРА.">
+<description>
+<![CDATA[Сколько пятибуквенных слов можно составить из букв {а, к, р }, в которых согласных меньше чем гласных.
+]]><imgs><img>a_green.PNG</img>
+<img>k_brown.PNG</img>
+<img>a_green.PNG</img>
+<img>r_brown.PNG</img>
+<img>a_green.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Smaller">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>0</constElement>
+</function>
+</for></function>
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>1</constElement>
+</function>
+</for></function>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

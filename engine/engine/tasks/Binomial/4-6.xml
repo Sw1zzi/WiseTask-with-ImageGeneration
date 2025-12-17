@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 4-6. Ни одной картинки.">
+<description>
+<![CDATA[Из колоды в 36 карт вытаскивают случайным образом 5 карт. Подсчитайте количество наборов, в которых нет ни одной картинки (туза, короля, дамы или валета).
+]]><imgs><img>space.PNG</img>
+<img>9pik.PNG</img>
+<img>space.PNG</img>
+<img>9bub.PNG</img>
+<img>space.PNG</img>
+<img>7pik.PNG</img>
+<img>space.PNG</img>
+<img>8htref.PNG</img>
+<img>space.PNG</img>
+<img>6heart.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="CombinationSet" length="${length}"> 
+	<set type="DecartSet">
+		<set type="NumericSet" first="5" last="13"/>
+		<set type="NumericSet" first="1" last="4"/>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+	<function type="Projection" axis="1">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>13</constElement>
+</function>
+</for></function>
+
+<constElement>0</constElement>
+</function><function type="Equals">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+	<function type="Projection" axis="1">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>12</constElement>
+</function>
+</for></function>
+
+<constElement>0</constElement>
+</function><function type="Equals">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+	<function type="Projection" axis="1">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>11</constElement>
+</function>
+</for></function>
+
+<constElement>0</constElement>
+</function><function type="Equals">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+	<function type="Projection" axis="1">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>10</constElement>
+</function>
+</for></function>
+
+<constElement>0</constElement>
+</function>
+</function>
+</verifier> </mathDescription>
+ </task>

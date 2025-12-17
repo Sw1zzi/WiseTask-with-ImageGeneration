@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Числа с определенным количеством определенных цифр">
+<description-params>
+        <param name="m" type="1">
+            <value text="шести">6</value>
+            <value text="восьми">8</value>
+        </param>
+        <param name="n">
+            <value text="шесте">5</value>
+        </param>
+        <param name="tr" type="1">
+            <value>1</value>
+            <value>3</value>
+        </param>
+        <param name="cht" type="1">
+            <value>2</value>
+            <value>1</value>
+        </param>
+        <param name="pt" type="1">
+            <value>3</value>
+            <value>4</value>
+        </param>
+</description-params>
+    <description>
+        <![CDATA[Сколько существует ${m-text}значных чисел, в записи которых количество троек - ${tr}, четверок - ${cht}, пятерок - ${pt}?]]>
+    </description>
+    <mathDescription>
+        <sourceSet>
+            <set type="DecartSet">
+                <set type="NumericSet" first="1" last="${n}"/>
+            <for name="i" first="1" last="${m}-1" inc="1">
+                <set type="NumericSet" first="0" last="${n}"/>
+            </for>
+            </set>
+    </sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<function type="Equals">
+    <function type="Add">
+        <for name="i" first="1" last="${m}" inc="1">
+        <function type="Equals">
+            <function type="Projection" axis="${i}">
+                <current-set-element/>
+            </function>
+            <constElement>3</constElement>
+        </function>
+        </for>
+    </function>
+<constElement>${tr}</constElement>
+</function>
+<function type="Equals">
+    <function type="Add">
+        <for name="i" first="1" last="${m}" inc="1">
+        <function type="Equals">
+            <function type="Projection" axis="${i}">
+                <current-set-element/>
+            </function>
+            <constElement>4</constElement>
+        </function>
+        </for>
+    </function>
+<constElement>${cht}</constElement>
+</function>
+<function type="Equals">
+    <function type="Add">
+        <for name="i" first="1" last="${m}" inc="1">
+        <function type="Equals">
+            <function type="Projection" axis="${i}">
+                <current-set-element/>
+            </function>
+            <constElement>5</constElement>
+        </function>
+        </for>
+    </function>
+<constElement>${pt}</constElement>
+</function>
+</function>
+    </verifier>
+    </mathDescription>
+</task>

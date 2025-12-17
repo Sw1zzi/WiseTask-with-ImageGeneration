@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="дни недели">
+<description>
+<![CDATA[В январе некоторого года было 4 понедельника и 4 пятницы. Каким днем недели было  20-ое число этого месяца?
+]]></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="31" mod="4">
+</function>
+</verifier> </mathDescription>
+ </task>

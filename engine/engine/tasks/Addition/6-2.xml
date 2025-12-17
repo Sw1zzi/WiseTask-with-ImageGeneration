@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 6-2. Красных больше половины.">
+<description>
+<![CDATA[Из колоды в 36 карт вытаскивают случайным образом 5 карт. Подсчитайте количество наборов, в которых  количество карт красных мастей  (бубен и червей) больше половины.
+]]><imgs><img>space.PNG</img>
+<img>7bub.PNG</img>
+<img>space.PNG</img>
+<img>dam_heart.PNG</img>
+<img>space.PNG</img>
+<img>9heart.PNG</img>
+<img>space.PNG</img>
+<img>king_heart.PNG</img>
+<img>space.PNG</img>
+<img>valet_tref.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="CombinationSet" length="${length}"> 
+	<set type="DecartSet">
+		<set type="NumericSet" first="5" last="13"/>
+		<set type="NumericSet" first="1" last="4"/>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Greater">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Or">
+<function type="Equals">
+	<function type="Projection" axis="2">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>1</constElement>
+</function>
+<function type="Equals">
+	<function type="Projection" axis="2">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>2</constElement>
+</function>
+</function>
+</for></function>
+
+<constElement>2</constElement>
+</function>
+</function>
+</verifier> </mathDescription>
+ </task>

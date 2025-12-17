@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Остаток от деления 5^6 на 4">
+<description>
+<![CDATA[Какой остаток дает число 5^6 при делении на 4?
+]]><imgs><img>5.PNG</img>
+<img>h6.png</img>
+<img>equal.PNG</img>
+<img>4.PNG</img>
+<img>a.PNG</img>
+<img>add.png</img>
+<img>b.PNG</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="5^6" mod="4">
+</function>
+</verifier> </mathDescription>
+ </task>

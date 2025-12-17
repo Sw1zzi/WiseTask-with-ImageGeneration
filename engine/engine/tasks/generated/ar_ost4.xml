@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="общий делитель">
+<description>
+<![CDATA[Числа 100 и 90 разделили на одно и то же число. В первом случае получили в остатке 4, во втором – 18. На какое число делили?
+]]></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="10" mod="15">
+</function>
+</verifier> </mathDescription>
+ </task>

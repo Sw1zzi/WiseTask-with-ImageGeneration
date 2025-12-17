@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Остаток от деления 4^18 на 5">
+<description>
+<![CDATA[Какой остаток дает число 4^18 при делении на 5?
+]]><imgs><img>4.PNG</img>
+<img>h1.png</img>
+<img>h8.png</img>
+<img>equal.PNG</img>
+<img>5.PNG</img>
+<img>a.PNG</img>
+<img>add.png</img>
+<img>b.PNG</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="4^18" mod="5">
+</function>
+</verifier> </mathDescription>
+ </task>

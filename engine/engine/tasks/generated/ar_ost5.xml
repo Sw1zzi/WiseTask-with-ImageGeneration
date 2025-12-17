@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="десятичная дробь">
+<description>
+<![CDATA[Найдите сотую цифру после запятой, в десятичной записи числа 1/7
+]]></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="1" mod="7">
+</function>
+</verifier> </mathDescription>
+ </task>

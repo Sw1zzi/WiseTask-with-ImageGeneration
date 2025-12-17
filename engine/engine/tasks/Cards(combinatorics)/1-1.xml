@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 1-1. Сколько дам, столько и червей.">
+<description>
+<![CDATA[Из колоды в 36 карт вытаскивают случайным образом 5 карт. Подсчитайте количество наборов, в которых: количество дам равно количеству карт карт червовой масти, если никиках карт, кроме дам и червей, в наборе нет.
+]]><imgs><img>dam_pik.PNG</img>
+<img>space.PNG</img>
+<img>dam_tref.PNG</img>
+<img>space.PNG</img>
+<img>dam_heart.PNG</img>
+<img>space.PNG</img>
+<img>8heart.PNG</img>
+<img>as_heart.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="CombinationSet" length="${length}"> 
+	<set type="DecartSet">
+		<set type="NumericSet" first="5" last="13"/>
+		<set type="NumericSet" first="1" last="4"/>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+	<function type="Projection" axis="1">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>11</constElement>
+</function>
+</for></function>
+
+<constElement>3</constElement>
+</function><function type="Equals">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+	<function type="Projection" axis="2">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>2</constElement>
+</function>
+</for></function>
+
+<constElement>3</constElement>
+</function>
+</function>
+</verifier> </mathDescription>
+ </task>

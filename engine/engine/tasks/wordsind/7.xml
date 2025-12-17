@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Согласных и гласных поровну">
+<description>
+<![CDATA[Рассмотрим множество всех 6-буквенных слов в алфавите А = {а, в, к, о, р } (буквы в словах могут повторяться), удовлетворяющих следующим условиям :  согласных столько же сколько гласных. Найдите в этом множестве порядковый номер слова "корова".
+]]><imgs><img>k_green.PNG</img>
+<img>o_brown.PNG</img>
+<img>r_green.PNG</img>
+<img>o_brown.PNG</img>
+<img>v_green.PNG</img>
+<img>a_brown.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>6</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>3</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="IndexVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>0</constElement>
+</function>
+</for></function>
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>1</constElement>
+</function>
+</for></function>
+</function>
+
+</function>
+<indexingElement><constElement><constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+</constElement></indexingElement>
+</verifier> </mathDescription>
+ </task>

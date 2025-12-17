@@ -1,5 +1,22 @@
-#IDE
+﻿# Бинарники
+*.o
+*.out
+*.exe
+
+# Папки сборки
+out/
+build/
+cmake-build-*/
+
+# IDE
 .idea/
+.vscode/
+*.iml
+
 # Microsoft Word
-.doc
-.docx
+*.doc
+*.docx
+
+# Логи и временные файлы
+*.log
+*.tmp

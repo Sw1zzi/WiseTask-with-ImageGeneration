@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 4">
+<description>
+<![CDATA[Все 6-буквенные слова, полученные перестановкой букв в слове "колдун" (буквы в словах могут повторяться), расставлены в алфавитном порядке. Найдите в этом множестве порядковый номер слова "удклно".
+]]><imgs><img>l_green.PNG</img>
+<img>uu_green.PNG</img>
+<img>n_green.PNG</img>
+<img>d_green.PNG</img>
+<img>k_green.PNG</img>
+<img>o_green.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>6</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>3</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="IndexVerifier">
+<function type="And">
+<constElement>1</constElement>
+
+</function>
+<indexingElement><constElement><constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+</constElement></indexingElement>
+</verifier> </mathDescription>
+ </task>

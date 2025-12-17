@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="общий делитель">
+<description>
+<![CDATA[Найдите наименьшее число, дающее при делении на 5 остаток 2, а при делении на 4 - остаток 1
+]]></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="5" mod="2">
+</function>
+</verifier> </mathDescription>
+ </task>

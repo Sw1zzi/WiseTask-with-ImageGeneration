@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Остаток от деления 2 в степени 20 на 3">
+<description>
+<![CDATA[Какой остаток дает число 2^20 при делении на 3?
+]]><imgs><img>2.PNG</img>
+<img>h2.png</img>
+<img>h0.png</img>
+<img>equal.PNG</img>
+<img>3.PNG</img>
+<img>a.PNG</img>
+<img>add.png</img>
+<img>b.PNG</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="2^20" mod="3">
+</function>
+</verifier> </mathDescription>
+ </task>

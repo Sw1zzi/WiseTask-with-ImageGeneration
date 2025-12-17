@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 2">
+<description>
+<![CDATA[Задан алфавит A = {а, б, в, г } (буквы в словах могут повторяться). Подсчитайте количество всeх слов длины 4 в алфавите А, для которых верно следующее:  согласных больше чем гласных.
+]]><imgs><img>v_green.PNG</img>
+<img>v_green.PNG</img>
+<img>a_green.PNG</img>
+<img>b_green.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>4</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>3</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>3</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>3</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>3</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Greater">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>0</constElement>
+</function>
+</for></function>
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>1</constElement>
+</function>
+</for></function>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Остаток от деления 5^8+2^24 на 3">
+<description>
+<![CDATA[Какой остаток дает число 5^8+2^24 при делении на 3?
+]]><imgs><img>5.PNG</img>
+<img>h8.png</img>
+<img>add.png</img>
+<img>2.PNG</img>
+<img>h2.png</img>
+<img>h4.png</img>
+<img>equal.PNG</img>
+<img>3.PNG</img>
+<img>a.PNG</img>
+<img>add.png</img>
+<img>b.PNG</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="5^8+2^24" mod="3">
+</function>
+</verifier> </mathDescription>
+ </task>

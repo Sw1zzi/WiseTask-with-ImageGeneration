@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Остаток от деления 4*88+3 на 2*88">
+<description>
+<![CDATA[Какой остаток дает число 4*88+3 при делении на 2*88?
+]]><imgs><img>4.PNG</img>
+<img>mult.png</img>
+<img>8.PNG</img>
+<img>8.PNG</img>
+<img>add.png</img>
+<img>3.PNG</img>
+<img>equal.PNG</img>
+<img>a.PNG</img>
+<img>mult.png</img>
+<img>2.PNG</img>
+<img>mult.png</img>
+<img>8.PNG</img>
+<img>8.PNG</img>
+<img>add.png</img>
+<img>b.PNG</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="4*88+3" mod="2*88">
+</function>
+</verifier> </mathDescription>
+ </task>

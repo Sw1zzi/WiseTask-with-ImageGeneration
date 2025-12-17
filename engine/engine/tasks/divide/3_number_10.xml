@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Трёхзначное число уменьшается в 26 раз">
+<description>
+<![CDATA[Найти все трёхзначные натуральные числа, которые при зачёркивании первой цифры уменьшаются в 26 раз.
+]]><imgs><img>5red.PNG</img>
+<img>2blue.PNG</img>
+<img>0blue.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>3</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet"> 
+<set type="NumericSet" first="1" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/>	</set>
+</sourceSet>
+<verifier type="ListVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Not">
+		<function type="Equals">
+		<function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+
+		<constElement>0</constElement>
+
+</function>
+
+</function>
+
+<function type="And">
+		<function type="Equals">
+		<function type="Mod">
+		<function type="ToDigit">
+		<current-set-element/>
+</function>
+
+		<function type="ToDigit">
+		<function type="FunctionElement">
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+</function>
+
+</function>
+
+</function>
+
+		<constElement>0</constElement>
+
+</function>
+
+		<function type="Equals">
+		<function type="Div">
+		<function type="ToDigit">
+		<current-set-element/>
+</function>
+
+		<function type="ToDigit">
+		<function type="FunctionElement">
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+</function>
+
+</function>
+
+</function>
+
+		<constElement>26</constElement>
+
+</function>
+
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

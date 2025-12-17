@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Признаки делимости на 2,3,5,9">
+<description>
+<![CDATA[Найти все 4 значные натуральные числа, состоящие из цифр 2,5,7,0 (цифры не повторяются), которые делятся на 25.
+]]></description>
+<description-params>
+	<param name="length">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet"> 
+<set type="NumericSet" first="1" last="9"/><set type="NumericSet" first="0" last="9"/>	</set>
+</sourceSet>
+<verifier type="ListVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Not">
+		<function type="Equals">
+		<function type="Projection" axis="0">
+		<current-set-element/>
+</function>
+
+		<constElement>0</constElement>
+
+</function>
+
+</function>
+
+<function type="Equals">
+		<function type="FunctionElement">
+    <constElement>3</constElement>
+    <constElement>4</constElement>
+    <constElement>5</constElement>
+    <constElement>1</constElement>
+    <constElement>6</constElement>
+    <constElement>7</constElement>
+    <constElement>8</constElement>
+    <constElement>9</constElement>
+    <constElement>0</constElement>
+</function>
+
+		<current-set-element/>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

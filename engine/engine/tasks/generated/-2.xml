@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="рококо-проба">
+<description>
+<![CDATA[Задан алфавит A = {к, о, р } (буквы в словах могут повторяться). Подсчитайте количество всeх слов длины 6 в алфавите А, для которых верно следующее:  согласных столько же сколько гласных.
+]]></description>
+<description-params>
+	<param name="length">
+ 		<value>6</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>3</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>0</constElement>
+</function>
+</for></function>
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>1</constElement>
+</function>
+</for></function>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

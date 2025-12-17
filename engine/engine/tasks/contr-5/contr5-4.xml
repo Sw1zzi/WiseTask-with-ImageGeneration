@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 4">
+<description>
+<![CDATA[Какова последняя цифра числа 2^1000+1000^2 ?
+]]><imgs><img>2.png</img>
+<img>h1.png</img>
+<img>h0.png</img>
+<img>h0.png</img>
+<img>h0.png</img>
+<img>add.png</img>
+<img>1.png</img>
+<img>0.png</img>
+<img>0.png</img>
+<img>0.png</img>
+<img>h2.png</img>
+<img>equal.png</img>
+<img>1.png</img>
+<img>0.png</img>
+<img>a.png</img>
+<img>add.png</img>
+<img>b.png</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="2^1000+1000^2" mod="10">
+</function>
+</verifier> </mathDescription>
+ </task>

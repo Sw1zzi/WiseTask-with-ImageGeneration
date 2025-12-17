@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 1">
+<description>
+<![CDATA[Найти все 3 значные натуральные числа, которые при изменении цифр числа по правилу: [1] [2] [3] -->[1] [2] [2] [2] [3] (в полученном числе 1 цифра не 0);  увеличивается в целое число раз.
+]]><imgs><img>a_line.png</img>
+<img>b_line.png</img>
+<img>b_line.png</img>
+<img>b_line.png</img>
+<img>c_line.png</img>
+<img>equal.png</img>
+<img>a_line.png</img>
+<img>b_line.png</img>
+<img>c_line.png</img>
+<img>mult.png</img>
+<img>d.png</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>3</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet"> 
+<set type="NumericSet" first="1" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/>	</set>
+</sourceSet>
+<verifier type="ListVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Not">
+		<function type="Equals">
+		    <function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+
+		<constElement>0</constElement>
+
+</function>
+
+</function>
+
+<function type="And">
+		<function type="Equals">
+		<function type="Mod">
+		<function type="ToDigit">
+		<function type="FunctionElement">
+    <function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+</function>
+
+</function>
+
+		<function type="ToDigit">
+		<current-set-element/>
+</function>
+
+</function>
+
+		<constElement>0</constElement>
+
+</function>
+
+		<function type="Not">
+		<function type="Equals">
+		<function type="Div">
+		<function type="ToDigit">
+		<function type="FunctionElement">
+    <function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+</function>
+
+</function>
+
+		<function type="ToDigit">
+		<current-set-element/>
+</function>
+
+</function>
+
+		<constElement>1</constElement>
+
+</function>
+
+</function>
+
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

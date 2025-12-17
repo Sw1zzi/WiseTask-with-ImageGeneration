@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Номер слова (буквы могут повторяться)">
+<description>
+<![CDATA[Рассмотрим множество всех 5-буквенных слов в алфавите А = {а, б, в } (буквы в словах могут повторяться). Найдите в этом множестве порядковый номер слова "аббав".
+]]><imgs><img>a_green.PNG</img>
+<img>b_green.PNG</img>
+<img>b_green.PNG</img>
+<img>a_green.PNG</img>
+<img>v_green.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="IndexVerifier">
+<function type="And">
+<constElement>1</constElement>
+
+</function>
+<indexingElement><constElement><constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+</constElement></indexingElement>
+</verifier> </mathDescription>
+ </task>

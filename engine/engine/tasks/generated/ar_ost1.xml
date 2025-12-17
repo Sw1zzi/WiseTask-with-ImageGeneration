@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="припишите по цифре">
+<description>
+<![CDATA[К числу 15 припишите слева и права по одной цифре так, чтобы полученное число делилось на 15?
+]]></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="15" mod="15">
+</function>
+</verifier> </mathDescription>
+ </task>

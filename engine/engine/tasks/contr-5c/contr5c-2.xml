@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 2">
+<description>
+<![CDATA[Каковы две последние цифры числа 17^100 ?
+]]><imgs><img>1.png</img>
+<img>7.png</img>
+<img>h1.png</img>
+<img>h0.png</img>
+<img>h0.png</img>
+<img>equal.png</img>
+<img>1.png</img>
+<img>0.png</img>
+<img>0.png</img>
+<img>a.png</img>
+<img>add.png</img>
+<img>b.png</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="17^100" mod="100">
+</function>
+</verifier> </mathDescription>
+ </task>

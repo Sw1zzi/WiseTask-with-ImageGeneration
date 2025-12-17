@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача Ч-8-6. По-питерски и по-московски.">
+<description>
+<![CDATA[Найдите количество трамвайных билетов, счастливых как по-питерски, так и по-московски, то есть количество шестизначных десятичных наборов, у которых сумма первых трёх цифр равна сумме трёх других, кроме того, сумма цифр на нечётных местах равна сумме цифр на чётных местах.
+]]><imgs><img>2red.PNG</img>
+<img>7blue.PNG</img>
+<img>5red.PNG</img>
+<img>3blue.PNG</img>
+<img>7red.PNG</img>
+<img>4blue.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>6</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+<set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/>	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<function type="Add">
+<function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+</function>
+
+<function type="Add">
+<function type="Projection" axis="4">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="5">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="6">
+		<current-set-element/>
+</function>
+</function>
+
+</function><function type="Equals">
+<function type="Add">
+<function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="5">
+		<current-set-element/>
+</function>
+</function>
+
+<function type="Add">
+<function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="4">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="6">
+		<current-set-element/>
+</function>
+</function>
+
+</function>
+</function>
+</verifier> </mathDescription>
+ </task>

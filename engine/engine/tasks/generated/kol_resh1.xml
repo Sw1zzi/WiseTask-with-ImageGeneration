@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="2 неизвестных">
+<description>
+<![CDATA[Найдите количество решений уравнения x1+x2=10 в целых неотрицательных числах, если известно, что  x1 делится на 7 .
+]]></description>
+<description-params>
+	<param name="length">
+ 		<value>2</value>
+ 	</param>
+	<param name="result">
+ 		<value>10</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+<sourceSet> 
+	<set type="DecartSet">
+<for name="di" first="1" last="${length}" inc="1">
+<set type="NumericSet" first="0" last="${result}"/>
+</for>	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<function type="Mod" base="7">
+<function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+</function>
+<constElement>7</constElement>
+</function>
+
+<function type="Equals">
+<constElement>${result}</constElement>
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</for>
+</function>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

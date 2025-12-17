@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 5">
+<description>
+<![CDATA[В урне A находится 2 белых и 6 красных шаров. С какой вероятностью из урны A можно одновременно вытащить 2 белых и 3 красных шара?
+]]><imgs><img>6r2w-(2w3r).PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length1">
+ 		<value>8</value>
+ 	</param>
+	<param name="toFind">
+ 		<value>5</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="CombinationSet" length="${toFind}"> 
+	<set type="EnumerationSet">
+    <constElement>0</constElement>    <constElement>0</constElement>    <constElement>3</constElement>    <constElement>3</constElement>    <constElement>3</constElement>    <constElement>3</constElement>    <constElement>3</constElement>    <constElement>3</constElement>	</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier" normalize="C(${length1} ,${toFind})">
+<function type="And">
+<constElement>1</constElement>
+<function type="Like">
+<current-set-element/><constElement><constElement>0</constElement>
+<constElement>0</constElement>
+<constElement>3</constElement>
+<constElement>3</constElement>
+<constElement>3</constElement>
+</constElement>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

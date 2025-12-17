@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Согласных меньше, чем гласных">
+<description>
+<![CDATA[Рассмотрим множество всех 4-буквенных слов в алфавите А = {а, б, з, р, у } (буквы в словах могут повторяться), удовлетворяющих следующим условиям :  согласных меньше чем гласных. Найдите в этом множестве порядковый номер слова "аура".
+]]><imgs><img>a_green.PNG</img>
+<img>uu_green.PNG</img>
+<img>r_brown.PNG</img>
+<img>a_green.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>4</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>7</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>7</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>7</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>7</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="IndexVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Smaller">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>0</constElement>
+</function>
+</for></function>
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>1</constElement>
+</function>
+</for></function>
+</function>
+
+</function>
+<indexingElement><constElement><constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+</constElement></indexingElement>
+</verifier> </mathDescription>
+ </task>

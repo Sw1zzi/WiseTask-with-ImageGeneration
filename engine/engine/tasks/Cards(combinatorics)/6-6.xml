@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Моя задача с картами">
+<description>
+<![CDATA[Из колоды в 36 карт вытаскивают случайным образом 6 карт. Подсчитайте количество наборов, в которых  количество карт карт бубновой масти равно 3, имеется семерка червей, имеется семерка пик, имеется семерка треф.
+]]></description>
+<description-params>
+	<param name="length">
+ 		<value>6</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="CombinationSet" length="${length}"> 
+	<set type="DecartSet">
+		<set type="NumericSet" first="5" last="13"/>
+		<set type="NumericSet" first="1" last="4"/>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="CountVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+	<function type="Projection" axis="2">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>1</constElement>
+</function>
+</for></function>
+
+<constElement>3</constElement>
+</function><function type="Or">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="And">
+<function type="Equals">
+	<function type="Projection" axis="1">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>6</constElement>
+</function>
+
+<function type="Equals">
+	<function type="Projection" axis="2">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>2</constElement>
+</function>
+
+</function>
+</for></function>
+<function type="Or">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="And">
+<function type="Equals">
+	<function type="Projection" axis="1">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>6</constElement>
+</function>
+
+<function type="Equals">
+	<function type="Projection" axis="2">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>3</constElement>
+</function>
+
+</function>
+</for></function>
+<function type="Or">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="And">
+<function type="Equals">
+	<function type="Projection" axis="1">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>6</constElement>
+</function>
+
+<function type="Equals">
+	<function type="Projection" axis="2">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>4</constElement>
+</function>
+
+</function>
+</for></function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

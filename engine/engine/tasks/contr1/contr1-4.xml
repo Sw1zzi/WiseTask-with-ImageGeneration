@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 4">
+<description>
+<![CDATA[Подсчитайте количество анаграмм слова "паркет".
+]]><imgs><img>r_green.PNG</img>
+<img>e_green.PNG</img>
+<img>t_green.PNG</img>
+<img>p_green.PNG</img>
+<img>a_green.PNG</img>
+<img>k_green.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>6</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>3</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="LayoutSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>5</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>15</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+
+</function>
+</verifier> </mathDescription>
+ </task>

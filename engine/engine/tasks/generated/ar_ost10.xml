@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="остаток от деления ">
+<description>
+<![CDATA[Какой остаток дает число 1 111 111 при делении на 111?
+]]></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="1 111 111" mod="111">
+</function>
+</verifier> </mathDescription>
+ </task>

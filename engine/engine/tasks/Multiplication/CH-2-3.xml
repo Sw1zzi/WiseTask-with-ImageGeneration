@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача Ч-2-3. Соседние разные.">
+<description>
+<![CDATA[Сколько существует шестизначных девятеричных чисел, в которых нет одинаковых цифр, стоящих рядом.
+ 
+]]><imgs><img>2blue.PNG</img>
+<img>0red.PNG</img>
+<img>5blue.PNG</img>
+<img>2red.PNG</img>
+<img>5blue.PNG</img>
+<img>8red.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>6</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+<set type="NumericSet" first="1" last="8"/><set type="NumericSet" first="0" last="8"/><set type="NumericSet" first="0" last="8"/><set type="NumericSet" first="0" last="8"/><set type="NumericSet" first="0" last="8"/><set type="NumericSet" first="0" last="8"/>	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="And">
+<constElement>1</constElement>
+<for name="i" first="1" last="${length}-1" inc="1">
+<function type="Not">
+<function type="Equals">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="${i}+1">
+		<current-set-element/>
+</function>
+</function>
+</function>
+</for></function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

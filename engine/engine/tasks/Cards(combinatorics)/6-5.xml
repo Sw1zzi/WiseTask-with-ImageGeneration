@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="213">
+<description>
+<![CDATA[?? ?????? ? 36 ???? ??????????? ????????? ??????? 5 ????. ??????????? ?????????? ???????, ? ???????  ?????????? ???? ???? ???????? ????? ????? 0, ??????? ??????? ?????.
+]]></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="CombinationSet" length="${length}"> 
+	<set type="DecartSet">
+		<set type="NumericSet" first="5" last="13"/>
+		<set type="NumericSet" first="1" last="4"/>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="CountVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+	<function type="Projection" axis="2">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>2</constElement>
+</function>
+</for></function>
+
+<constElement>0</constElement>
+</function><function type="Or">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="And">
+<function type="Equals">
+	<function type="Projection" axis="1">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>6</constElement>
+</function>
+
+<function type="Equals">
+	<function type="Projection" axis="2">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>1</constElement>
+</function>
+
+</function>
+</for></function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

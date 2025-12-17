@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="13">
+<description>
+<![CDATA[В урне A находится 2 белый, 2 синий шаров. С какой вероятностью из урны A можно последовательно вытащить 1 белый, 1 синий.
+]]></description>
+<description-params>
+	<param name="length1">
+ 		<value>4</value>
+ 	</param>
+	<param name="toFind">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="LayoutSet" length="${toFind}"> 
+	<set type="EnumerationSet">
+    <constElement>0</constElement>    <constElement>0</constElement>    <constElement>2</constElement>    <constElement>2</constElement>	</set>
+	</set>
+</sourceSet>
+<verifier type="CountVerifier" normalize="A(${length1} ,${toFind})">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<current-set-element/><constElement><constElement>0</constElement>
+<constElement>2</constElement>
+</constElement>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

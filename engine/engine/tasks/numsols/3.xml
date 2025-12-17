@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Кол-во решений ур-я в целых числах, xk>=2">
+<description>
+<![CDATA[Найдите количество решений уравнения x1+x2+x3+x4=37 в целых неотрицательных числах при условии xk>=2.
+]]><imgs><img>x.png</img>
+<img>l1.png</img>
+<img>add.png</img>
+<img>x.png</img>
+<img>l2.png</img>
+<img>add.png</img>
+<img>x.png</img>
+<img>l3.png</img>
+<img>add.png</img>
+<img>x.png</img>
+<img>l4.png</img>
+<img>equal.png</img>
+<img>3.png</img>
+<img>7.png</img>
+<img>comma.png</img>
+<img>space.png</img>
+<img>x.png</img>
+<img>lk.png</img>
+<img>more_equal.png</img>
+<img>2.png</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>4</value>
+ 	</param>
+	<param name="result">
+ 		<value>37</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+<sourceSet> 
+	<set type="DecartSet">
+<for name="di" first="1" last="${length}" inc="1">
+<set type="NumericSet" first="0" last="${result}"/>
+</for>	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Not">
+<function type="Smaller">
+<function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+<constElement>2</constElement>
+</function>
+</function>
+<function type="Not">
+<function type="Smaller">
+<function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+<constElement>2</constElement>
+</function>
+</function>
+<function type="Not">
+<function type="Smaller">
+<function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+<constElement>2</constElement>
+</function>
+</function>
+<function type="Not">
+<function type="Smaller">
+<function type="Projection" axis="4">
+		<current-set-element/>
+</function>
+<constElement>2</constElement>
+</function>
+</function>
+
+<function type="Equals">
+<constElement>${result}</constElement>
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</for>
+</function>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

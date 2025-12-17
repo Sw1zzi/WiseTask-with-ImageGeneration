@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 3">
+<description>
+<![CDATA[Задан алфавит A = {а, б, в } (буквы в словах могут повторяться). Подсчитайте количество всeх слов длины 4 в алфавите А.
+]]><imgs><img>v_green.PNG</img>
+<img>a_green.PNG</img>
+<img>a_green.PNG</img>
+<img>b_green.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>4</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+
+</function>
+</verifier> </mathDescription>
+ </task>

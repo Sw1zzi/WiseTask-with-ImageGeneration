@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Числа, у которых нет двух одинаковых цифр, идущих подряд">
+<description-params>
+        <param name="m">
+            <value text="дву">2</value>
+            <value text="пяти">5</value>
+        </param>
+        <param name="n">
+            <value text="десяти">9</value>
+            <value text="восьме">7</value>
+        </param>
+</description-params>
+    <description>
+        <![CDATA[Сколько существует ${m-text}значных чисел, записанных в ${n-text}ичной системе счисления, у которых нет двух цифр, идущих подряд?]]>
+    </description>
+    <mathDescription>
+        <sourceSet>
+            <set type="DecartSet">
+                <set type="NumericSet" first="1" last="${n}"/>
+            <for name="i" first="1" last="${m}-1" inc="1">
+                <set type="NumericSet" first="0" last="${n}"/>
+            </for>
+            </set>
+    </sourceSet>
+    <verifier type="SimpleVerifier">
+    <function type="And"> 
+        <for name="i" first="1" last="${m}-1" inc="1">
+        <function type="Not">
+        <function type="Equals">
+            <function type="Projection" axis="${i}+1">
+                <current-set-element/>
+            </function>
+            <function type="Projection" axis="${i}">
+                <current-set-element/>
+            </function>
+        </function>
+        </function>
+        </for>
+    </function>
+    </verifier>
+    </mathDescription>
+</task>

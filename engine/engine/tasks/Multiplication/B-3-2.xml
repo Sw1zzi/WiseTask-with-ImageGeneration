@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача Б-3-2. Чередующиеся палиндромы.">
+<description>
+<![CDATA[Сколько существует пятибуквенных слов-палиндромов  в сокращённом алфавите из 30 русских букв (9 гласных и 21 согласная). Палиндромом называется слово, читающееся одинаково как с начала, так и с конца.
+]]><imgs><img>sh_brown.PNG</img>
+<img>a_green.PNG</img>
+<img>l_brown.PNG</img>
+<img>a_green.PNG</img>
+<img>sh_brown.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>3</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>5</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>6</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>7</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>8</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>9</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>15</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>17</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>20</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>21</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>22</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>23</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>24</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>25</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>27</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>29</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>30</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>31</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>3</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>5</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>6</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>7</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>8</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>9</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>15</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>17</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>20</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>21</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>22</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>23</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>24</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>25</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>27</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>29</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>30</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>31</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>3</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>5</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>6</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>7</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>8</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>9</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>15</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>17</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>20</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>21</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>22</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>23</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>24</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>25</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>27</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>29</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>30</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>31</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>3</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>5</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>6</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>7</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>8</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>9</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>15</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>17</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>20</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>21</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>22</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>23</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>24</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>25</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>27</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>29</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>30</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>31</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>3</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>5</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>6</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>7</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>8</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>9</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>10</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>11</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>15</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>17</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>20</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>21</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>22</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>23</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>24</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>25</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>27</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>29</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>30</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>31</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="And">
+<constElement>1</constElement>
+<for name="i" first="1" last="${length}-1" inc="1">
+<function type="Not">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}+1">
+		<current-set-element/>
+</function>
+</function>
+</function>
+</function>
+</for></function>
+<function type="And">
+<constElement>1</constElement>
+<constElement>1</constElement>
+<for name="i" first="1" last="${lengthMod2}" inc="1">
+<function type="Equals">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="${length} + 1 -${i}">
+		<current-set-element/>
+</function>
+</function>
+</for></function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

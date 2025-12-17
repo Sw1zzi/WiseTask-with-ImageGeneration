@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Шары 3з2ч1с-(1ч1з)">
+<description>
+<![CDATA[В урне находятся 3 зеленых, 2 черных и 1 синий шар. С какой вероятностью из урны можно одновременно вытащить 1 черный и 1 зеленый шар?
+]]><imgs><img>3g2b1bl-(1b1g).PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length1">
+ 		<value>6</value>
+ 	</param>
+	<param name="toFind">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="CombinationSet" length="${toFind}"> 
+	<set type="EnumerationSet">
+    <constElement>4</constElement>    <constElement>4</constElement>    <constElement>4</constElement>    <constElement>1</constElement>    <constElement>1</constElement>    <constElement>2</constElement>	</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier" normalize="C(${length1} ,${toFind})">
+<function type="And">
+<constElement>1</constElement>
+<function type="Like">
+<current-set-element/><constElement><constElement>1</constElement>
+<constElement>4</constElement>
+</constElement>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача Ч-2-1. Трёхзначные восьмеричные числа.">
+<description>
+<![CDATA[Сколько существует трёхзначных чисел в восьмеричной системе счисления?
+]]><imgs><img>4blue.PNG</img>
+<img>0blue.PNG</img>
+<img>7blue.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>3</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+<set type="NumericSet" first="1" last="7"/><set type="NumericSet" first="0" last="7"/><set type="NumericSet" first="0" last="7"/>	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<function type="Add">
+<function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+</function>
+
+<function type="Add">
+<function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+</function>
+
+</function>
+</function>
+</verifier> </mathDescription>
+ </task>

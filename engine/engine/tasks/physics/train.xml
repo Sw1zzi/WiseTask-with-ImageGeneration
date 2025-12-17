@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<task title="Задача о расчете ускорения поезда">
+
+    <verifier-params>
+        <param name="s">
+            <value>100</value>
+			<value>200</value>
+        </param>             
+
+        <param name="v">
+            <value>72</value>
+            <value>60</value>
+        </param>
+        
+       <param name="t">
+            <value>4</value>
+            <value>5</value>
+        </param>
+
+    </verifier-params>
+
+    <description>
+        <![CDATA[Поезд прошел путь s за время t. 
+        	Сначала он шел с ускорением +a, в конце с ускорением -a, 
+        	остальное время с максимальной скоростью v. 
+        	Найти модуль ускорения, если начальная и конечная скорости равны нулю.]]>
+    </description>
+
+    <mathDescription>
+        <verifier type="AnswerVerifier">
+            <function type="Parser" exp="${v}^2/(${v}*${t}-${s})"/>
+        </verifier>
+    </mathDescription>
+</task>

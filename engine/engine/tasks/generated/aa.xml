@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="aa">
+<description>
+<![CDATA[Какой остаток дает число 15^16 при делении на 10?
+]]></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="15^16" mod="10">
+</function>
+</verifier> </mathDescription>
+ </task>

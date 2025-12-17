@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="остаток от деления">
+<description>
+<![CDATA[Найдите остаток от деления числа 6 в трехсотой на 7
+]]></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="36" mod="7">
+</function>
+</verifier> </mathDescription>
+ </task>

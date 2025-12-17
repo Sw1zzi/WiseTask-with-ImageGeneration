@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<task title="Задача о нахождении центра инерции">
+
+    <verifier-params>
+        <param name="m">
+            <value>100</value>
+			<value>200</value>
+        </param>             
+
+        <param name="l1">
+            <value>72</value>
+            <value>60</value>
+        </param>
+        
+       <param name="M">
+            <value>400</value>
+            <value>300</value>
+        </param>
+        
+    </verifier-params>
+
+    <description>
+        <![CDATA[Через неподвижный блок перекинута веревка, 
+        		на одном конце которой висит лестнца с человеком, 
+        		а на другом - уравновешивающий груз массы M. 
+        		Человек массы m совершил перемещение l1	относительно лестницы вверх
+        		и остановился. Пренебрегая массой веревки, а также трением
+        		в оси блока, найти перемещение l центра инепции этой системы.]]>
+    </description>
+
+    <mathDescription>
+        <verifier type="AnswerVerifier">
+            <function type="Parser" exp="${m}*${l1}/2/${M}"/>
+        </verifier>
+    </mathDescription>
+</task>

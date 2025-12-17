@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="последняя цифра">
+<description>
+<![CDATA[На какую цифру заканчивается число 2 в сотой степени? 
+]]></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="10" mod="15">
+</function>
+</verifier> </mathDescription>
+ </task>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 5">
+<description>
+<![CDATA[Найдите количество решений уравнения x1+x2+x3+x4+x5=9 в целых неотрицательных числах.
+]]><imgs><img>x.png</img>
+<img>l1.png</img>
+<img>add.png</img>
+<img>x.png</img>
+<img>l2.png</img>
+<img>add.png</img>
+<img>x.png</img>
+<img>l3.png</img>
+<img>add.png</img>
+<img>x.png</img>
+<img>l4.png</img>
+<img>add.png</img>
+<img>x.png</img>
+<img>l5.png</img>
+<img>equal.png</img>
+<img>9.png</img>
+<img>comma.png</img>
+<img>space.PNG</img>
+<img>x.png</img>
+<img>lk.png</img>
+<img>more_equal.png</img>
+<img>0.png</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+	<param name="result">
+ 		<value>9</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+<sourceSet> 
+	<set type="DecartSet">
+<for name="di" first="1" last="${length}" inc="1">
+<set type="NumericSet" first="0" last="${result}"/>
+</for>	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+
+<function type="Equals">
+<constElement>${result}</constElement>
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</for>
+</function>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

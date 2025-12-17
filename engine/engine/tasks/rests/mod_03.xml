@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Остаток от деления 7*99999-2 на 7">
+<description>
+<![CDATA[Какой остаток дает число 7*99999-2 при делении на 7?
+]]><imgs><img>7.PNG</img>
+<img>mult.png</img>
+<img>9.PNG</img>
+<img>9.PNG</img>
+<img>9.PNG</img>
+<img>9.PNG</img>
+<img>9.PNG</img>
+<img>subtract.png</img>
+<img>2.PNG</img>
+<img>equal.PNG</img>
+<img>7.PNG</img>
+<img>a.PNG</img>
+<img>add.png</img>
+<img>b.PNG</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="7*99999-2" mod="7">
+</function>
+</verifier> </mathDescription>
+ </task>

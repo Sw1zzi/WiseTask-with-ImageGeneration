@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 5">
+<description>
+<![CDATA[Задан алфавит A = {и, м, о, р, с, т, у, ф } (буквы в словах могут повторяться). Подсчитайте количество всeх слов длины 5 в алфавите А, для которых верно следующее:  гласные и согласные чередуются.
+]]><imgs><img>m_green.PNG</img>
+<img>o_green.PNG</img>
+<img>t_green.PNG</img>
+<img>o_green.PNG</img>
+<img>r_green.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>8</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>17</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>20</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>8</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>17</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>20</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>8</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>17</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>20</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>8</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>17</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>20</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>8</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>17</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>19</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>20</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="And">
+<constElement>1</constElement>
+<for name="i" first="1" last="${length}-1" inc="1">
+<function type="Not">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}+1">
+		<current-set-element/>
+</function>
+</function>
+</function>
+</function>
+</for></function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

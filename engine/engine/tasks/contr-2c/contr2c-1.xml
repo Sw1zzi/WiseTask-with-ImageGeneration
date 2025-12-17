@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 1">
+<description>
+<![CDATA[Задан алфавит A = {а, б, в, г, д, е, ж, з, и } (буквы в словах не могут повторяться). Подсчитайте количество всeх слов длины 5 в алфавите А, для которых верно следующее:  гласные и согласные чередуются.
+]]><imgs><img>d_green.PNG</img>
+<img>a_green.PNG</img>
+<img>z_green.PNG</img>
+<img>i_green.PNG</img>
+<img>g_green.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="LayoutSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>0</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>1</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>2</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>3</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>5</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>6</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>7</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>8</constElement>    <constElement>1</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="And">
+<constElement>1</constElement>
+<for name="i" first="1" last="${length}-1" inc="1">
+<function type="Not">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}+1">
+		<current-set-element/>
+</function>
+</function>
+</function>
+</function>
+</for></function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

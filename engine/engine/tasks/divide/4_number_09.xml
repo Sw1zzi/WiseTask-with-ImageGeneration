@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Четырёхзначное число увеличивается в 6 раз">
+<description>
+<![CDATA[Найти все четырёхзначные натуральные числа, которые от приписывания перед ними цифры "1" увеличиваются в 6 раз.
+]]><imgs><img>a_line.PNG</img>
+<img>b_line.PNG</img>
+<img>c_line.PNG</img>
+<img>d_line.PNG</img>
+<img>mult.png</img>
+<img>6.PNG</img>
+<img>equal.PNG</img>
+<img>1_line.PNG</img>
+<img>a_line.PNG</img>
+<img>b_line.PNG</img>
+<img>c_line.PNG</img>
+<img>d_line.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>4</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet"> 
+<set type="NumericSet" first="1" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/>	</set>
+</sourceSet>
+<verifier type="ListVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Not">
+		<function type="Equals">
+		    <constElement>1</constElement>
+
+		<constElement>0</constElement>
+
+</function>
+
+</function>
+
+<function type="And">
+		<function type="Equals">
+		<function type="Mod">
+		<function type="ToDigit">
+		<function type="FunctionElement">
+    <constElement>1</constElement>
+    <function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="4">
+		<current-set-element/>
+</function>
+</function>
+
+</function>
+
+		<function type="ToDigit">
+		<current-set-element/>
+</function>
+
+</function>
+
+		<constElement>0</constElement>
+
+</function>
+
+		<function type="Equals">
+		<function type="Div">
+		<function type="ToDigit">
+		<function type="FunctionElement">
+    <constElement>1</constElement>
+    <function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="4">
+		<current-set-element/>
+</function>
+</function>
+
+</function>
+
+		<function type="ToDigit">
+		<current-set-element/>
+</function>
+
+</function>
+
+		<constElement>6</constElement>
+
+</function>
+
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

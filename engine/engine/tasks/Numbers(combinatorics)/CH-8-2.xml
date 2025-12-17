@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача Ч-8-2. Первая - не меньше.">
+<description>
+<![CDATA[Найдите количество пятизначных десятичных  чисел, у которых цифры идут в невозрастающем порядке (слева направо).
+]]><imgs><img>8red.PNG</img>
+<img>8red.PNG</img>
+<img>8red.PNG</img>
+<img>1blue.PNG</img>
+<img>1blue.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+<set type="NumericSet" first="1" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/>	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="And">
+<constElement>1</constElement>
+<for name="i" first="1" last="${length}-1" inc="1">
+<function type="Not">
+<function type="Smaller">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="${i}+1">
+		<current-set-element/>
+</function>
+</function>
+</function>
+</for></function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

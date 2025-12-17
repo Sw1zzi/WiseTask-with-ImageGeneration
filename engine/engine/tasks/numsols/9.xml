@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Кол-во решений ур-я, задача 9">
+<description>
+<![CDATA[Найдите количество решений уравнения x1+x2+x3=31 в целых неотрицательных числах, если известно, что  x1 <= 12, x2 <= 13, x3 <= 14 .
+]]><imgs><img>x.png</img>
+<img>l1.png</img>
+<img>add.png</img>
+<img>x.png</img>
+<img>l2.png</img>
+<img>add.png</img>
+<img>x.png</img>
+<img>l3.png</img>
+<img>equal.png</img>
+<img>3.png</img>
+<img>1.png</img>
+<img>comma.png</img>
+<img>space.png</img>
+<img>x.png</img>
+<img>l1.png</img>
+<img>less_equal.png</img>
+<img>1.png</img>
+<img>2.png</img>
+<img>comma.png</img>
+<img>x.png</img>
+<img>l2.png</img>
+<img>less_equal.png</img>
+<img>1.png</img>
+<img>3.png</img>
+<img>comma.png</img>
+<img>x.png</img>
+<img>l3.png</img>
+<img>less_equal.png</img>
+<img>1.png</img>
+<img>4.png</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>3</value>
+ 	</param>
+	<param name="result">
+ 		<value>31</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+<sourceSet> 
+	<set type="DecartSet">
+<for name="di" first="1" last="${length}" inc="1">
+<set type="NumericSet" first="0" last="${result}"/>
+</for>	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Not">
+<function type="Greater">
+<function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+<constElement>12</constElement>
+</function>
+</function>
+
+<function type="Not">
+<function type="Greater">
+<function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+<constElement>13</constElement>
+</function>
+</function>
+
+<function type="Not">
+<function type="Greater">
+<function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+<constElement>14</constElement>
+</function>
+</function>
+
+
+<function type="Equals">
+<constElement>${result}</constElement>
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</for>
+</function>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

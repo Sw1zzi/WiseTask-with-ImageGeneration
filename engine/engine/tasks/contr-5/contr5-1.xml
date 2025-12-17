@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 1">
+<description>
+<![CDATA[Какой остаток дает число 13 при делении на 17?
+]]><imgs><img>1.png</img>
+<img>3.png</img>
+<img>equal.png</img>
+<img>1.png</img>
+<img>7.png</img>
+<img>a.png</img>
+<img>add.png</img>
+<img>b.png</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="13" mod="17">
+</function>
+</verifier> </mathDescription>
+ </task>

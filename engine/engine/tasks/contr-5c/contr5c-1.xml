@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 1">
+<description>
+<![CDATA[Какой остаток дает число 111111111111 при делении на 11111?
+]]><imgs><img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>equal.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>1.png</img>
+<img>a.png</img>
+<img>add.png</img>
+<img>b.png</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="111111111111" mod="11111">
+</function>
+</verifier> </mathDescription>
+ </task>

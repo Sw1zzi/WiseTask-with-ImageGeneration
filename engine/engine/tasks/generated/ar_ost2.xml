@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="остаток при делении отрицательного числа">
+<description>
+<![CDATA[Какой остаток дает число -124 при делении на 15?
+]]></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="-124" mod="15">
+</function>
+</verifier> </mathDescription>
+ </task>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Остаток от деления 5 в степени 10 на 3">
+<description>
+<![CDATA[Какой остаток дает число 5^10 при делении на 3?
+]]><imgs><img>5.PNG</img>
+<img>h1.png</img>
+<img>h0.png</img>
+<img>equal.PNG</img>
+<img>3.PNG</img>
+<img>a.PNG</img>
+<img>add.png</img>
+<img>b.PNG</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="5^10" mod="3">
+</function>
+</verifier> </mathDescription>
+ </task>

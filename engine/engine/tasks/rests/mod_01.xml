@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Остаток от деления 120 на 11">
+<description>
+<![CDATA[Какой остаток дает число 120 при делении на 11?
+]]><imgs><img>1.PNG</img>
+<img>2.PNG</img>
+<img>0.png</img>
+<img>equal.PNG</img>
+<img>1.PNG</img>
+<img>1.PNG</img>
+<img>a.PNG</img>
+<img>add.png</img>
+<img>b.PNG</img>
+</imgs></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="120" mod="11">
+</function>
+</verifier> </mathDescription>
+ </task>

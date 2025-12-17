@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="2 Ладьи">
+<description>
+<![CDATA[Сколькими способами на доске 6 на 5 можно расставить  2  фигур вида Ладья на нашем поле .
+]]><imgs><img>chess/ладья.png</img>
+<img>chess/ладья.png</img>
+</imgs></description>
+<description-params>
+	<param name="n">
+ 		<value>6</value>
+ 	</param>
+	<param name="m">
+ 		<value>5</value>
+ 	</param>
+	<param name="rook">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+
+<sourceSet>
+<set length="${rook}" type="CombinationSet">
+<set type="DecartSet">
+<set first="1" last="${n}" type="NumericSet"/>
+<set first="1" last="${m}" type="NumericSet"/>
+</set>
+</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<function type="Equals">
+<function type="Add">
+<for first="1" inc="1" last="${rook}" name="i">
+<function type="And">
+<function type="Equals">
+<function type="Add">
+<for first="1" inc="1" last="${rook}" name="j"><function type="And"><function type="Not">
+<function type="Equals">
+<function axis="1" type="Projection">
+<function axis="${i}" type="Projection">
+<current-set-element/>
+</function>
+</function>
+<function axis="1" type="Projection">
+<function axis="${j}" type="Projection">
+<current-set-element/>
+</function>
+</function>
+</function>
+</function>
+<function type="Not">
+<function type="Equals">
+<function axis="2" type="Projection">
+<function axis="${i}" type="Projection">
+<current-set-element/>
+</function>
+</function>
+<function axis="2" type="Projection">
+<function axis="${j}" type="Projection">
+<current-set-element/>
+</function>
+</function>
+</function>
+</function></function>
+</for>
+</function>
+<constElement>1</constElement>
+</function>
+</function>
+</for>
+</function>
+<constElement>2</constElement>
+</function>
+</function>
+</verifier> </mathDescription>
+ </task>

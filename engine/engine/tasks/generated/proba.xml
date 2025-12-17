@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="трондхейм-проба">
+<description>
+<![CDATA[Задан алфавит A = {д, е, й, м, н, о, р, т, х } (буквы в словах не могут повторяться). Подсчитайте количество всeх слов длины 4 в алфавите А, для которых верно следующее:  после каждой гласной идет согласная.
+]]></description>
+<description-params>
+	<param name="length">
+ 		<value>4</value>
+ 	</param>
+	<param name="lengthMod2">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="LayoutSet" length="${length}"> 
+	<set type="EnumerationSet">
+<constElement>
+    <constElement>4</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>5</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>9</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>12</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>13</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>14</constElement>    <constElement>1</constElement></constElement>
+<constElement>
+    <constElement>16</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>18</constElement>    <constElement>0</constElement></constElement>
+<constElement>
+    <constElement>21</constElement>    <constElement>0</constElement></constElement>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="And">
+<constElement>1</constElement>
+<for name="i" first="1" last="${length}-1" inc="1">
+<function type="Or">
+<function type="And">
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>1</constElement></function>
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}+1">
+		<current-set-element/>
+</function>
+</function>
+<constElement>0</constElement></function>
+</function>
+<function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>0</constElement></function>
+</function>
+</for><function type="Equals">
+<function type="Projection" axis="2">
+<function type="Projection" axis="${length}">
+		<current-set-element/>
+</function>
+</function>
+<constElement>0</constElement></function>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

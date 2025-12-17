@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача Ч-8-3. Первая = сумме остальных.">
+<description>
+<![CDATA[Найдите количество пятизначных десятичных чисел, у которых первая цифра равна сумме остальных.
+]]><imgs><img>7red.PNG</img>
+<img>2blue.PNG</img>
+<img>0blue.PNG</img>
+<img>4blue.PNG</img>
+<img>1blue.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>5</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet" length="${length}"> 
+<set type="NumericSet" first="1" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/>	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<function type="Add">
+<function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+</function>
+
+<function type="Add">
+<function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="3">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="4">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="5">
+		<current-set-element/>
+</function>
+</function>
+
+</function>
+</function>
+</verifier> </mathDescription>
+ </task>

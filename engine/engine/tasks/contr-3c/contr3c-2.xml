@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 2">
+<description>
+<![CDATA[Найдите количество всех 4-значных  чисел, состоящих из цифр от 0 до 6, для которых верно следующее:  цифры набора идут в невозрастающем порядке.
+]]><imgs><img>6blue.PNG</img>
+<img>3red.PNG</img>
+<img>3blue.PNG</img>
+<img>0red.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>4</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet"> 
+<set type="NumericSet" first="1" last="6"/><set type="NumericSet" first="0" last="6"/><set type="NumericSet" first="0" last="6"/><set type="NumericSet" first="0" last="6"/>	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="And">
+<constElement>1</constElement>
+<for name="i" first="1" last="${length}-1" inc="1">
+<function type="Not">
+<function type="Smaller">
+<function type="Projection" axis="${i}">
+		<current-set-element/>
+</function>
+<function type="Projection" axis="${i}+1">
+		<current-set-element/>
+</function>
+</function>
+</function>
+</for></function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

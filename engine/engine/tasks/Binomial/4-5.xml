@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 4-5. Ни одной пики.">
+<description>
+<![CDATA[Из колоды в 36 карт вытаскивают случайным образом 4 карты. Подсчитайте количество наборов, в которых нет ни одной карты пиковой масти.
+]]><imgs><img>space.PNG</img>
+<img>9tref.PNG</img>
+<img>space.PNG</img>
+<img>dam_bub.PNG</img>
+<img>space.PNG</img>
+<img>8htref.PNG</img>
+<img>space.PNG</img>
+<img>king_heart.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>4</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="CombinationSet" length="${length}"> 
+	<set type="DecartSet">
+		<set type="NumericSet" first="5" last="13"/>
+		<set type="NumericSet" first="1" last="4"/>
+ 		</set>
+	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Equals">
+<function type="Add">
+<for name="i" first="1" last="${length}" inc="1">
+<function type="Equals">
+	<function type="Projection" axis="2">
+		<function type="Projection" axis="${i}">
+			<current-set-element/>
+		</function>
+	</function>
+	<constElement>3</constElement>
+</function>
+</for></function>
+
+<constElement>0</constElement>
+</function>
+</function>
+</verifier> </mathDescription>
+ </task>

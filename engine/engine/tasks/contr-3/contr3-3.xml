@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Задача 3">
+<description>
+<![CDATA[Найдите количество подмножеств, состоящих из 4 цифр от 0 до 9.
+]]><imgs><img>2blue.PNG</img>
+<img>0red.PNG</img>
+<img>7blue.PNG</img>
+<img>3red.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>4</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet"> 
+<set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/><set type="NumericSet" first="0" last="9"/>	</set>
+</sourceSet>
+<verifier type="SimpleVerifier">
+<function type="And">
+<constElement>1</constElement>
+
+</function>
+</verifier> </mathDescription>
+ </task>

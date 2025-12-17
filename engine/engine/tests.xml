@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<tests>
+    <test title="Комбинаторика и Покер" folder="tasks\comb" />
+    <test title="Числа. Вычислительные задачи." folder="tasks\numbers" />
+    <test title="Числа. Задачи на поиск общего решения." folder="tasks\numbersx" />
+    <test title="Задачи по физике" folder="tasks\physics" />
+    <test title="Простые и новые задачи" folder="tasks\generated" />
+    <test title="Задачи на принцип умножения" folder="tasks\Multiplication" />
+    <test title="Задачи на принцип сложения" folder="tasks\Addition" />
+    <test title="Задачи на сочетания" folder="tasks\Binomial" />
+    <test title="Комбинированные и сложные задачи" folder="tasks\Complex" />
+    <test title="Задачи на числах" folder="tasks\Numbers(combinatorics)" />
+    <test title="Задачи на картах" folder="tasks\Cards(combinatorics)" />
+    <test title="Задачи на словах" folder="tasks\Words(combinatorics)" />
+    <test title="Задачи с урнами" folder="tasks\Urns" />
+    <test title="Задачи на делимость" folder="tasks\divide" />
+    <test title="Задачи на остатки" folder="tasks\rests" />
+    <test title="Количество решений уравнения" folder="tasks\numsols" />
+    <test title="Индексация слов" folder="tasks\wordsind" />
+    <test title="К.р. 1. Правило умножения" folder="tasks\contr1" />
+    <test title="К.р. 1*. Правило умножения" folder="tasks\contr-1c" />
+    <test title="К.р. 2. Правило сложения" folder="tasks\contr-2" />
+    <test title="К.р. 2*. Правило сложения" folder="tasks\contr-2c" />
+    <test title="К.р. 3. Число сочетаний" folder="tasks\contr-3" />
+    <test title="К.р. 3*. Число сочетаний" folder="tasks\contr-3c" />
+    <test title="К.р. 4. Делимость чисел" folder="tasks\contr-4" />
+    <test title="К.р. 4*. Делимость чисел" folder="tasks\contr-4c" />
+    <test title="К.р. 5. Арифметика остатков" folder="tasks\contr-5" />
+    <test title="К.р. 5*. Арифметика остатков" folder="tasks\contr-5c" />
+<test title="Шахматы" folder="tasks\Chess"/>
+</tests>

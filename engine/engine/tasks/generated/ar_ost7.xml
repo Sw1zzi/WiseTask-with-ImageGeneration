@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="линейное разложение НОД">
+<description>
+<![CDATA[В магазин привезли 223 л масла в бидонах по 10 л и 17 л. Сколько было бидонов?
+]]></description>
+
+ <mathDescription>
+
+<verifier type="AnswerVerifier">
+<function type="Parser" exp="223" mod="17">
+</function>
+</verifier> </mathDescription>
+ </task>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<task title="Задача о нахождении массы частицы">
+
+    <verifier-params>
+        <param name="k">
+            <value>10</value>
+			<value>20</value>
+        </param>             
+
+        <param name="r1">
+            <value>71</value>
+            <value>63</value>
+        </param>
+        
+       <param name="v2">
+            <value>42</value>
+            <value>31</value>
+        </param>
+        
+    </verifier-params>
+
+    <description>
+        <![CDATA[Частица дыижется впо замкнутой траектории 
+        		в центральном силовом поле, где её потенциальная энергия U = k*r^2,
+        		k - положительная постоянная, r - расстояние частицы доцентра поля O.
+        		Найти массу частицы, если наименьшее расстояние ее до точки O 
+        		равно r1, а скорость на наибольшем расстоянии ри этой точки - v2.]]>
+    </description>
+
+    <mathDescription>
+        <verifier type="AnswerVerifier">
+            <function type="Parser" exp="2*${k}*${r1}^2/${v2}^2"/>
+        </verifier>
+    </mathDescription>
+</task>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<task title="Задача о заряде и безграничной плоскости">
+
+    <verifier-params>
+        <param name="q">
+            <value>100</value>
+			<value>200</value>
+        </param>             
+
+        <param name="PI">
+            <value>3</value>
+            <value>4</value>
+        </param>
+        
+       <param name="e0">
+            <value>400</value>
+            <value>300</value>
+        </param>
+        
+        <param name="l">
+            <value>20</value>
+            <value>31</value>
+        </param>
+        
+    </verifier-params>
+
+    <description>
+        <![CDATA[Точечный заряд q находится на расстоянии l от безграничной 
+        проводящей плоскости. Какую работу необходимо совершить, 
+        чтобы медленно удалить этот заряд на очень большое расстояние от плоскости? ]]>
+    </description>
+
+    <mathDescription>
+        <verifier type="AnswerVerifier">
+            <function type="Parser" exp="${q}^2/(16*${PI}*${e0}*${l}^2)"/>
+        </verifier>
+    </mathDescription>
+</task>

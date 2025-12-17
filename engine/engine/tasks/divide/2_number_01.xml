@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<task title="Двузначное число не меняется">
+<description>
+<![CDATA[Найти все двузначные натуральные числа, которые при перестановке цифр не меняются.
+]]><imgs><img>3blue.PNG</img>
+<img>3blue.PNG</img>
+</imgs></description>
+<description-params>
+	<param name="length">
+ 		<value>2</value>
+ 	</param>
+</description-params>
+ <mathDescription>
+ <sourceSet> 
+ <set type="DecartSet"> 
+<set type="NumericSet" first="1" last="9"/><set type="NumericSet" first="0" last="9"/>	</set>
+</sourceSet>
+<verifier type="ListVerifier">
+<function type="And">
+<constElement>1</constElement>
+<function type="Not">
+		<function type="Equals">
+		<function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+
+		<constElement>0</constElement>
+
+</function>
+
+</function>
+
+<function type="Equals">
+		<function type="FunctionElement">
+    <function type="Projection" axis="2">
+		<current-set-element/>
+</function>
+    <function type="Projection" axis="1">
+		<current-set-element/>
+</function>
+</function>
+
+		<current-set-element/>
+</function>
+
+</function>
+</verifier> </mathDescription>
+ </task>

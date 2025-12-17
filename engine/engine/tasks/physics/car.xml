@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<task title="Задача о нахождении времени движения автомобиля">
+
+    <verifier-params>
+        <param name="s">
+            <value>100</value>
+			<value>200</value>
+        </param>             
+
+        <param name="v">
+            <value>72</value>
+            <value>60</value>
+        </param>
+        
+       <param name="a1">
+            <value>4</value>
+            <value>5</value>
+        </param>
+        
+        <param name="a2">
+            <value>4</value>
+            <value>5</value>
+        </param>
+
+    </verifier-params>
+
+    <description>
+        <![CDATA[Автомобиль, трогаясь с места, едет с ускорением a1. 
+        Достигнув скорости v, он некоторое время едет равномерно, 
+        а затем тормозит с ускорением a2, до остановки. 
+        Найти время t движения автомобиля, если он прошел путь s.]]>
+    </description>
+
+    <mathDescription>
+        <verifier type="AnswerVerifier">
+            <function type="Parser" exp="${s}/${v} + (${v}/2/${a1} + ${v}/2/${a2})"/>
+        </verifier>
+    </mathDescription>
+</task>
