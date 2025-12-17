@@ -9,6 +9,9 @@ import ru.spb.ipo.generator.chess.ChessGenerator;
 import ru.spb.ipo.generator.digits.divs.DivGenerator;
 import ru.spb.ipo.generator.digits.mods.ModGenerator;
 import ru.spb.ipo.generator.equation.EquationGenerator;
+import ru.spb.ipo.generator.image_generator.cdsl.interpreter.ProblemContext;
+import ru.spb.ipo.generator.image_generator.service.ImageGeneratorService;
+import ru.spb.ipo.generator.image_generator.taskparse.CardParser;
 import ru.spb.ipo.generator.numbers.NumberGenerator;
 import ru.spb.ipo.generator.word.IndexWordGenerator;
 import ru.spb.ipo.generator.word.WordGenerator;
@@ -18,6 +21,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -58,6 +62,8 @@ public abstract class BaseGeneratorUI extends JFrame {
     private JPanel rightPanel = null;
 
     private JButton generateDescriptionButton = null;
+
+    private JButton generateImageButton = null;  // Кнпока генерации изображения
 
     private JPanel generateDescriptionButtonPanel = null;
 
@@ -392,6 +398,143 @@ public abstract class BaseGeneratorUI extends JFrame {
         }
         return generateDescriptionButton;
     }
+    /**
+     * This method initializes generateImageButton
+     *
+     * @return javax.swing.JButton
+     */
+    private JButton getGenerateImageButton() {
+        if (generateImageButton == null) {
+            generateImageButton = new JButton();
+            generateImageButton.setText("Сгенерировать изображение");
+            generateImageButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    generateTaskImage();
+                }
+            });
+        }
+        return generateImageButton;
+    }
+
+    /**
+     * Генерирует изображение для задачи
+     */
+    private void generateTaskImage() {
+        try {
+            // 1. Проверяем минимальные требования
+            if (isEmpty(taskTitle.getText())) {
+                JOptionPane.showMessageDialog(BaseGeneratorUI.this,
+                        "Не указано название задачи!",
+                        "Нет названия",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // 2. Генерируем текст условия
+            String generatedText = getGenerator().generateDescription();
+
+            // 3. Используем CardParser для парсинга
+            CardParser cardParser = new CardParser();
+
+            // Парсим задачу
+            cardParser.parse(taskTitle.getText(), generatedText);
+
+            // 4. Получаем ProblemContext из парсера
+            ProblemContext context = null;
+            try {
+                java.lang.reflect.Field contextField = CardParser.class.getDeclaredField("lastContext");
+                contextField.setAccessible(true);
+                context = (ProblemContext) contextField.get(cardParser);
+            } catch (Exception e) {
+                // Продолжаем без контекста
+            }
+
+            if (context == null) {
+                return; // Завершаем без сообщений
+            }
+
+            // 5. Генерируем изображение
+            ImageGeneratorService imageGenerator = new ImageGeneratorService();
+            BufferedImage generatedImage = imageGenerator.generateImage(context);
+
+            // 6. Отображаем изображение в интерфейсе
+            displayGeneratedImage(generatedImage);
+
+        } catch (Exception ex) {
+            showError("Ошибка при генерации изображения: \n" + ex.getMessage(),
+                    "Ошибка генерации", ex);
+        }
+    }
+    /**
+     * Отображает сгенерированное изображение в интерфейсе
+     */
+    private void displayGeneratedImage(BufferedImage image) {
+        try {
+            // Очищаем панель с изображениями
+            getImageListPanel().removeAll();
+            imagesList.clear();
+
+            // Конвертируем BufferedImage в ImageIcon
+            ImageIcon icon = new ImageIcon(image);
+
+            // Создаем JLabel с изображением
+            JLabel imageLabel = new JLabel(icon);
+
+            // Добавляем на панель
+            getImageListPanel().add(imageLabel);
+
+            // Сохраняем имя в список
+            imagesList.add("generated_card_image.png");
+
+            // Обновляем интерфейс
+            getImageListPanel().revalidate();
+            getImageListPanel().repaint();
+
+            System.out.println("Изображение отображено в интерфейсе");
+
+        } catch (Exception e) {
+            System.out.println("Ошибка отображения изображения: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Определяет тип задачи на основе текущего редактора
+     */
+    private String determineTaskTypeFromEditor() {
+        // Определяем по классу редактора
+        if (this instanceof CardGenerator) {
+            return "CARDS";
+        } else if (this instanceof ru.spb.ipo.generator.word.WordGenerator) {
+            return "WORDS";
+        } else if (this instanceof ru.spb.ipo.generator.numbers.NumberGenerator) {
+            return "NUMBERS";
+        } else if (this instanceof ru.spb.ipo.generator.chess.ChessGenerator) {
+            return "CHESS";
+        } else if (this instanceof ru.spb.ipo.generator.equation.EquationGenerator) {
+            return "EQUATIONS";
+        } else if (this instanceof ru.spb.ipo.generator.basket.BasketGenerator) {
+            return "BALLS";
+        } else if (this instanceof ru.spb.ipo.generator.digits.divs.DivGenerator) {
+            return "DIVISIBILITY";
+        } else if (this instanceof ru.spb.ipo.generator.digits.mods.ModGenerator) {
+            return "REMAINDERS";
+        }
+
+        // Если не определили по классу, пытаемся определить по названию окна
+        String title = this.getTitle().toLowerCase();
+        if (title.contains("карт") || title.contains("колод")) return "CARDS";
+        if (title.contains("слов") || title.contains("букв")) return "WORDS";
+        if (title.contains("числ") || title.contains("цифр")) return "NUMBERS";
+        if (title.contains("шахмат")) return "CHESS";
+        if (title.contains("уравнен")) return "EQUATIONS";
+        if (title.contains("шар") || title.contains("урн")) return "BALLS";
+        if (title.contains("делимость")) return "DIVISIBILITY";
+        if (title.contains("остат")) return "REMAINDERS";
+
+        return "UNKNOWN";
+    }
+
 
     /**
      * This method initializes generateDescriptionButtonPanel
@@ -405,6 +548,7 @@ public abstract class BaseGeneratorUI extends JFrame {
             generateDescriptionButtonPanel = new JPanel();
             generateDescriptionButtonPanel.setLayout(flowLayout3);
             generateDescriptionButtonPanel.add(getGenerateDescriptionButton(), null);
+            generateDescriptionButtonPanel.add(getGenerateImageButton(), null);  // Добавляем новую кнопку
         }
         return generateDescriptionButtonPanel;
     }
