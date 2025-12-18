@@ -11,7 +11,7 @@ import ru.spb.ipo.generator.digits.mods.ModGenerator;
 import ru.spb.ipo.generator.equation.EquationGenerator;
 import ru.spb.ipo.generator.image_generator.cdsl.interpreter.ProblemContext;
 import ru.spb.ipo.generator.image_generator.service.ImageGeneratorService;
-import ru.spb.ipo.generator.image_generator.taskparse.CardParser;
+import ru.spb.ipo.generator.image_generator.taskparse.*;
 import ru.spb.ipo.generator.numbers.NumberGenerator;
 import ru.spb.ipo.generator.word.IndexWordGenerator;
 import ru.spb.ipo.generator.word.WordGenerator;
@@ -406,7 +406,8 @@ public abstract class BaseGeneratorUI extends JFrame {
     private JButton getGenerateImageButton() {
         if (generateImageButton == null) {
             generateImageButton = new JButton();
-            generateImageButton.setText("Сгенерировать изображение");
+            generateImageButton.setText("Ген. Изображения");  // ← Укороченный текст
+            generateImageButton.setToolTipText("Сгенерировать изображение для задачи");  // Подсказка с полным текстом
             generateImageButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {
                     generateTaskImage();
@@ -433,18 +434,49 @@ public abstract class BaseGeneratorUI extends JFrame {
             // 2. Генерируем текст условия
             String generatedText = getGenerator().generateDescription();
 
-            // 3. Используем CardParser для парсинга
-            CardParser cardParser = new CardParser();
+            // 3. Используем TaskParse для парсинга
+            TaskParse taskParser = new TaskParse();
+            String taskType = determineTaskTypeFromEditor();
 
             // Парсим задачу
-            cardParser.parse(taskTitle.getText(), generatedText);
+            String result = taskParser.parseTask(taskTitle.getText(), generatedText, taskType);
+            System.out.println("Результат парсинга: " + result);
 
             // 4. Получаем ProblemContext из парсера
             ProblemContext context = null;
             try {
-                java.lang.reflect.Field contextField = CardParser.class.getDeclaredField("lastContext");
-                contextField.setAccessible(true);
-                context = (ProblemContext) contextField.get(cardParser);
+                // Для BALLS задач
+                if ("BALLS".equals(taskType)) {
+                    java.lang.reflect.Field contextField = BallsParser.class.getDeclaredField("lastContext");
+                    contextField.setAccessible(true);
+                    BallsParser ballsParser = new BallsParser();
+                    ballsParser.parse(taskTitle.getText(), generatedText);
+                    context = (ProblemContext) contextField.get(ballsParser);
+                }
+                // Для CARDS задач
+                else if ("CARDS".equals(taskType)) {
+                    java.lang.reflect.Field contextField = CardParser.class.getDeclaredField("lastContext");
+                    contextField.setAccessible(true);
+                    CardParser cardParser = new CardParser();
+                    cardParser.parse(taskTitle.getText(), generatedText);
+                    context = (ProblemContext) contextField.get(cardParser);
+                }
+                // Для CHESS задач
+                else if ("CHESS".equals(taskType)) {
+                    java.lang.reflect.Field contextField = ChessParser.class.getDeclaredField("lastContext");
+                    contextField.setAccessible(true);
+                    ChessParser chessParser = new ChessParser();
+                    chessParser.parse(taskTitle.getText(), generatedText);
+                    context = (ProblemContext) contextField.get(chessParser);
+                }
+//                // Для Equations задач
+//                else if ("EQUATIONS".equals(taskType)) {
+//                    java.lang.reflect.Field contextField = ChessParser.class.getDeclaredField("lastContext");
+//                    contextField.setAccessible(true);
+//                    EquationParser equationParser = new EquationParser();
+//                    equationParser.parse(taskTitle.getText(), generatedText);
+//                    context = (ProblemContext) contextField.get(equationParser);
+//                }
             } catch (Exception e) {
                 // Продолжаем без контекста
             }

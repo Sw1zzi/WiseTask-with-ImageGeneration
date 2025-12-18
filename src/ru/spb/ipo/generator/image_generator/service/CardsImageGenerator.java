@@ -206,7 +206,7 @@ public class CardsImageGenerator {
     private String convertCardToFilename(String rank, String suit) {
         String fileRank = convertRank(rank);
         String fileSuit = convertSuit(suit);
-        return fileRank + fileSuit + ".png";
+        return fileRank + "_" + fileSuit + ".png";
     }
 
     /**

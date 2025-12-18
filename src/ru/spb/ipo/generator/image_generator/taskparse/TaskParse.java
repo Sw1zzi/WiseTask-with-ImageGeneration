@@ -57,13 +57,15 @@ public class TaskParse {
     }
 
     private String parseChessTask(String title, String text) {
-        System.out.println("TaskParse: парсинг шахматной задачи");
-        return "Шахматная задача: в разработке";
+        System.out.println("Вызов ChessParser...");
+        ChessParser chessParser = new ChessParser();
+        return chessParser.parse(title, text);
     }
 
     private String parseEquationsTask(String title, String text) {
-        System.out.println("TaskParse: парсинг уравнений");
-        return "Уравнения: в разработке";
+        System.out.println("Вызов EquationsParser...");
+//        EquationParser equationsParser = new EquationParser();
+        return "Уравнения в процессе разработки...";
     }
 
     private String parseBallsTask(String title, String text) {

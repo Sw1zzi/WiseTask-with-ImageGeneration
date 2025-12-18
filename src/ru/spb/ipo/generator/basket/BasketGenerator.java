@@ -27,7 +27,9 @@ public class BasketGenerator extends BaseGeneratorUI {
         }
         return super.checkCanSave();
     }
+
     private JFileChooser imageChooser;
+
     public JFileChooser getImageChooser() {
         if (imageChooser == null) {
             imageChooser = new JFileChooser(new File("." + File.separator + "tasks" + File.separator + "imgs" + File.separator + "maras"));
@@ -61,7 +63,6 @@ public class BasketGenerator extends BaseGeneratorUI {
             setPanel = new BasketSetPanel();
         }
         return setPanel;
-
     }
 
     protected ConstraintPanel getFunctionPanel() {
@@ -79,7 +80,6 @@ public class BasketGenerator extends BaseGeneratorUI {
         return new BasketXmlGenerator(source, func, task);
     }
 
-
     protected void clear() {
         ((BasketSetPanel) getSetPanel()).clear();
         super.clear();
@@ -89,10 +89,42 @@ public class BasketGenerator extends BaseGeneratorUI {
         return "Редактор \"Шары и урны\"";
     }
 
-
     protected Dimension getRightPanelDimension() {
         return new Dimension(305, 190);
     }
 
+    /**
+     * Метод для отображения изображения для задачи с шарами
+     * Аналогично методу в BaseGeneratorUI, но с другим именем файла
+     */
+//    @Override
+    protected void displayGeneratedImage(java.awt.image.BufferedImage image) {
+        try {
+            // Очищаем панель с изображениями
+            getImageListPanel().removeAll();
+            getImagesList().clear();
 
+            // Конвертируем BufferedImage в ImageIcon
+            ImageIcon icon = new ImageIcon(image);
+
+            // Создаем JLabel с изображением
+            JLabel imageLabel = new JLabel(icon);
+
+            // Добавляем на панель
+            getImageListPanel().add(imageLabel);
+
+            // Сохраняем имя в список - другое имя файла для шаров
+            getImagesList().add("generated_balls_image.png");
+
+            // Обновляем интерфейс
+            getImageListPanel().revalidate();
+            getImageListPanel().repaint();
+
+            System.out.println("Изображение для задачи 'Шары и урны' отображено в интерфейсе");
+
+        } catch (Exception e) {
+            System.out.println("Ошибка отображения изображения: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
