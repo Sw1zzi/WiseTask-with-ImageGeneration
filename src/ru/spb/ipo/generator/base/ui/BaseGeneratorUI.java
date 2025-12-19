@@ -422,19 +422,11 @@ public abstract class BaseGeneratorUI extends JFrame {
      */
     private void generateTaskImage() {
         try {
-            // 1. Проверяем минимальные требования
-            if (isEmpty(taskTitle.getText())) {
-                JOptionPane.showMessageDialog(BaseGeneratorUI.this,
-                        "Не указано название задачи!",
-                        "Нет названия",
-                        JOptionPane.WARNING_MESSAGE);
-                return;
-            }
 
-            // 2. Генерируем текст условия
+            // 1. Генерируем текст условия
             String generatedText = getGenerator().generateDescription();
 
-            // 3. Используем TaskParse для парсинга
+            // 2. Используем TaskParse для парсинга
             TaskParse taskParser = new TaskParse();
             String taskType = determineTaskTypeFromEditor();
 
@@ -442,7 +434,7 @@ public abstract class BaseGeneratorUI extends JFrame {
             String result = taskParser.parseTask(taskTitle.getText(), generatedText, taskType);
             System.out.println("Результат парсинга: " + result);
 
-            // 4. Получаем ProblemContext из парсера
+            // 3. Получаем ProblemContext из парсера
             ProblemContext context = null;
             try {
                 // Для BALLS задач
@@ -469,14 +461,13 @@ public abstract class BaseGeneratorUI extends JFrame {
                     chessParser.parse(taskTitle.getText(), generatedText);
                     context = (ProblemContext) contextField.get(chessParser);
                 }
-//                // Для Equations задач
-//                else if ("EQUATIONS".equals(taskType)) {
-//                    java.lang.reflect.Field contextField = ChessParser.class.getDeclaredField("lastContext");
-//                    contextField.setAccessible(true);
-//                    EquationParser equationParser = new EquationParser();
-//                    equationParser.parse(taskTitle.getText(), generatedText);
-//                    context = (ProblemContext) contextField.get(equationParser);
-//                }
+                else if ("EQUATIONS".equals(taskType)) {
+                    java.lang.reflect.Field contextField = EquationParser.class.getDeclaredField("lastContext");
+                    contextField.setAccessible(true);
+                    EquationParser equationParser = new EquationParser();
+                    equationParser.parse(taskTitle.getText(), generatedText);
+                    context = (ProblemContext) contextField.get(equationParser);
+                }
             } catch (Exception e) {
                 // Продолжаем без контекста
             }

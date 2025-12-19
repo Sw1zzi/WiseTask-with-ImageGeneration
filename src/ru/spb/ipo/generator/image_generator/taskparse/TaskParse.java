@@ -64,8 +64,8 @@ public class TaskParse {
 
     private String parseEquationsTask(String title, String text) {
         System.out.println("Вызов EquationsParser...");
-//        EquationParser equationsParser = new EquationParser();
-        return "Уравнения в процессе разработки...";
+        EquationParser equationsParser = new EquationParser();
+        return equationsParser.parse(title, text);
     }
 
     private String parseBallsTask(String title, String text) {
