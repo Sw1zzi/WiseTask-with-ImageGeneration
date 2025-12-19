@@ -1,9 +1,12 @@
 package ru.spb.ipo.generator.image_generator.service;
 
 import ru.spb.ipo.generator.image_generator.cdsl.interpreter.ProblemContext;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -14,7 +17,7 @@ public class ChessImageGenerator {
     private static final int IMAGE_WIDTH = 500;
     private static final int IMAGE_HEIGHT = 110;
     private static final int BOARD_SIZE = 74;
-    private static final int PIECE_IMAGE_SIZE = 47; // Увеличил размер фигур
+    private static final int PIECE_IMAGE_SIZE = 47;
     private static final int CELL_SIZE = BOARD_SIZE / 8;
 
     public ChessImageGenerator() {
@@ -22,47 +25,133 @@ public class ChessImageGenerator {
     }
 
     private Image loadImage(String filename) {
+        // Проверяем кэш
         if (imageCache.containsKey(filename)) {
             return imageCache.get(filename);
         }
 
+        // Пробуем несколько путей, как в CardsImageGenerator
+        String[] possiblePaths = {
+                "imgs/" + filename,
+                "tasks/imgs/" + filename,
+                filename
+        };
+
+        for (String path : possiblePaths) {
+            try {
+                File file = new File(path);
+                if (file.exists()) {
+                    Image image = ImageIO.read(file);
+                    if (image != null) {
+                        imageCache.put(filename, image);
+                        return image;
+                    }
+                }
+            } catch (IOException e) {
+                // Игнорируем и пробуем следующий путь
+            }
+        }
+
+        // Если не нашли, пробуем из ресурсов
         try {
-            Image image = ImageIO.read(getClass().getResourceAsStream("/imgs/" + filename));
-            System.out.println(image);
+            // Для пути chess/... или /imgs/chess/...
+            String resourcePath;
+            if (filename.startsWith("chess/")) {
+                resourcePath = "/imgs/" + filename;
+            } else {
+                resourcePath = "/imgs/" + filename;
+            }
+
+            Image image = ImageIO.read(getClass().getResourceAsStream(resourcePath));
             if (image != null) {
                 imageCache.put(filename, image);
                 return image;
             }
         } catch (Exception e) {
-            System.err.println("Error loading image " + filename + ": " + e.getMessage());
+            // Игнорируем
         }
+
+        System.err.println("Не удалось загрузить изображение: " + filename);
         return null;
     }
 
     private Image loadChessPieceImage(String pieceType, boolean isWhite) {
-        // Или можно всегда использовать черные, если это проще
-        String colorSuffix = "_black"; // Всегда черные фигуры
-        String filename = "chess/" + pieceType.toLowerCase() + colorSuffix + ".png";
+        // Пробуем несколько вариантов имен файлов
+        String[] possibleFilenames = {
+                // В папке chess
+                "chess/" + pieceType.toLowerCase() + "_black.png",
+                "chess/" + pieceType.toLowerCase() + "_white.png",
+                // В корне
+                pieceType.toLowerCase() + "_black.png",
+                pieceType.toLowerCase() + "_white.png",
+                // Без цвета
+                "chess/" + pieceType.toLowerCase() + ".png",
+                pieceType.toLowerCase() + ".png"
+        };
 
-        // Пробуем загрузить из папки chess
-        Image image = loadImage(filename);
-
-        if (image == null) {
-            // Если не нашли в папке chess, пробуем в корне
-            filename = pieceType.toLowerCase() + colorSuffix + ".png";
-            image = loadImage(filename);
+        // Пробуем сначала черные (как в CardsImageGenerator)
+        for (String filename : possibleFilenames) {
+            Image image = loadImage(filename);
+            if (image != null) {
+                return image;
+            }
         }
 
-        // Если не нашли черную, пробуем белую как запасной вариант
-        if (image == null) {
-            filename = "chess/" + pieceType.toLowerCase() + "_white.png";
-            image = loadImage(filename);
-        }
+        // Если не нашли, создаем простую фигуру
+        return createSimplePieceImage(pieceType);
+    }
 
+    private Image createSimplePieceImage(String pieceType) {
+        BufferedImage image = new BufferedImage(PIECE_IMAGE_SIZE, PIECE_IMAGE_SIZE, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+
+        // Фон - прозрачный
+        g2d.setComposite(AlphaComposite.Clear);
+        g2d.fillRect(0, 0, PIECE_IMAGE_SIZE, PIECE_IMAGE_SIZE);
+        g2d.setComposite(AlphaComposite.SrcOver);
+
+        // Цвет фигуры
+        Color[] colors = {Color.BLACK, Color.DARK_GRAY, Color.GRAY};
+        Color pieceColor = colors[random.nextInt(colors.length)];
+
+        // Рисуем круг
+        g2d.setColor(pieceColor);
+        g2d.fillOval(5, 5, PIECE_IMAGE_SIZE - 10, PIECE_IMAGE_SIZE - 10);
+
+        // Обводка
+        g2d.setColor(Color.WHITE);
+        g2d.setStroke(new BasicStroke(2));
+        g2d.drawOval(5, 5, PIECE_IMAGE_SIZE - 10, PIECE_IMAGE_SIZE - 10);
+
+        // Буква фигуры
+        String initial = getPieceInitial(pieceType);
+        g2d.setFont(new Font("Arial", Font.BOLD, 20));
+        FontMetrics fm = g2d.getFontMetrics();
+        int textX = PIECE_IMAGE_SIZE / 2 - fm.stringWidth(initial) / 2;
+        int textY = PIECE_IMAGE_SIZE / 2 + fm.getAscent() / 2 - 5;
+
+        g2d.setColor(Color.WHITE);
+        g2d.drawString(initial, textX, textY);
+
+        g2d.dispose();
         return image;
     }
 
+    private String getPieceInitial(String pieceType) {
+        pieceType = pieceType.toUpperCase();
+        if (pieceType.contains("ROOK") || pieceType.contains("ЛАДЬЯ")) return "R";
+        if (pieceType.contains("KNIGHT") || pieceType.contains("КОНЬ")) return "N";
+        if (pieceType.contains("BISHOP") || pieceType.contains("СЛОН")) return "B";
+        if (pieceType.contains("QUEEN") || pieceType.contains("ФЕРЗЬ")) return "Q";
+        if (pieceType.contains("KING") || pieceType.contains("КОРОЛЬ")) return "K";
+        if (pieceType.contains("PAWN") || pieceType.contains("ПЕШКА")) return "P";
+        return pieceType.substring(0, 1);
+    }
+
     public BufferedImage generateImage(ProblemContext context) {
+        System.out.println("\n=== CHESS IMAGE GENERATOR ===");
+        System.out.println("Генерация изображения для шахматной задачи");
+
         BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = image.createGraphics();
 
@@ -76,6 +165,10 @@ public class ChessImageGenerator {
         int boardWidth = context.getBoardWidth();
         Map<String, Integer> pieces = context.getPieces();
         boolean attacking = context.isAttacking();
+
+        System.out.println("Размер доски: " + boardWidth + "x" + boardHeight);
+        System.out.println("Фигуры: " + pieces);
+        System.out.println("Атакующие: " + attacking);
 
         // Если размеры не указаны, используем стандартные 8x8
         if (boardHeight <= 0) boardHeight = 8;
@@ -108,12 +201,25 @@ public class ChessImageGenerator {
         int boardY = (IMAGE_HEIGHT - BOARD_SIZE) / 2 + 5;
         int boardX = 30;
 
-        // Рисуем шахматную доску
+        System.out.println("Пробую загрузить изображение доски...");
+
+        // Сначала пробуем загрузить изображение доски
         Image boardImage = loadImage("chess_desk.png");
 
+        if (boardImage == null) {
+            // Пробуем другие варианты
+            boardImage = loadImage("chess_board.png");
+        }
+
+        if (boardImage == null) {
+            boardImage = loadImage("board.png");
+        }
+
         if (boardImage != null) {
+            System.out.println("Изображение доски найдено");
             g2d.drawImage(boardImage, boardX, boardY, BOARD_SIZE, BOARD_SIZE, null);
         } else {
+            System.out.println("Изображение доски не найдено, рисую простую доску");
             drawSimpleBoard(g2d, boardX, boardY, boardWidth, boardHeight);
         }
 
@@ -196,7 +302,7 @@ public class ChessImageGenerator {
     }
 
     private void drawRightPanel(Graphics2D g2d, Map<String, Integer> pieces, boolean attacking) {
-        int rightPanelStartX = 160; // Начало правой панели
+        int rightPanelStartX = 160;
         int rightPanelWidth = IMAGE_WIDTH - rightPanelStartX - 10;
 
         if (pieces == null || pieces.isEmpty()) {
@@ -217,9 +323,9 @@ public class ChessImageGenerator {
 
         // Преобразуем фигуры в список и перемешиваем для случайного порядка
         List<Map.Entry<String, Integer>> pieceList = new ArrayList<>(pieces.entrySet());
-        Collections.shuffle(pieceList, random); // Перемешиваем для случайного порядка каждый раз
+        Collections.shuffle(pieceList, random);
 
-        int pieceSpacing = 50; // Расстояние между фигурами
+        int pieceSpacing = 50;
         int totalPiecesWidth = pieceList.size() * pieceSpacing - 10;
         int piecesStartX = rightPanelStartX + rightPanelWidth / 2 - totalPiecesWidth / 2;
         int piecesStartY = titleY + 10;
@@ -234,6 +340,8 @@ public class ChessImageGenerator {
             String pieceType = entry.getKey();
             int count = entry.getValue();
 
+            System.out.println("Загрузка фигуры: " + pieceType);
+
             // Позиция фигуры
             int pieceX = piecesStartX + i * pieceSpacing;
             int pieceY = piecesStartY;
@@ -243,10 +351,12 @@ public class ChessImageGenerator {
 
             // Рисуем фигуру
             if (pieceImage != null) {
+                System.out.println("Изображение фигуры " + pieceType + " найдено");
                 g2d.drawImage(pieceImage, pieceX, pieceY,
                         PIECE_IMAGE_SIZE, PIECE_IMAGE_SIZE, null);
             } else {
-                // Если нет изображения, рисуем цветной кружок с буквой
+                System.out.println("Изображение фигуры " + pieceType + " не найдено, рисую простую версию");
+                // Рисуем простую фигуру
                 Color[] colors = {Color.RED, Color.BLUE, Color.GREEN,
                         Color.MAGENTA, Color.ORANGE, Color.CYAN};
                 Color pieceColor = colors[i % colors.length];
@@ -260,7 +370,7 @@ public class ChessImageGenerator {
                 g2d.drawOval(pieceX, pieceY, PIECE_IMAGE_SIZE, PIECE_IMAGE_SIZE);
 
                 // Буква фигуры
-                String initial = pieceType.substring(0, 1);
+                String initial = getPieceInitial(pieceType);
                 g2d.setFont(new Font("Arial", Font.BOLD, 16));
                 FontMetrics fm = g2d.getFontMetrics();
                 int textX = pieceX + PIECE_IMAGE_SIZE/2 - fm.stringWidth(initial)/2;
@@ -292,7 +402,6 @@ public class ChessImageGenerator {
     }
 
     private void drawAttackTypeCentered(Graphics2D g2d, int panelStartX, int panelWidth, boolean attacking) {
-        // Для случая без фигур - размещаем по вертикальному центру
         int centerY = IMAGE_HEIGHT / 2;
         drawAttackTypeCentered(g2d, panelStartX, panelWidth, attacking, centerY);
     }
@@ -305,7 +414,6 @@ public class ChessImageGenerator {
         g2d.setFont(new Font("Arial", Font.BOLD, 11));
         FontMetrics fm = g2d.getFontMetrics();
 
-        // Позиция по центру правой панели
         int textWidth = fm.stringWidth(attackText);
         int textX = panelStartX + panelWidth / 2 - textWidth / 2;
         int textY = yPos;
