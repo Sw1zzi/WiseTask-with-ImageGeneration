@@ -43,17 +43,21 @@ public class TaskParse {
     private String parseCardsTask(String title, String text) {
         System.out.println("Вызов CardParser...");
         CardParser cardParser = new CardParser();
+        System.out.println(text);
         return cardParser.parse(title, text);
     }
 
     private String parseWordsTask(String title, String text) {
         System.out.println("TaskParse: парсинг словесной задачи");
-        return "Словесная задача: в разработке";
+        WordsParser wordsParser = new WordsParser();
+        System.out.println(text);
+        return wordsParser.parse(title, text);
     }
 
     private String parseNumbersTask(String title, String text) {
         System.out.println("TaskParse: парсинг числовой задачи");
-        return "Числовая задача: в разработке";
+        NumbersParser numbersParser = new NumbersParser();
+        return numbersParser.parse(title, text);
     }
 
     private String parseChessTask(String title, String text) {
@@ -64,23 +68,26 @@ public class TaskParse {
 
     private String parseEquationsTask(String title, String text) {
         System.out.println("Вызов EquationsParser...");
-//        EquationParser equationsParser = new EquationParser();
-        return "Уравнения в процессе разработки...";
+        EquationParser equationsParser = new EquationParser();
+        return equationsParser.parse(title, text);
     }
 
     private String parseBallsTask(String title, String text) {
         System.out.println("TaskParse: парсинг шаров и урн");
-        return "Шары и урны: в разработке";
+        BallsParser ballsParser = new BallsParser();
+        return ballsParser.parse(title, text);
     }
 
     private String parseDivisibilityTask(String title, String text) {
         System.out.println("TaskParse: парсинг делимости");
-        return "Делимость: в разработке";
+        DivisibilityParser divisibilityParser = new DivisibilityParser();
+        return divisibilityParser.parse(title, text);
     }
 
     private String parseRemaindersTask(String title, String text) {
         System.out.println("TaskParse: парсинг остатков");
-        return "Остатки: в разработке";
+        RemainderParser reminderParser = new RemainderParser();
+        return reminderParser.parse(title, text);
     }
 
     private String parseUnknownTask(String title, String text) {
