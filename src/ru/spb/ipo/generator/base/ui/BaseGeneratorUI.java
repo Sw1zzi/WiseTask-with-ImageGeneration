@@ -338,12 +338,12 @@ public abstract class BaseGeneratorUI extends JFrame {
         imagesList.clear();
         setActiveSave(null);
     }
-    
+
     public void clearIm()
     {
-       getImageListPanel().removeAll();
-       imagesList.clear();  
-       setActiveSave(null);
+        getImageListPanel().removeAll();
+        imagesList.clear();
+        setActiveSave(null);
     }
 
     /**
@@ -436,6 +436,8 @@ public abstract class BaseGeneratorUI extends JFrame {
 
             // 3. Получаем ProblemContext из парсера
             ProblemContext context = null;
+            System.out.println("Определение типа задачи");
+            System.out.println(taskType);
             try {
                 // Для BALLS задач
                 if ("BALLS".equals(taskType)) {
@@ -468,11 +470,44 @@ public abstract class BaseGeneratorUI extends JFrame {
                     equationParser.parse(taskTitle.getText(), generatedText);
                     context = (ProblemContext) contextField.get(equationParser);
                 }
+                else if ("REMAINDERS".equals(taskType)) {
+                    java.lang.reflect.Field contextField = RemainderParser.class.getDeclaredField("lastContext");
+                    contextField.setAccessible(true);
+                    RemainderParser reminderParser = new RemainderParser();
+                    reminderParser.parse(taskTitle.getText(), generatedText);
+                    context = (ProblemContext) contextField.get(reminderParser);
+                }
+                else if ("WORDS".equals(taskType)) {
+                    System.out.println("получение контекста задачи WORDS");
+                    java.lang.reflect.Field contextField = WordsParser.class.getDeclaredField("lastContext");
+                    contextField.setAccessible(true);
+                    WordsParser wordsParser = new WordsParser();
+                    wordsParser.parse(taskTitle.getText(), generatedText);
+                    context = (ProblemContext) contextField.get(wordsParser);
+                }
+                else if ("NUMBERS".equals(taskType)) {
+                    System.out.println("получение контекста задачи NUMBERS");
+                    java.lang.reflect.Field contextField = NumbersParser.class.getDeclaredField("lastContext");
+                    contextField.setAccessible(true);
+                    NumbersParser numbersParser = new NumbersParser();
+                    numbersParser.parse(taskTitle.getText(), generatedText);
+                    context = (ProblemContext) contextField.get(numbersParser);
+                }
+                else if ("DIVISIBILITY".equals(taskType)) {
+                    System.out.println("получение контекста задачи DIVISIBILITY");
+                    java.lang.reflect.Field contextField = DivisibilityParser.class.getDeclaredField("lastContext");
+                    contextField.setAccessible(true);
+                    DivisibilityParser divisibilityParser = new DivisibilityParser();
+                    divisibilityParser.parse(taskTitle.getText(), generatedText);
+                    context = (ProblemContext) contextField.get(divisibilityParser);
+                }
+                else System.out.println("ОШИБКА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             } catch (Exception e) {
-                // Продолжаем без контекста
+                System.out.println(e);
             }
 
             if (context == null) {
+                System.out.println("Контекст не определен");
                 return; // Завершаем без сообщений
             }
 

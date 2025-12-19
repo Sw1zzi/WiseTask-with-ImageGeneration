@@ -13,6 +13,8 @@ public class ImageGeneratorService {
 
         try {
             // Делегируем работу специализированным генераторам
+            System.out.println("Определение токена");
+            System.out.println(context.getProblemType());
             switch (context.getProblemType()) {
                 case CARDS:
                     System.out.println("ImageGeneratorService: Генерация изображения для задачи с картами");
