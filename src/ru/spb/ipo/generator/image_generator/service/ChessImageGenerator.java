@@ -305,10 +305,10 @@ public class ChessImageGenerator {
         int rightPanelStartX = 160;
         int rightPanelWidth = IMAGE_WIDTH - rightPanelStartX - 10;
 
+        // Если нет фигур, рисуем ТОЛЬКО сообщение об отсутствии фигур
         if (pieces == null || pieces.isEmpty()) {
-            // Если нет фигур, рисуем только надпись о типе размещения
-            drawAttackTypeCentered(g2d, rightPanelStartX, rightPanelWidth, attacking);
-            return;
+            drawNoPiecesMessage(g2d, rightPanelStartX, rightPanelWidth);
+            return; // ВЫХОДИМ РАНЬШЕ, не рисуем про атакующие/неатакующие
         }
 
         // Заголовок "Фигуры:" по центру правой панели
@@ -396,9 +396,42 @@ public class ChessImageGenerator {
             g2d.drawString(countText, countX, countY);
         }
 
-        // Рисуем надпись о типе размещения по центру правой панели
+        // Рисуем надпись о типе размещения ТОЛЬКО если есть фигуры
         int attackTextY = piecesStartY + PIECE_IMAGE_SIZE + 30;
         drawAttackTypeCentered(g2d, rightPanelStartX, rightPanelWidth, attacking, attackTextY);
+    }
+
+    private void drawNoPiecesMessage(Graphics2D g2d, int panelStartX, int panelWidth) {
+        // Сообщение об отсутствии фигур (больше и по центру)
+        g2d.setFont(new Font("Arial", Font.BOLD, 16));
+        g2d.setColor(Color.RED);
+
+        String noPiecesText = "Фигуры не указаны";
+        FontMetrics fm = g2d.getFontMetrics();
+        int textX = panelStartX + panelWidth / 2 - fm.stringWidth(noPiecesText) / 2;
+        int textY = IMAGE_HEIGHT / 2;
+
+        // Фон для сообщения
+        g2d.setColor(new Color(255, 230, 230, 220));
+        int padding = 10;
+        g2d.fillRoundRect(textX - padding, textY - fm.getAscent() - padding/2,
+                fm.stringWidth(noPiecesText) + padding*2, fm.getHeight() + padding,
+                10, 10);
+
+        // Текст
+        g2d.setColor(Color.RED);
+        g2d.drawString(noPiecesText, textX, textY);
+
+        // Подсказка под сообщением
+        g2d.setFont(new Font("Arial", Font.PLAIN, 12));
+        g2d.setColor(Color.DARK_GRAY);
+
+        String hintText = "В условии задачи не указаны фигуры";
+        FontMetrics fm2 = g2d.getFontMetrics();
+        int hintX = panelStartX + panelWidth / 2 - fm2.stringWidth(hintText) / 2;
+        int hintY = textY + 25;
+
+        g2d.drawString(hintText, hintX, hintY);
     }
 
     private void drawAttackTypeCentered(Graphics2D g2d, int panelStartX, int panelWidth, boolean attacking) {

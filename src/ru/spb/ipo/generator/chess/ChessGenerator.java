@@ -18,7 +18,7 @@ public class ChessGenerator extends BaseGeneratorUI {
     }
 
     protected Dimension getGeneratorSize() {
-        return new Dimension(840, 420);
+        return new Dimension(1000, 450);
     }
 
     protected ConstraintPanel getFunctionPanel() {

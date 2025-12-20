@@ -426,7 +426,16 @@ public abstract class BaseGeneratorUI extends JFrame {
             // 1. Генерируем текст условия
             String generatedText = getGenerator().generateDescription();
 
-            // 2. Используем TaskParse для парсинга
+            // 2. Проверка на ошибку в генерации условия
+            if (generatedText.trim().equals("Нужно что то ставить! Фигур то нет!")) {
+                showError("Ошибка: в условии шахматной задачи не указаны фигуры!\n\n" +
+                                "Сгенерированное условие: 'Нужно что то ставить! Фигур то нет!'\n" +
+                                "Пожалуйста, сгенерируйте задачу заново или добавьте фигуры вручную.",
+                        "Нет фигур для расстановки", null);
+                return;
+            }
+
+            // 3. Используем TaskParse для парсинга
             TaskParse taskParser = new TaskParse();
             String taskType = determineTaskTypeFromEditor();
 
@@ -434,7 +443,7 @@ public abstract class BaseGeneratorUI extends JFrame {
             String result = taskParser.parseTask(taskTitle.getText(), generatedText, taskType);
             System.out.println("Результат парсинга: " + result);
 
-            // 3. Получаем ProblemContext из парсера
+            // 4. Получаем ProblemContext из парсера
             ProblemContext context = null;
             System.out.println("Определение типа задачи");
             System.out.println(taskType);

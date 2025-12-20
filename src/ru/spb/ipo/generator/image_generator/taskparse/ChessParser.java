@@ -65,31 +65,37 @@ public class ChessParser {
         int height = extractBoardSize(text, true); // высота
         int width = extractBoardSize(text, false); // ширина
 
+        System.out.println("=== ChessParser: Размер доски ===");
+        System.out.println("Ширина: " + width);
+        System.out.println("Высота: " + height);
+
         cdsl.append("BOARD_HEIGHT ").append(height).append("\n");
         cdsl.append("BOARD_WIDTH ").append(width).append("\n");
 
         // 3. PIECES [<фигура1> <количество>, ...]
         Map<String, Integer> pieces = extractPieces(text);
         cdsl.append("PIECES [");
+
         boolean first = true;
         for (Map.Entry<String, Integer> entry : pieces.entrySet()) {
             if (!first) cdsl.append(", ");
             cdsl.append(entry.getKey()).append(" ").append(entry.getValue());
             first = false;
         }
-        // Если ничего не нашли, добавляем демо-фигуры
-        if (pieces.isEmpty()) {
-            cdsl.append("CHESS_ROOK 2, CHESS_KNIGHT 1");
-        }
+
+        // УБРАНА ЗАГЛУШКА! Если фигур нет - будет пустые скобки []
         cdsl.append("]\n");
 
         // 4. ATTACKING | NON_ATTACKING
         String placementType = extractPlacementType(text);
         cdsl.append(placementType);
 
+        System.out.println("=== ChessParser: Сгенерированный CDSL ===");
+        System.out.println(cdsl.toString());
+        System.out.println("========================================");
+
         return cdsl.toString();
     }
-
     /**
      * Извлекает размер доски
      * @param isHeight true - ищем высоту, false - ищем ширину
@@ -97,68 +103,83 @@ public class ChessParser {
     private int extractBoardSize(String text, boolean isHeight) {
         String lowerText = text.toLowerCase();
 
-        // Ключевые слова для поиска
-        String[] heightKeywords = {"высот", "вертикал", "строк", "рядов", "высота"};
-        String[] widthKeywords = {"ширин", "горизонтал", "столбцов", "колонок", "ширина"};
+        System.out.println("=== ChessParser: extractBoardSize ===");
+        System.out.println("Ищем: " + (isHeight ? "высоту" : "ширину"));
+        System.out.println("Текст: " + text);
 
-        String[] keywords = isHeight ? heightKeywords : widthKeywords;
+        // ТОЛЬКО паттерн для формата "на доске X на Y"
+        Pattern pattern = Pattern.compile(
+                "на\\s+доск[а-я]*\\s+(\\d+)\\s+на\\s+(\\d+)"
+        );
 
-        // Паттерны для поиска
-        Pattern[] patterns = {
-                // "доска размером 8×8", "доска 8 на 8"
-                Pattern.compile("доск[а-я]*\\s*(?:размером\\s+)?(\\d+)\\s*[×xна\\*]\\s*(\\d+)"),
-                // "шахматная доска 8×8"
-                Pattern.compile("шахматн[а-я]*\\s+доск[а-я]*\\s+(\\d+)\\s*[×xна\\*]\\s*(\\d+)"),
-                // "размер доски 8×8"
-                Pattern.compile("размер[а-я]*\\s+доск[а-я]*\\s+(\\d+)\\s*[×xна\\*]\\s*(\\d+)"),
-                // "8×8" просто размер
-                Pattern.compile("(\\d+)\\s*[×xна\\*]\\s*(\\d+)"),
-                // "высотой 8", "шириной 8"
-                Pattern.compile("(" + String.join("|", keywords) + ")[а-я]*\\s+(?:в\\s+)?(\\d+)"),
-                // "8 клеток в высоту", "8 клеток в ширину"
-                Pattern.compile("(\\d+)\\s+клет[а-я]*\\s+(?:в\\s+)(" + String.join("|", keywords) + ")[а-я]*")
+        Matcher matcher = pattern.matcher(lowerText);
+        if (matcher.find()) {
+            try {
+                System.out.println("Нашли паттерн 'на доске X на Y'");
+
+                if (matcher.groupCount() >= 2 && matcher.group(1) != null && matcher.group(2) != null) {
+                    int firstNumber = Integer.parseInt(matcher.group(1).trim());
+                    int secondNumber = Integer.parseInt(matcher.group(2).trim());
+
+                    System.out.println("Нашли два числа: " + firstNumber + " и " + secondNumber);
+
+                    // В формате "на доске X на Y" в шахматах:
+                    // X = ВЫСОТА (вертикаль, цифры)
+                    // Y = ШИРИНА (горизонталь, буквы)
+                    // Но в бытовом языке может быть наоборот!
+
+                    // ДЛЯ ТЕКУЩИХ ЗАДАЧ: X = высота, Y = ширина
+                    if (isHeight) {
+                        System.out.println("Возвращаем высоту (первое число): " + firstNumber);
+                        return firstNumber;  // ВЫСОТА = первое число
+                    } else {
+                        System.out.println("Возвращаем ширину (второе число): " + secondNumber);
+                        return secondNumber; // ШИРИНА = второе число
+                    }
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка парсинга числа: " + e.getMessage());
+            }
+        }
+
+        // Альтернативные форматы
+        Pattern[] alternativePatterns = {
+                Pattern.compile("на\\s+доск[а-я]*\\s+(\\d+)\\s*[×x\\*]\\s*(\\d+)"),
+                Pattern.compile("на\\s+шахматн[а-я]*\\s+доск[а-я]*\\s+(\\d+)\\s+на\\s+(\\d+)"),
+                Pattern.compile("на\\s+доск[а-я]*\\s+размером\\s+(\\d+)\\s+на\\s+(\\d+)")
         };
 
-        for (Pattern pattern : patterns) {
-            Matcher matcher = pattern.matcher(lowerText);
-            if (matcher.find()) {
+        for (Pattern altPattern : alternativePatterns) {
+            Matcher altMatcher = altPattern.matcher(lowerText);
+            if (altMatcher.find()) {
                 try {
-                    // Для паттернов с двумя числами (8×8)
-                    if (matcher.groupCount() >= 2) {
-                        int num1 = Integer.parseInt(matcher.group(1));
-                        int num2 = Integer.parseInt(matcher.group(2));
+                    System.out.println("Нашли альтернативный паттерн: " + altPattern.pattern());
 
-                        // Определяем какое число высота, а какое ширина
-                        if (pattern.pattern().contains("[×xна\\*]")) {
-                            // Для формата 8×8 - первое обычно ширина, второе высота
-                            // но в шахматах обычно сначала указывают ширину (буквы), потом высоту (цифры)
-                            return isHeight ? Math.max(num1, num2) : Math.min(num1, num2);
-                        }
+                    if (altMatcher.groupCount() >= 2 && altMatcher.group(1) != null && altMatcher.group(2) != null) {
+                        int firstNumber = Integer.parseInt(altMatcher.group(1).trim());
+                        int secondNumber = Integer.parseInt(altMatcher.group(2).trim());
 
-                        // Для других паттернов пытаемся определить по контексту
-                        String match = matcher.group(0);
+                        System.out.println("Нашли два числа: " + firstNumber + " и " + secondNumber);
+
+                        // ТАКОЕ ЖЕ ПРАВИЛО: первое число = высота, второе = ширина
                         if (isHeight) {
-                            for (String keyword : heightKeywords) {
-                                if (match.contains(keyword)) {
-                                    return num1;
-                                }
-                            }
+                            return firstNumber;  // ВЫСОТА
                         } else {
-                            for (String keyword : widthKeywords) {
-                                if (match.contains(keyword)) {
-                                    return num1;
-                                }
-                            }
+                            return secondNumber; // ШИРИНА
                         }
                     }
+
                 } catch (NumberFormatException e) {
-                    // continue
+                    System.out.println("Ошибка парсинга числа: " + e.getMessage());
+                    continue;
                 }
             }
         }
 
-        // Если не нашли, возвращаем стандартный размер
-        return 8; // Стандартная шахматная доска
+        System.out.println("Размер доски не найден в формате 'на доске X на Y'");
+        System.out.println("Возвращаем стандартный размер 8");
+        return 8;
     }
 
     /**
