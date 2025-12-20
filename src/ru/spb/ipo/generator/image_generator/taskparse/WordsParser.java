@@ -92,50 +92,54 @@ public class WordsParser {
     /**
      * Извлекает алфавит из текста задачи
      */
+    /**
+     * Извлекает алфавит из текста задачи
+     */
     private String extractAlphabet(String text) {
-        // Паттерны для поиска алфавита
+        // Паттерны для поиска алфавита в формате {буквы}
         Pattern[] patterns = {
-                // "алфавит A = {а, в, д }"
-                Pattern.compile("алфавит[а]?\\s+[A-ZА-Я]?\\s*=\\s*\\{([^}]+)\\}"),
-                Pattern.compile("\\{([^}]+)\\}\\s*\\)"), // {...})
-                Pattern.compile("букв[аы]?\\s+([А-Яа-я,\\s]+)"),
-                Pattern.compile("из\\s+букв\\s+([А-Яа-я,\\s]+)"),
-                Pattern.compile("использу[а-я]+\\s+([А-Яа-я,\\s]+)"),
-                Pattern.compile("состав[а-я]+\\s+из\\s+([А-Яа-я,\\s]+)")
+                // "алфавит A = {а, в, д}"
+                Pattern.compile("алфавит[а]?\\s+[A-ZА-Я]?\\s*=\\s*\\{([^}]*)\\}", Pattern.CASE_INSENSITIVE),
+                // "A = {а, в, д}"
+                Pattern.compile("[A-ZА-Я]\\s*=\\s*\\{([^}]*)\\}", Pattern.CASE_INSENSITIVE),
+                // просто "{а, в, д}"
+                Pattern.compile("\\{([^}]*)\\}\\s*[\\.\\)]", Pattern.CASE_INSENSITIVE),
+                // "множество {а, в, д}"
+                Pattern.compile("множеств[оа]?\\s+\\{([^}]*)\\}", Pattern.CASE_INSENSITIVE)
         };
 
         for (Pattern pattern : patterns) {
             Matcher matcher = pattern.matcher(text);
-            if (matcher.find() && matcher.group(1) != null) {
-                String letters = matcher.group(1);
-                // Очищаем строку от лишних символов
-                letters = letters.replaceAll("[,\\s{}]", "").trim();
+            if (matcher.find()) {
+                String letters = matcher.group(1).trim();
 
-                if (!letters.isEmpty()) {
+                // Если скобки пустые {}, возвращаем пустую строку
+                if (letters.isEmpty()) {
+                    return "";
+                }
+
+                // Очищаем строку от лишних символов
+                letters = letters.replaceAll("[,\\s]", "").trim();
+
+                // Проверяем, что остались только буквы
+                if (letters.matches("[А-Яа-яA-Z]+")) {
                     return letters.toUpperCase();
                 }
             }
         }
 
-        // Альтернативный поиск: ищем конкретные буквы в тексте
-        Set<Character> foundLetters = new TreeSet<>();
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
-            if ((c >= 'А' && c <= 'Я') || (c >= 'а' && c <= 'я')) {
-                foundLetters.add(Character.toUpperCase(c));
+        // Если явно указано "алфавит из букв: А, Б, В"
+        Pattern explicitPattern = Pattern.compile("алфавит[а]?\\s+из\\s+([А-Яа-я,\\s]+)\\s+букв", Pattern.CASE_INSENSITIVE);
+        Matcher explicitMatcher = explicitPattern.matcher(text);
+        if (explicitMatcher.find()) {
+            String letters = explicitMatcher.group(1).trim();
+            letters = letters.replaceAll("[,\\s]", "").trim();
+            if (!letters.isEmpty()) {
+                return letters.toUpperCase();
             }
         }
 
-        if (!foundLetters.isEmpty()) {
-            StringBuilder result = new StringBuilder();
-            for (Character c : foundLetters) {
-                result.append(c);
-            }
-            return result.toString();
-        }
-
-        // Убрано: демо-алфавит по умолчанию
-        // Если алфавит не найден, возвращаем пустую строку
+        // Если не найден явный алфавит в скобках, возвращаем пустую строку
         return "";
     }
 
@@ -189,39 +193,27 @@ public class WordsParser {
         // Если длина не найдена, возвращаем 0
         return 0;
     }
-
-    /**
+    
+     /**
      * Определяет, могут ли буквы повторяться
      */
     private boolean extractUniqueLetters(String text) {
         String lowerText = text.toLowerCase();
 
-        // Если явно указано, что буквы могут повторяться
-        if (lowerText.contains("буквы могут повторяться") ||
-                lowerText.contains("буквы повторяются") ||
-                lowerText.contains("с повторением") ||
-                lowerText.contains("могут повторяться")) {
+        // Проверяем ТОЛЬКО две конкретные фразы
+
+        // 1. "буквы в словах не могут повторяться"
+        if (lowerText.contains("буквы в словах не могут повторяться")) {
+            return true; // YES - буквы уникальные (не повторяются)
+        }
+
+        // 2. "буквы в словах могут повторяться"
+        if (lowerText.contains("буквы в словах могут повторяться")) {
             return false; // NO - буквы могут повторяться
         }
 
-        // Если указано, что буквы разные/не повторяются
-        if (lowerText.contains("буквы не повторяются") ||
-                lowerText.contains("без повторения") ||
-                lowerText.contains("различные буквы") ||
-                lowerText.contains("все буквы различны")) {
-            return true; // YES - буквы уникальные
-        }
-
-        // Если алфавит маленький, а длина слова большая - буквы должны повторяться
-        String alphabet = extractAlphabet(text);
-        int wordLength = extractWordLength(text);
-
-        if (wordLength > alphabet.length() && !alphabet.isEmpty()) {
-            return false; // Буквы должны повторяться
-        }
-
-        // Убрано: предположение по умолчанию
-        // Если не удалось определить, возвращаем false
+        // Если ни одна из фраз не найдена - ошибка в тексте
+        // По умолчанию возвращаем false (могут повторяться)
         return false;
     }
 

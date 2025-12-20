@@ -27,13 +27,10 @@ public class WordsImageGenerator {
         int wordLength = context.getWordLength();
         boolean uniqueLetters = context.isUniqueLetters();
 
-        // Убрана заглушка с демо-алфавитом
-        // Если alphabet пустой, просто работаем с пустой строкой
-
         // Рисуем информацию об алфавите и слове
         drawAlphabetAndWordInfo(g2d, alphabet, wordLength, uniqueLetters);
 
-        // Рисуем визуализацию позиций слова
+        // Рисуем визуализацию позиций слова (только если длина > 0)
         if (wordLength > 0) {
             drawWordVisualization(g2d, wordLength);
         }
@@ -56,12 +53,19 @@ public class WordsImageGenerator {
         g2d.setFont(new Font("Arial", Font.BOLD, 14));
         g2d.setColor(Color.BLACK);
 
-        // Форматируем алфавит
-        String formattedAlphabet = formatAlphabet(alphabet);
-        String alphabetText = "Алфавит: " + formattedAlphabet;
+        // Форматируем алфавит или показываем сообщение о пустом алфавите
+        String alphabetText;
+        if (alphabet == null || alphabet.isEmpty()) {
+            alphabetText = "Алфавит: не задан";
+            g2d.setColor(Color.RED); // Красный цвет для предупреждения
+        } else {
+            String formattedAlphabet = formatAlphabet(alphabet);
+            alphabetText = "Алфавит: " + formattedAlphabet;
+            g2d.setColor(Color.BLACK);
+        }
 
-        // Ограничиваем длину строки
-        if (alphabetText.length() > 50) {
+        // Ограничиваем длину строки (только для непустого алфавита)
+        if (alphabet != null && !alphabet.isEmpty() && alphabetText.length() > 50) {
             int maxLength = 47;
             alphabetText = alphabetText.substring(0, maxLength) + "...}";
         }
@@ -72,8 +76,9 @@ public class WordsImageGenerator {
 
         // Дополнительная информация: длина слова и уникальность букв
         int infoY = titleY + 25;
+        g2d.setColor(Color.BLACK); // Возвращаем черный цвет для остального текста
 
-        String lengthText = "Длина слова: " + wordLength;
+        String lengthText = "Длина слова: " + (wordLength > 0 ? wordLength : "не задана");
         String uniqueText = uniqueLetters ? " | Буквы не повторяются" : " | Буквы могут повторяться";
         String infoText = lengthText + uniqueText;
 

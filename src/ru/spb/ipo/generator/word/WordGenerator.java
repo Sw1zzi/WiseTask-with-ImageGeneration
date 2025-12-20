@@ -19,7 +19,7 @@ public class WordGenerator extends BaseGeneratorUI {
     }
 
     protected Dimension getGeneratorSize() {
-        return new Dimension(880, 450);
+        return new Dimension(1100, 500);
     }
 
     public static void main(String[] args) {
