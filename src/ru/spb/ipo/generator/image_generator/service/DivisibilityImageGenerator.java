@@ -29,8 +29,11 @@ public class DivisibilityImageGenerator {
         // Рисуем заголовок черным цветом
         drawTitle(g2d, digits);
 
+        // Получаем преобразование из контекста
+        String transformation = context.getTransformation();
+
         // Рисуем преобразование числа (левая часть + стрелка + правая часть)
-        drawNumberTransformation(g2d, digits);
+        drawNumberTransformation(g2d, digits, transformation);
 
         g2d.dispose();
         return image;
@@ -60,7 +63,7 @@ public class DivisibilityImageGenerator {
         g2d.drawString(title, (IMAGE_WIDTH - titleWidth) / 2, 25);
     }
 
-    private void drawNumberTransformation(Graphics2D g2d, int digits) {
+    private void drawNumberTransformation(Graphics2D g2d, int digits, String transformation) {
         // Рассчитываем общую ширину
         int leftPanelWidth = digits * DIGIT_WIDTH;
         int rightPanelWidth = digits * DIGIT_WIDTH;
@@ -77,9 +80,9 @@ public class DivisibilityImageGenerator {
         int arrowX = leftStartX + leftPanelWidth + 5;
         drawArrow(g2d, arrowX, centerY);
 
-        // Правая панель: новая комбинация (по умолчанию равна исходной)
+        // Правая панель: новая комбинация
         int rightStartX = arrowX + ARROW_WIDTH - 10;
-        drawNewNumber(g2d, rightStartX, centerY, digits);
+        drawNewNumber(g2d, rightStartX, centerY, digits, transformation);
     }
 
     private void drawOriginalNumber(Graphics2D g2d, int startX, int centerY, int digits) {
@@ -139,54 +142,84 @@ public class DivisibilityImageGenerator {
         g2d.drawString("→", x + 8, y + 10);
     }
 
-    private void drawNewDigit(Graphics2D g2d, int x, int y, int position, int totalDigits) {
-        // По умолчанию рисуем такую же позицию как в исходном числе
-        // Можно добавить вариативность: иногда показывать ту же позицию, иногда другую
-
-        boolean keepSamePosition = random.nextBoolean();
-        int displayPosition = keepSamePosition ? position : (random.nextInt(totalDigits) + 1);
-
-        // Цвет для новых позиций - красный или зеленый
-        Color bracketColor = keepSamePosition ?
-                new Color(0, 150, 0) : // Зеленый для тех же позиций
-                new Color(180, 60, 60); // Красный для измененных
-
-        // Рисуем скобку с номером позиции
-        g2d.setFont(new Font("Arial", Font.BOLD, 18));
-        g2d.setColor(bracketColor);
-
-        String bracket = "[" + displayPosition + "]";
-        g2d.drawString(bracket, x, y);
-
-        // Под цифрой: либо цифра, либо ?
-        g2d.setFont(new Font("Arial", Font.BOLD, 12));
-
-        boolean showDigit = random.nextBoolean();
-        if (showDigit) {
-            // Показываем случайную цифру
-            int randomDigit = random.nextInt(10);
-            g2d.setColor(Color.BLACK);
-            String digit = String.valueOf(randomDigit);
-
-            FontMetrics fm = g2d.getFontMetrics();
-            int digitWidth = fm.stringWidth(digit);
-            int digitX = x + (DIGIT_WIDTH - digitWidth) / 2;
-
-            g2d.drawString(digit, digitX, y + 15);
-        } else {
-            // Показываем знак вопроса
-            g2d.setColor(Color.GRAY);
-            String question = "?";
-
-            FontMetrics fm = g2d.getFontMetrics();
-            int qWidth = fm.stringWidth(question);
-            int qX = x + (DIGIT_WIDTH - qWidth) / 2;
-
-            g2d.drawString(question, qX, y + 15);
+    private void drawNewDigit(Graphics2D g2d, int x, int y, int position, int totalDigits, String transformation) {
+        // Если преобразование не указано, показываем ту же позицию
+        if (transformation == null || transformation.isEmpty()) {
+            drawSamePosition(g2d, x, y, position);
+            return;
         }
+
+        // Проверяем тип преобразования
+        String lowerTransformation = transformation.toLowerCase();
+
+        // Для REVERSE - обратный порядок
+        if (lowerTransformation.contains("reverse") || lowerTransformation.contains("обратном порядке")) {
+            int displayPosition = totalDigits - position + 1;
+            drawChangedPosition(g2d, x, y, position, displayPosition);
+            return;
+        }
+
+        // Для SWAP_FIRST_LAST - меняем первую и последнюю
+        if (lowerTransformation.contains("swap_first_last") || lowerTransformation.contains("первой и последней")) {
+            int displayPosition;
+            if (position == 1) {
+                displayPosition = totalDigits;
+            } else if (position == totalDigits) {
+                displayPosition = 1;
+            } else {
+                displayPosition = position;
+            }
+            drawChangedPosition(g2d, x, y, position, displayPosition);
+            return;
+        }
+
+        // Для других преобразований - показываем знак вопроса
+        drawQuestionMark(g2d, x, y);
     }
 
-    private void drawNewNumber(Graphics2D g2d, int startX, int centerY, int digits) {
+    private void drawSamePosition(Graphics2D g2d, int x, int y, int position) {
+        // Та же позиция - зеленый цвет
+        g2d.setFont(new Font("Arial", Font.BOLD, 18));
+        g2d.setColor(new Color(0, 150, 0)); // Зеленый
+
+        String bracket = "[" + position + "]";
+        g2d.drawString(bracket, x, y);
+
+        // Под цифрой: та же цифра
+        g2d.setFont(new Font("Arial", Font.PLAIN, 11));
+        g2d.setColor(Color.DARK_GRAY);
+        g2d.drawString("та же", x + 2, y + 15);
+    }
+
+    private void drawChangedPosition(Graphics2D g2d, int x, int y, int originalPosition, int newPosition) {
+        // Измененная позиция - красный цвет
+        g2d.setFont(new Font("Arial", Font.BOLD, 18));
+        g2d.setColor(new Color(180, 60, 60)); // Красный
+
+        String bracket = "[" + newPosition + "]";
+        g2d.drawString(bracket, x, y);
+
+        // Под цифрой: позиция изменена
+        g2d.setFont(new Font("Arial", Font.PLAIN, 10));
+        g2d.setColor(Color.DARK_GRAY);
+        g2d.drawString("было [" + originalPosition + "]", x, y + 15);
+    }
+
+    private void drawQuestionMark(Graphics2D g2d, int x, int y) {
+        // Неизвестное преобразование - серый цвет
+        g2d.setFont(new Font("Arial", Font.BOLD, 18));
+        g2d.setColor(Color.GRAY);
+
+        String bracket = "[?]";
+        g2d.drawString(bracket, x, y);
+
+        // Под цифрой: знак вопроса
+        g2d.setFont(new Font("Arial", Font.BOLD, 12));
+        g2d.setColor(Color.GRAY);
+        g2d.drawString("?", x + 8, y + 15);
+    }
+
+    private void drawNewNumber(Graphics2D g2d, int startX, int centerY, int digits, String transformation) {
         // Подпись "Новое"
         g2d.setFont(new Font("Arial", Font.PLAIN, 11));
         g2d.setColor(Color.DARK_GRAY);
@@ -195,10 +228,10 @@ public class DivisibilityImageGenerator {
         int labelWidth = fm.stringWidth(label);
         g2d.drawString(label, startX + (digits * DIGIT_WIDTH - labelWidth) / 2, centerY - 20);
 
-        // Рисуем новую комбинацию (по умолчанию такая же как исходная)
+        // Рисуем новую комбинацию в зависимости от преобразования
         for (int i = 0; i < digits; i++) {
             int digitX = startX + i * DIGIT_WIDTH;
-            drawNewDigit(g2d, digitX, centerY, i + 1, digits); // Добавляем digits как параметр
+            drawNewDigit(g2d, digitX, centerY, i + 1, digits, transformation);
         }
     }
 }

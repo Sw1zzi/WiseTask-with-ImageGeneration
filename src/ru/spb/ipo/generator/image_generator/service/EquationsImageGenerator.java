@@ -12,6 +12,9 @@ public class EquationsImageGenerator {
     private static final int LEFT_MARGIN = 20;
     private static final int RIGHT_MARGIN = 20;
 
+    // Константа для порога количества неизвестных
+    private static final int SIGMA_THRESHOLD = 6;
+
     private Random random = new Random();
 
     // Стили уравнений
@@ -21,8 +24,16 @@ public class EquationsImageGenerator {
     }
 
     public BufferedImage generateImage(ProblemContext context) {
-        // Случайно выбираем стиль (50/50)
-        EquationStyle style = random.nextBoolean() ? EquationStyle.CLASSIC : EquationStyle.SIGMA;
+        int unknowns = context.getUnknowns();
+        EquationStyle style;
+
+        // Если количество неизвестных больше порога - используем только сигма-нотацию
+        if (unknowns > SIGMA_THRESHOLD) {
+            style = EquationStyle.SIGMA;
+        } else {
+            // Иначе случайно выбираем стиль (50/50)
+            style = random.nextBoolean() ? EquationStyle.CLASSIC : EquationStyle.SIGMA;
+        }
 
         BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = image.createGraphics();

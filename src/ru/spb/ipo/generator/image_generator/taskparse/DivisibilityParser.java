@@ -70,7 +70,7 @@ public class DivisibilityParser {
         int numberLength = extractNumberLength(text);
         cdsl.append("NUMBER_LENGTH ").append(numberLength).append("\n");
 
-        // 3. TRANSFORMATION ["<правило1>", ...]
+        // 3. TRANSFORMATION - только если есть в тексте
         List<String> transformations = extractTransformations(text);
         if (!transformations.isEmpty()) {
             cdsl.append("TRANSFORMATION [");
@@ -81,13 +81,13 @@ public class DivisibilityParser {
             cdsl.append("]\n");
         }
 
-        // 4. Правило изменения: INCREASES_BY_FACTOR, DECREASES_BY_FACTOR и т.д.
+        // 4. Правило изменения - только если есть в тексте
         String changeRule = extractChangeRule(text);
         if (changeRule != null && !changeRule.isEmpty()) {
             cdsl.append(changeRule).append("\n");
         }
 
-        // 5. Делимость
+        // 5. Делимость - только если есть в тексте
         List<String> divisibilityConditions = extractDivisibilityConditions(text);
         if (!divisibilityConditions.isEmpty()) {
             cdsl.append("DIVISIBILITY_RULES [");
@@ -98,7 +98,7 @@ public class DivisibilityParser {
             cdsl.append("]\n");
         }
 
-        // 6. Позиции цифр
+        // 6. Позиции цифр - только если есть в тексте
         List<String> digitPositions = extractDigitPositions(text);
         if (!digitPositions.isEmpty()) {
             cdsl.append("DIGIT_POSITIONS [");
@@ -109,7 +109,7 @@ public class DivisibilityParser {
             cdsl.append("]\n");
         }
 
-        // 7. Ограничения на цифры
+        // 7. Ограничения на цифры - только если есть в тексте
         List<String> digitConstraints = extractDigitConstraints(text);
         if (!digitConstraints.isEmpty()) {
             cdsl.append("DIGIT_CONSTRAINTS [");
@@ -173,18 +173,6 @@ public class DivisibilityParser {
             }
         }
 
-        // Проверяем словесные обозначения
-        if (lowerText.contains("однозначн") || lowerText.contains("1-значн")) return 1;
-        if (lowerText.contains("двузначн") || lowerText.contains("2-значн") || lowerText.contains("двухзначн")) return 2;
-        if (lowerText.contains("трехзначн") || lowerText.contains("3-значн") || lowerText.contains("трёхзначн")) return 3;
-        if (lowerText.contains("четырехзначн") || lowerText.contains("4-значн") || lowerText.contains("четырёхзначн")) return 4;
-        if (lowerText.contains("пятизначн") || lowerText.contains("5-значн")) return 5;
-        if (lowerText.contains("шестизначн") || lowerText.contains("6-значн")) return 6;
-        if (lowerText.contains("семизначн") || lowerText.contains("7-значн")) return 7;
-        if (lowerText.contains("восьмизначн") || lowerText.contains("8-значн")) return 8;
-        if (lowerText.contains("девятизначн") || lowerText.contains("9-значн")) return 9;
-        if (lowerText.contains("десятизначн") || lowerText.contains("10-значн")) return 10;
-
         // По умолчанию: 3-значные числа
         return 3;
     }
@@ -242,7 +230,7 @@ public class DivisibilityParser {
             }
         }
 
-        // 2. ЗАМЕНА ЦИФР
+        // 2. ЗАМЕНА ЦИФР - только если явно указано
         if (lowerText.contains("замен") || lowerText.contains("изменение цифр")) {
             Pattern replacementPattern = Pattern.compile("замен[аеу]\\s+([\\d\\sи,]+)\\s+на\\s+([\\d\\sи,]+)");
             Matcher replacementMatcher = replacementPattern.matcher(lowerText);
@@ -254,7 +242,7 @@ public class DivisibilityParser {
             }
         }
 
-        // 3. УДАЛЕНИЕ/ДОБАВЛЕНИЕ ЦИФР
+        // 3. УДАЛЕНИЕ/ДОБАВЛЕНИЕ ЦИФР - только если явно указано
         if (lowerText.contains("удален") || lowerText.contains("убрать")) {
             transformations.add("REMOVE_DIGITS");
         }
@@ -368,7 +356,7 @@ public class DivisibilityParser {
         };
 
         for (Pattern pattern : patterns) {
-            Matcher matcher = pattern.matcher(text); // Используем оригинальный текст для регистра
+            Matcher matcher = pattern.matcher(text);
             while (matcher.find()) {
                 if (pattern.pattern().contains("остаток") && matcher.groupCount() >= 2) {
                     String divisor = matcher.group(1);
@@ -381,32 +369,7 @@ public class DivisibilityParser {
             }
         }
 
-        // Специальные признаки делимости
-        if (lowerText.contains("четн") || lowerText.contains("делится на 2")) {
-            conditions.add("DIVISIBLE_BY 2");
-        }
-        if (lowerText.contains("сумма цифр делится на 3") || lowerText.contains("делится на 3")) {
-            conditions.add("SUM_DIGITS_DIVISIBLE_BY 3");
-        }
-        if (lowerText.contains("последние две цифры делятся на 4") || lowerText.contains("делится на 4")) {
-            conditions.add("LAST_TWO_DIGITS_DIVISIBLE_BY 4");
-        }
-        if (lowerText.contains("оканчивается на 0 или 5") || lowerText.contains("делится на 5")) {
-            conditions.add("DIVISIBLE_BY 5");
-        }
-        if (lowerText.contains("делится на 6")) {
-            conditions.add("DIVISIBLE_BY 6");
-        }
-        if (lowerText.contains("делится на 8")) {
-            conditions.add("LAST_THREE_DIGITS_DIVISIBLE_BY 8");
-        }
-        if (lowerText.contains("сумма цифр делится на 9") || lowerText.contains("делится на 9")) {
-            conditions.add("SUM_DIGITS_DIVISIBLE_BY 9");
-        }
-        if (lowerText.contains("оканчивается на 0") || lowerText.contains("делится на 10")) {
-            conditions.add("DIVISIBLE_BY 10");
-        }
-
+        // Убраны условия по умолчанию
         return conditions;
     }
 
@@ -524,11 +487,6 @@ public class DivisibilityParser {
             result = result.substring(0, result.length() - 1);
         }
 
-        // Если название слишком короткое, добавляем контекст
-        if (result.split("\\s+").length < 3) {
-            result += " (делимость)";
-        }
-
         return result;
     }
 
@@ -546,13 +504,14 @@ public class DivisibilityParser {
         int numberLength = extractNumberLength(text);
         context.setDigits(numberLength);
 
-        // Устанавливаем преобразование
+        // Устанавливаем преобразование только если оно есть
         List<String> transformations = extractTransformations(text);
-        String transformation = transformations.isEmpty() ? "увеличивается в целое число раз" :
-                String.join(" и ", transformations);
-        context.setTransformation(transformation);
+        if (!transformations.isEmpty()) {
+            String transformation = String.join(" и ", transformations);
+            context.setTransformation(transformation);
+        }
 
-        // Устанавливаем правило изменения
+        // Устанавливаем правило изменения только если оно есть
         String changeRule = extractChangeRule(text);
         if (changeRule != null) {
             parseChangeRule(changeRule, context);
@@ -561,17 +520,17 @@ public class DivisibilityParser {
         // Устанавливаем расчет
         context.setCalculationType("COMBINATIONS");
 
-        // Добавляем условия делимости
+        // Добавляем условия делимости только если они есть
         List<String> divisibilityConditions = extractDivisibilityConditions(text);
         for (String condition : divisibilityConditions) {
             context.addDivisibilityCondition(condition);
         }
 
-        // Добавляем позиции цифр
+        // Добавляем позиции цифр только если они есть
         List<String> digitPositions = extractDigitPositions(text);
         context.setDigitPositions(digitPositions);
 
-        // Добавляем ограничения на цифры
+        // Добавляем ограничения на цифры только если они есть
         List<String> digitConstraints = extractDigitConstraints(text);
         for (String constraint : digitConstraints) {
             context.addGeneralCondition(constraint);
@@ -579,12 +538,6 @@ public class DivisibilityParser {
 
         // Сохраняем исходный текст
         context.setParameter("originalText", text);
-
-        // Устанавливаем максимальную цифру (по умолчанию 9)
-        context.setMaxDigit(9);
-
-        // Первая цифра не ноль (по умолчанию для многозначных чисел)
-        context.setFirstNotZero(numberLength > 1);
     }
 
     /**
@@ -604,8 +557,7 @@ public class DivisibilityParser {
                             context.setFactor(factor);
                             context.setOperationType("INCREASE_BY_FACTOR");
                         } catch (NumberFormatException e) {
-                            context.setFactor(2);
-                            context.setOperationType("INCREASE_BY_FACTOR");
+                            // Оставляем пустым
                         }
                     }
                     break;
@@ -617,8 +569,7 @@ public class DivisibilityParser {
                             context.setFactor(factor);
                             context.setOperationType("DECREASE_BY_FACTOR");
                         } catch (NumberFormatException e) {
-                            context.setFactor(2);
-                            context.setOperationType("DECREASE_BY_FACTOR");
+                            // Оставляем пустым
                         }
                     }
                     break;

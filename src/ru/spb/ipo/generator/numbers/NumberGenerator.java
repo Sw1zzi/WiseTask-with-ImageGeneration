@@ -17,7 +17,7 @@ public class NumberGenerator extends BaseGeneratorUI {
     }
 
     protected Dimension getGeneratorSize() {
-        return new Dimension(920, 430);
+        return new Dimension(1150, 550);
     }
 
     /**

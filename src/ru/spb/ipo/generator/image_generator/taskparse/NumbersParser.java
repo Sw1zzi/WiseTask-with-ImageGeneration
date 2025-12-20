@@ -70,21 +70,29 @@ public class NumbersParser {
         int digits = extractDigits(text);
         cdsl.append("DIGITS ").append(digits).append("\n");
 
-        // 3. DISTINCT YES|NO
+        // 3. MAX_DIGIT <n>
+        int maxDigit = extractMaxDigit(text);
+        cdsl.append("MAX_DIGIT ").append(maxDigit).append("\n");
+
+        // 4. FIRST_NOT_ZERO YES|NO
+        boolean firstNotZero = extractFirstNotZero(text);
+        cdsl.append("FIRST_NOT_ZERO ").append(firstNotZero ? "YES" : "NO").append("\n");
+
+        // 5. DISTINCT YES|NO
         boolean distinct = extractDistinctDigits(text);
         cdsl.append("DISTINCT ").append(distinct ? "YES" : "NO").append("\n");
 
-        // 4. ADJACENT_DIFFERENT YES|NO
+        // 6. ADJACENT_DIFFERENT YES|NO
         boolean adjacentDifferent = extractAdjacentDifferent(text);
         cdsl.append("ADJACENT_DIFFERENT ").append(adjacentDifferent ? "YES" : "NO").append("\n");
 
-        // 5. Порядок: INCREASING | NON_DECREASING | DECREASING | NON_INCREASING
+        // 7. Порядок: INCREASING | NON_DECREASING | DECREASING | NON_INCREASING
         String order = extractOrder(text);
         if (order != null && !order.isEmpty()) {
             cdsl.append(order).append("\n");
         }
 
-        // 6. Дополнительные условия (состав числа)
+        // 8. Дополнительные условия (состав числа)
         List<String> compositionConditions = extractCompositionConditions(text);
         if (!compositionConditions.isEmpty()) {
             cdsl.append("COMPOSITION [");
@@ -95,7 +103,7 @@ public class NumbersParser {
             cdsl.append("]\n");
         }
 
-        // 7. Делимость
+        // 9. Делимость
         List<String> divisibilityConditions = extractDivisibilityConditions(text);
         if (!divisibilityConditions.isEmpty()) {
             cdsl.append("DIVISIBILITY [");
@@ -106,16 +114,58 @@ public class NumbersParser {
             cdsl.append("]\n");
         }
 
-        // 8. Сравнение чисел
+        // 10. Сравнение чисел
         String comparison = extractComparison(text);
         if (comparison != null && !comparison.isEmpty()) {
             cdsl.append(comparison).append("\n");
         }
 
-        // 9. CALCULATE COMBINATIONS
+        // 11. CALCULATE COMBINATIONS
         cdsl.append("CALCULATE COMBINATIONS");
 
         return cdsl.toString();
+    }
+
+    /**
+     * Определяет, должна ли первая цифра быть не нулем
+     */
+    private boolean extractFirstNotZero(String text) {
+        String lowerText = text.toLowerCase();
+
+        // Правило: если говорится о "наборах чисел" или "наборах цифр" -
+        // тогда первая цифра МОЖЕТ быть 0
+        // Иначе (обычные "числа" или "цифры") - первая цифра НЕ может быть 0
+
+        boolean isNumberSet = lowerText.contains("набор") &&
+                (lowerText.contains("чисел") || lowerText.contains("цифр"));
+
+        // Если это "наборы чисел/цифр" - первая цифра МОЖЕТ быть 0
+        if (isNumberSet) {
+            return false; // NO - первая может быть 0
+        }
+
+        // Проверяем явные указания в тексте
+        if (lowerText.contains("первая цифра не может быть 0") ||
+                lowerText.contains("первая цифра не 0") ||
+                lowerText.contains("число не может начинаться с 0") ||
+                lowerText.contains("не начинается с 0")) {
+            return true; // YES - первая не может быть 0
+        }
+
+        if (lowerText.contains("первая цифра может быть 0") ||
+                lowerText.contains("может начинаться с 0") ||
+                lowerText.contains("начинается с 0")) {
+            return false; // NO - первая может быть 0
+        }
+
+        // Для однозначных чисел всегда может быть 0
+        int digits = extractDigits(text);
+        if (digits == 1) {
+            return false; // NO - для 1-значных 0 допустим
+        }
+
+        // По умолчанию: для многозначных чисел первая цифра НЕ 0
+        return digits > 1;
     }
 
     /**
@@ -177,6 +227,75 @@ public class NumbersParser {
 
         // По умолчанию: 3-значные числа (самый частый случай)
         return 3;
+    }
+
+    /**
+     * Извлекает максимальную цифру (от 0 до X)
+     */
+    private int extractMaxDigit(String text) {
+        String lowerText = text.toLowerCase();
+
+        // Паттерн для поиска "цифр от 0 до X" или "цифр 0-9"
+        Pattern[] patterns = {
+                Pattern.compile("цифр\\s+от\\s+\\d+\\s+до\\s+(\\d+)"),
+                Pattern.compile("цифр\\s+0\\s*-\\s*(\\d+)"),
+                Pattern.compile("цифр\\s+(\\d)\\s*-\\s*(\\d+)"),
+                Pattern.compile("цифр[ы]?\\s+(?:от\\s+)?0\\s*до\\s*(\\d+)"),
+                Pattern.compile("используются цифры\\s+(?:от\\s+)?0\\s*до\\s*(\\d+)"),
+                Pattern.compile("цифр[аы]?\\s+из\\s+диапазона\\s+0\\s*-\\s*(\\d+)")
+        };
+
+        for (Pattern pattern : patterns) {
+            Matcher matcher = pattern.matcher(lowerText);
+            if (matcher.find()) {
+                try {
+                    // Для паттерна с двумя группами (цифр X-Y)
+                    if (pattern.pattern().contains("(\\d)\\s*-\\s*(\\d+)")) {
+                        if (matcher.groupCount() >= 2) {
+                            String maxDigitStr = matcher.group(2);
+                            return Integer.parseInt(maxDigitStr);
+                        }
+                    }
+                    // Для других паттернов
+                    else if (matcher.groupCount() >= 1) {
+                        String maxDigitStr = matcher.group(1);
+                        return Integer.parseInt(maxDigitStr);
+                    }
+                } catch (NumberFormatException e) {
+                    // continue
+                }
+            }
+        }
+
+        // Если явно указано "цифр от 0 до 9"
+        if (lowerText.contains("цифр от 0 до 9")) {
+            return 9;
+        }
+
+        // Если указано "цифр 0-9"
+        if (lowerText.contains("цифр 0-9")) {
+            return 9;
+        }
+
+        // Если указано просто "цифр" без диапазона
+        if (lowerText.contains("цифр") && !lowerText.contains("от") && !lowerText.contains("до")) {
+            // По умолчанию 9 для стандартных десятичных цифр
+            return 9;
+        }
+
+        // Проверяем другие варианты
+        Pattern singleDigitPattern = Pattern.compile("цифр[аы]?\\s+(\\d)");
+        Matcher singleMatcher = singleDigitPattern.matcher(lowerText);
+        if (singleMatcher.find()) {
+            try {
+                return Integer.parseInt(singleMatcher.group(1));
+            } catch (NumberFormatException e) {
+                // continue
+            }
+        }
+
+        // По умолчанию возвращаем 9
+        return 9;
     }
 
     /**
@@ -482,6 +601,13 @@ public class NumbersParser {
         int digits = extractDigits(text);
         context.setDigits(digits);
 
+        int maxDigit = extractMaxDigit(text);
+        context.setMaxDigit(maxDigit);
+
+        // Определяем, может ли первая цифра быть 0
+        boolean firstNotZero = extractFirstNotZero(text);
+        context.setFirstNotZero(firstNotZero);
+
         boolean distinct = extractDistinctDigits(text);
         context.setDistinctDigits(distinct);
 
@@ -517,12 +643,6 @@ public class NumbersParser {
 
         // Сохраняем исходный текст
         context.setParameter("originalText", text);
-
-        // Устанавливаем максимальную цифру (по умолчанию 9)
-        context.setMaxDigit(9);
-
-        // Первая цифра не ноль (по умолчанию для многозначных чисел)
-        context.setFirstNotZero(digits > 1);
     }
 
     /**

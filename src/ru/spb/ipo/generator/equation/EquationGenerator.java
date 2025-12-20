@@ -14,7 +14,7 @@ public class EquationGenerator extends BaseGeneratorUI {
     }
 
     protected Dimension getGeneratorSize() {
-        return new Dimension(840, 420);
+        return new Dimension(1050, 500);
     }
 
     protected ConstraintPanel getFunctionPanel() {
