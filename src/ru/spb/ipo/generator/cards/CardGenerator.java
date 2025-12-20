@@ -377,7 +377,7 @@ public class CardGenerator extends BaseGeneratorUI {
 
 
     protected Dimension getGeneratorSize() {
-        return new Dimension(830, 400);
+        return new Dimension(1050, 500);
     }
 
     public String getHelpString() {

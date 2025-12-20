@@ -63,39 +63,31 @@ public class CDSLTokenizer {
     private static List<Token> tokenizeLine(String line, int lineNumber) {
         List<Token> tokens = new ArrayList<>();
 
-        // Пропускаем пустые строки и комментарии (начинающиеся с //)
         if (line.isEmpty() || line.startsWith("//")) {
             return tokens;
         }
 
-        // Для сравнения без учета регистра создаем копию строки в верхнем регистре
         String upperLine = line.toUpperCase();
-        int pos = 0; // Текущая позиция в строке
-        int column = 1; // Текущая колонка (начинается с 1)
+        int pos = 0;
+        int column = 1;
 
-        // Последовательно анализируем строку, пока не достигнем конца
         while (pos < upperLine.length()) {
-            boolean matched = false; // Флаг, указывающий, что токен был распознан
+            boolean matched = false;
 
-            // Пропускаем пробельные символы
             if (Character.isWhitespace(upperLine.charAt(pos))) {
                 pos++;
                 column++;
                 continue;
             }
 
-            // ============================================================
-            // ПРАВИЛО 1: Распознавание строк в кавычках
-            // ============================================================
+
             if (line.charAt(pos) == '"') {
                 int endQuote = line.indexOf('"', pos + 1);
 
                 if (endQuote != -1) {
-                    // Извлекаем строку вместе с кавычками
                     String stringValue = line.substring(pos, endQuote + 1);
                     tokens.add(new Token(TokenType.STRING, stringValue, lineNumber, column));
 
-                    // Перемещаем позицию за закрывающей кавычкой
                     pos = endQuote + 1;
                     column += stringValue.length();
                     matched = true;
@@ -103,17 +95,12 @@ public class CDSLTokenizer {
                 }
             }
 
-            // ============================================================
-            // ПРАВИЛО 2: Распознавание позиций цифр [1], [2], и т.д.
-            // ============================================================
             if (upperLine.charAt(pos) == '[') {
                 int endBracket = upperLine.indexOf(']', pos + 1);
 
                 if (endBracket != -1) {
-                    // Извлекаем содержимое между скобками
                     String between = upperLine.substring(pos + 1, endBracket);
 
-                    // Проверяем, состоит ли содержимое только из цифр
                     if (between.matches("\\d+")) {
                         String digitPos = line.substring(pos, endBracket + 1);
                         tokens.add(new Token(TokenType.DIGIT_POSITION, digitPos, lineNumber, column));
@@ -126,13 +113,9 @@ public class CDSLTokenizer {
                 }
             }
 
-            // ============================================================
-            // ПРАВИЛО 3: Распознавание чисел (последовательность цифр)
-            // ============================================================
             if (Character.isDigit(upperLine.charAt(pos))) {
-                int start = pos; // Запоминаем начало числа
+                int start = pos;
 
-                // Продвигаемся, пока идут цифры
                 while (pos < upperLine.length() && Character.isDigit(upperLine.charAt(pos))) {
                     pos++;
                 }
@@ -146,14 +129,10 @@ public class CDSLTokenizer {
                 continue;
             }
 
-            // ============================================================
-            // ПРАВИЛО 4: Распознавание ключевых слов и многословных токенов
-            // ============================================================
-            // Получаем упорядоченный список типов токенов (длинные паттерны в начале)
+
             List<TokenType> orderedTokenTypes = getOrderedTokenTypes();
 
             for (TokenType tokenType : orderedTokenTypes) {
-                // Пропускаем токены, которые уже обработаны другими правилами
                 if (tokenType == TokenType.UNKNOWN ||
                         tokenType == TokenType.STRING ||
                         tokenType == TokenType.INTEGER ||
@@ -161,8 +140,7 @@ public class CDSLTokenizer {
                     continue;
                 }
 
-                // Создаем регулярное выражение для текущего типа токена
-                // ^ означает начало подстроки, CASE_INSENSITIVE - без учета регистра
+
                 Pattern pattern = Pattern.compile("^" + tokenType.getPattern(), Pattern.CASE_INSENSITIVE);
                 Matcher matcher = pattern.matcher(upperLine.substring(pos));
 
@@ -477,41 +455,32 @@ public class CDSLTokenizer {
      * @return true, если это отдельное слово/фраза, false в противном случае
      */
     private static boolean isWholeWordOrPhrase(String value, String upperLine, int pos, String originalLine) {
-        // ============================================================
-        // ОСОБЫЙ СЛУЧАЙ: Шахматные фигуры без префикса CHESS_
-        // ============================================================
+
         if (value.equals("ROOK") || value.equals("KNIGHT") || value.equals("BISHOP") ||
                 value.equals("QUEEN") || value.equals("KING") || value.equals("PAWN")) {
             return isWholeWord(value, upperLine, pos);
         }
 
-        // ============================================================
-        // ОСОБЫЙ СЛУЧАЙ: Многословные фразы (содержат пробелы или длинные)
-        // ============================================================
+
         if (value.contains(" ") || value.length() > 15) {
-            // Проверяем, что перед фразой нет буквенно-цифровых символов
             if (pos > 0) {
                 char prevChar = upperLine.charAt(pos - 1);
                 if (Character.isLetterOrDigit(prevChar) || prevChar == '_') {
-                    return false; // Это часть более длинного слова
+                    return false;
                 }
             }
 
-            // Проверяем, что после фразы нет буквенно-цифровых символов
             int endPos = pos + value.length();
             if (endPos < upperLine.length()) {
                 char nextChar = upperLine.charAt(endPos);
                 if (Character.isLetterOrDigit(nextChar) || nextChar == '_') {
-                    return false; // Это часть более длинного слова
+                    return false;
                 }
             }
 
-            return true; // Это отдельная фраза
+            return true;
         }
 
-        // ============================================================
-        // ОБЩИЙ СЛУЧАЙ: Обычные токены
-        // ============================================================
         return isWholeWord(value, upperLine, pos);
     }
 
@@ -527,12 +496,10 @@ public class CDSLTokenizer {
      */
     private static boolean checkSingleCharacters(String line, int pos, List<Token> tokens,
                                                  int lineNumber, int column) {
-        char c = line.charAt(pos); // Текущий символ
+        char c = line.charAt(pos);
 
         switch (c) {
-            // ====================================================
-            // СКОБКИ И РАЗДЕЛИТЕЛИ
-            // ====================================================
+
             case '[':
                 tokens.add(new Token(TokenType.LBRACKET, "[", lineNumber, column));
                 return true;
@@ -635,25 +602,21 @@ public class CDSLTokenizer {
      * @return true, если это целое слово, false в противном случае
      */
     private static boolean isWholeWord(String value, String line, int pos) {
-        // Проверяем символ перед словом
         if (pos > 0) {
             char prevChar = line.charAt(pos - 1);
-            // Если перед словом буква, цифра или подчеркивание - это часть слова
             if (Character.isLetterOrDigit(prevChar) || prevChar == '_') {
                 return false;
             }
         }
 
-        // Проверяем символ после слова
         int endPos = pos + value.length();
         if (endPos < line.length()) {
             char nextChar = line.charAt(endPos);
-            // Если после слова буква, цифра или подчеркивание - это часть слова
             if (Character.isLetterOrDigit(nextChar) || nextChar == '_') {
                 return false;
             }
         }
 
-        return true; // Слово отделено не-буквенно-цифровыми символами
+        return true;
     }
 }

@@ -22,23 +22,14 @@ public class CardParser {
      * Основной метод парсинга карточной задачи
      */
     public String parse(String taskTitle, String taskText) {
-        // 1. Анализируем текст задачи и преобразуем в CDSL
         String cdslCode = analyzeAndConvertToCDSL(taskText);
 
-        // 2. Токенизация и парсинг CDSL кода
         try {
             List<Token> tokens = CDSLTokenizer.tokenize(cdslCode);
 
-            // 3. Парсинг в AST
             CDSLParser parser = new CDSLParser(tokens);
             ASTNode ast = parser.parse();
 
-            /*
-            System.out.println("\nАбстрактное синтаксическое дерево (AST):");
-            printAST(ast, 0);
-            */
-
-            // 4. Интерпретация AST
             ProblemContext context = ProblemInterpreter.interpret(ast);
             this.lastContext = context;
 
@@ -54,20 +45,15 @@ public class CardParser {
     private String analyzeAndConvertToCDSL(String text) {
         StringBuilder cdsl = new StringBuilder();
 
-        // 1. TASK CARDS "Название"
         cdsl.append("TASK CARDS \"").append(extractTaskName(text)).append("\"\n");
 
-        // 2. DECK STANDARD <размер>
         int deckSize = extractDeckSize(text);
         cdsl.append("DECK STANDARD ").append(deckSize).append("\n");
 
-        // 3. DRAW <количество> <тип>
         int drawCount = extractDrawCount(text);
         boolean withReplacement = extractReplacementType(text);
         cdsl.append("DRAW ").append(drawCount).append(" ");
-        cdsl.append(withReplacement ? "REPLACEMENT" : "NO_REPLACEMENT").append("\n");
 
-        // 4. TARGET [карты...]
         List<CardInfo> targetCards = extractTargetCards(text);
         if (!targetCards.isEmpty()) {
             cdsl.append("TARGET [");
@@ -79,7 +65,6 @@ public class CardParser {
             cdsl.append("]\n");
         }
 
-        // 5. CALCULATE PROBABILITY
         cdsl.append("CALCULATE PROBABILITY");
 
         return cdsl.toString();
@@ -170,14 +155,13 @@ public class CardParser {
                 {"двойка треф", "2 треф", "двойка треф", "2 треф", "двойка ♣", "2 ♣", "2", "CLUBS"}
         };
 
-        // Проверяем каждую карту
         for (String[] cardInfo : allCards) {
-            for (int i = 0; i < cardInfo.length - 2; i++) { // -2 потому что последние 2 элемента это rank и suit
+            for (int i = 0; i < cardInfo.length - 2; i++) {
                 if (lowerText.contains(cardInfo[i])) {
                     String rank = cardInfo[cardInfo.length - 2];
                     String suit = cardInfo[cardInfo.length - 1];
                     cards.add(new CardInfo(rank, suit));
-                    break; // Нашли карту, переходим к следующей
+                    break;
                 }
             }
         }
@@ -209,13 +193,6 @@ public class CardParser {
             if (lowerText.contains("семерк") && !lowerText.contains("не семерк")) {
                 cards.add(new CardInfo("7", getRandomSuit()));
             }
-        }
-
-        // Если все еще пусто, добавляем демо-карты
-        if (cards.isEmpty()) {
-            cards.add(new CardInfo("ACE", "HEARTS"));
-            cards.add(new CardInfo("KING", "SPADES"));
-            cards.add(new CardInfo("QUEEN", "DIAMONDS"));
         }
 
         // Ограничиваем количество карт количеством вытягиваемых карт
@@ -262,17 +239,15 @@ public class CardParser {
                 try {
                     return Integer.parseInt(number);
                 } catch (NumberFormatException e) {
-                    // ignore
                 }
             }
         }
 
-        // Проверяем стандартные размеры
         if (text.contains("36 карт")) return 36;
         if (text.contains("52 карт")) return 52;
         if (text.contains("54 карт")) return 54;
 
-        return 36; // По умолчанию
+        return 36;
     }
 
     /**
@@ -283,19 +258,14 @@ public class CardParser {
 
         // Варианты паттернов (в порядке приоритета)
         Pattern[] patterns = {
-                // 1. "вытаскивают случайным образом 3 карты"
                 Pattern.compile("вытаскивают\\s+(?:случайным образом\\s+)?(\\d+)\\s+карт"),
 
-                // 2. "вытаскивают 3 карты случайным образом"
                 Pattern.compile("вытаскивают\\s+(\\d+)\\s+карт(?:\\s+случайным образом)?"),
 
-                // 3. "случайным образом вытаскивают 3 карты"
                 Pattern.compile("случайным образом\\s+вытаскивают\\s+(\\d+)\\s+карт"),
 
-                // 4. "из колоды вытаскивают 3 карты"
                 Pattern.compile("из\\s+колод\\w*\\s+вытаскивают\\s+(\\d+)\\s+карт"),
 
-                // 5. Просто "3 карты"
                 Pattern.compile("(\\d+)\\s+карт\\b")
         };
 
@@ -306,24 +276,20 @@ public class CardParser {
                 try {
                     return Integer.parseInt(matcher.group(1));
                 } catch (NumberFormatException e) {
-                    // ignore
                 }
             }
         }
 
-        // Если ничего не нашли, ищем просто число перед "карт"
         Pattern simplePattern = Pattern.compile("(\\d+)\\s*карт");
         Matcher simpleMatcher = simplePattern.matcher(lowerText);
         while (simpleMatcher.find()) {
             try {
                 int count = Integer.parseInt(simpleMatcher.group(1));
-                // Проверяем, что это не размер колоды
                 String before = lowerText.substring(0, simpleMatcher.start());
                 if (!before.contains("колод") && !before.contains("в " + count + " карт")) {
                     return count;
                 }
             } catch (NumberFormatException e) {
-                // ignore
             }
         }
 

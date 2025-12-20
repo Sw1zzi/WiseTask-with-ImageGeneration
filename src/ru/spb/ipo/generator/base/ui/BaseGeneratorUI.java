@@ -530,6 +530,7 @@ public abstract class BaseGeneratorUI extends JFrame {
         try {
             // Очищаем панель с изображениями
             getImageListPanel().removeAll();
+            getImageListPanel().setBorder(null);
             imagesList.clear();
 
             // Конвертируем BufferedImage в ImageIcon
@@ -953,7 +954,7 @@ public abstract class BaseGeneratorUI extends JFrame {
         if (images == null) {
             images = new JPanel();
             images.setLayout(new BorderLayout());
-            images.setPreferredSize(new Dimension(0, 170));
+            images.setPreferredSize(new Dimension(0, 190));
             images.setBorder(BorderFactory.createTitledBorder(null, "\u041a\u0430\u0440\u0442\u0438\u043d\u043a\u0430 \u043a \u0437\u0430\u0434\u0430\u0447\u0435", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)));
             images.add(getImagePanel(), BorderLayout.CENTER);
             images.add(getImageButtonsPanel(), BorderLayout.SOUTH);
@@ -1189,7 +1190,7 @@ public abstract class BaseGeneratorUI extends JFrame {
     }
 
     protected Dimension getGeneratorSize() {
-        return new Dimension(830, 400);
+        return new Dimension(1100, 500);
     }
 
     /**

@@ -134,8 +134,9 @@ public class WordsParser {
             return result.toString();
         }
 
-        // По умолчанию: русский алфавит (сокращенный)
-        return "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+        // Убрано: демо-алфавит по умолчанию
+        // Если алфавит не найден, возвращаем пустую строку
+        return "";
     }
 
     /**
@@ -184,8 +185,9 @@ public class WordsParser {
         if (lowerText.contains("девятибуквенн") || lowerText.contains("9 букв")) return 9;
         if (lowerText.contains("десятибуквенн") || lowerText.contains("10 букв")) return 10;
 
-        // По умолчанию: 5 букв (самый частый случай)
-        return 5;
+        // Убрано: демо-значение по умолчанию (5 букв)
+        // Если длина не найдена, возвращаем 0
+        return 0;
     }
 
     /**
@@ -214,11 +216,12 @@ public class WordsParser {
         String alphabet = extractAlphabet(text);
         int wordLength = extractWordLength(text);
 
-        if (wordLength > alphabet.length()) {
+        if (wordLength > alphabet.length() && !alphabet.isEmpty()) {
             return false; // Буквы должны повторяться
         }
 
-        // По умолчанию: буквы могут повторяться (более частый случай в задачах)
+        // Убрано: предположение по умолчанию
+        // Если не удалось определить, возвращаем false
         return false;
     }
 
@@ -419,14 +422,16 @@ public class WordsParser {
         // Сохраняем исходный текст
         context.setParameter("originalText", text);
 
-        // Определяем гласные и согласные для алфавита
-        String vowels = extractVowels(alphabet);
-        String consonants = extractConsonants(alphabet);
-        context.setParameter("vowels", vowels);
-        context.setParameter("consonants", consonants);
-        context.setParameter("alphabetSize", alphabet.length());
-        context.setParameter("vowelsCount", vowels.length());
-        context.setParameter("consonantsCount", consonants.length());
+        // Определяем гласные и согласные для алфавита (только если алфавит не пустой)
+        if (alphabet != null && !alphabet.isEmpty()) {
+            String vowels = extractVowels(alphabet);
+            String consonants = extractConsonants(alphabet);
+            context.setParameter("vowels", vowels);
+            context.setParameter("consonants", consonants);
+            context.setParameter("alphabetSize", alphabet.length());
+            context.setParameter("vowelsCount", vowels.length());
+            context.setParameter("consonantsCount", consonants.length());
+        }
     }
 
     /**
@@ -455,6 +460,10 @@ public class WordsParser {
      * Извлекает гласные из алфавита
      */
     private String extractVowels(String alphabet) {
+        if (alphabet == null || alphabet.isEmpty()) {
+            return "";
+        }
+
         StringBuilder vowels = new StringBuilder();
         for (char c : alphabet.toCharArray()) {
             if (isVowel(c)) {
@@ -468,6 +477,10 @@ public class WordsParser {
      * Извлекает согласные из алфавита
      */
     private String extractConsonants(String alphabet) {
+        if (alphabet == null || alphabet.isEmpty()) {
+            return "";
+        }
+
         StringBuilder consonants = new StringBuilder();
         for (char c : alphabet.toCharArray()) {
             if (!isVowel(c) && Character.isLetter(c)) {

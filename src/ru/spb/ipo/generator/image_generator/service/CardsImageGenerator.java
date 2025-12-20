@@ -18,13 +18,11 @@ import java.util.Random;
 public class CardsImageGenerator {
     private Random random = new Random();
 
-    // Константы размеров изображения
     private static final int IMAGE_WIDTH = 500;
     private static final int IMAGE_HEIGHT = 110;
     private static final int CARD_WIDTH = 60;
     private static final int CARD_HEIGHT = 90;
 
-    // Текущая выбранная рубашка
     private String currentCardBack = "rubashka.png";
 
     /**
@@ -51,7 +49,6 @@ public class CardsImageGenerator {
     public BufferedImage generateImage(ProblemContext context) {
         System.out.println("\n=== CARDS IMAGE GENERATOR ===");
 
-        // Получаем карты из контекста через reflection (так как нет прямого доступа)
         List<SimpleCard> targetCards = extractCardsFromContext(context);
 
         System.out.println("Найдено карт: " + targetCards.size());
@@ -59,16 +56,13 @@ public class CardsImageGenerator {
             System.out.println("  - " + card);
         }
 
-        // Выбираем рубашку
         selectRandomCardBack();
 
         BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = image.createGraphics();
 
-        // Включаем сглаживание
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Рисуем фон и визуализацию
         drawBackground(g2d);
         drawVisualization(g2d, context, targetCards);
 
@@ -83,13 +77,11 @@ public class CardsImageGenerator {
         List<SimpleCard> cards = new ArrayList<>();
 
         try {
-            // Пытаемся получить список карт из контекста
             java.lang.reflect.Method getTargetCardsMethod = context.getClass().getMethod("getTargetCards");
             Object cardsList = getTargetCardsMethod.invoke(context);
 
             if (cardsList instanceof List) {
                 for (Object cardObj : (List<?>) cardsList) {
-                    // Получаем ранг и масть карты
                     java.lang.reflect.Method getRankMethod = cardObj.getClass().getMethod("getRank");
                     java.lang.reflect.Method getSuitMethod = cardObj.getClass().getMethod("getSuit");
 
@@ -101,10 +93,6 @@ public class CardsImageGenerator {
             }
         } catch (Exception e) {
             System.out.println("Не удалось извлечь карты из контекста: " + e.getMessage());
-            // Добавляем демо-карты
-            cards.add(new SimpleCard("7", "DIAMONDS"));
-            cards.add(new SimpleCard("ACE", "HEARTS"));
-            cards.add(new SimpleCard("KING", "SPADES"));
         }
 
         return cards;
@@ -204,10 +192,18 @@ public class CardsImageGenerator {
      * Конвертирует карту в имя файла
      */
     private String convertCardToFilename(String rank, String suit) {
-        String fileRank = convertRank(rank);
         String fileSuit = convertSuit(suit);
-        return fileRank + "_" + fileSuit + ".png";
+
+        switch (rank) {
+            case "2", "3", "4", "5", "6", "7", "8", "9", "10":
+                return rank + fileSuit + ".png";
+            default:
+                String fileRank = convertRank(rank);
+                return fileRank + "_" + fileSuit + ".png";
+        }
     }
+
+
 
     /**
      * Конвертирует ранг
@@ -318,7 +314,6 @@ public class CardsImageGenerator {
      */
 
     private void drawBackground(Graphics2D g2d) {
-        // Используем готовый BackgroundGenerator с конкретным стилем
         BackgroundGenerator.drawBackground(g2d, IMAGE_WIDTH, IMAGE_HEIGHT,
                 BackgroundGenerator.Style.CARDS);
     }
@@ -454,10 +449,11 @@ public class CardsImageGenerator {
         g2d.fillOval(lineStartX - 4, y - 4, 8, 8);
 
         // Подпись
-        if (cardsToShow > 0 && cardsToShow != 1) {
+        if (cardsToShow > 0) {
             g2d.setFont(new Font("Arial", Font.BOLD, 11));
             String cardWord;
             switch (cardsToShow) {
+                case 1: cardWord = "карта"; break;
                 case 2:
                 case 3:
                 case 4: cardWord = "карты"; break;
@@ -491,7 +487,7 @@ public class CardsImageGenerator {
 
         // Добиваем рубашками если нужно
         while (cardsToDisplay.size() < cardsToShow) {
-            cardsToDisplay.add(null); // null означает рубашку
+            cardsToDisplay.add(null);
         }
 
         // Перемешиваем

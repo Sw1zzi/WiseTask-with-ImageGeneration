@@ -10,22 +10,17 @@ public class ProblemContext {
     private String taskName;
     private String calculationType;
 
-    // === ОБЩИЕ ПАРАМЕТРЫ ДЛЯ ВСЕХ ТИПОВ ЗАДАЧ ===
     private Map<String, Object> parameters = new HashMap<>();
     private List<String> generalConditions = new ArrayList<>();
 
-    // === СПЕЦИАЛЬНЫЕ СТРУКТУРЫ ДЛЯ КОНКРЕТНЫХ ТИПОВ ЗАДАЧ ===
 
-    // Для карт
     private List<Card> targetCards = new ArrayList<>();
     private List<CountCondition> countConditions = new ArrayList<>();
 
-    // Для остатков и делимости
     private String dividend;
     private int divisor;
     private int remainder;
 
-    // Для уравнений
     private List<String> constraints = new ArrayList<>();
 
     // Для шахмат
