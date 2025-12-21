@@ -184,7 +184,7 @@ extends JFrame {
             JPanel jPanel = new JPanel();
             jPanel.setLayout(new BorderLayout());
             jPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-            JLabel jLabel = new JLabel("Последняя редакция - Май 2016 Кондратюк/Неботов");
+            JLabel jLabel = new JLabel("Последняя редакция - Декабрь 2025 Попел/Секирин/Цветков");
             jPanel.add((Component) jLabel, "Center");
             return jPanel;
     }
