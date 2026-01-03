@@ -73,13 +73,13 @@ public class CardGenerator extends BaseGeneratorUI {
 
 
     public JFileChooser getImageChooser() {
-         soMuch();
+        soMuch();
         if (imageChooser == null) {
             imageChooser = new JFileChooser(new File("." + File.separator + "tasks" + File.separator + "imgs"));
             imageChooser.setDialogTitle("Выберите файл-картинку к задаче...");
             imageChooser.setControlButtonsAreShown(true);
             imageChooser.removeChoosableFileFilter(imageChooser.getChoosableFileFilters()[0]);
-            
+
 //            hide(imageChooser.getComponents(), 0);
             imageChooser.setFileFilter(new FileFilter() {
                 public boolean accept(File pathname) {
@@ -98,10 +98,11 @@ public class CardGenerator extends BaseGeneratorUI {
                 }
             });
         }
-         
-         
+
+
         return imageChooser;
     }
+
     /**
      * This method initializes setPanel
      *
@@ -307,15 +308,14 @@ public class CardGenerator extends BaseGeneratorUI {
         return packIncludePanel;
     }
 
-    private void soMuch()
-    {      
-         if(functionList.getModel().getSize() > Integer.parseInt(getNabor().getSelectedItem().toString())) 
-                    {
-                        JOptionPane optionPane = new JOptionPane("Вы уверены? КОличество элементов в наборе меньше чем количество добавленных вами элементов",
-                                JOptionPane.QUESTION_MESSAGE, JOptionPane.DEFAULT_OPTION);
-                        optionPane.createDialog(CardGenerator.this, "Логическая ошибка").setVisible(true);                     
-                    }   
+    private void soMuch() {
+        if (functionList.getModel().getSize() > Integer.parseInt(getNabor().getSelectedItem().toString())) {
+            JOptionPane optionPane = new JOptionPane("Вы уверены? КОличество элементов в наборе меньше чем количество добавленных вами элементов",
+                    JOptionPane.QUESTION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+            optionPane.createDialog(CardGenerator.this, "Логическая ошибка").setVisible(true);
+        }
     }
+
     /**
      * This method initializes addIncludeConditionButton
      *
@@ -330,14 +330,11 @@ public class CardGenerator extends BaseGeneratorUI {
                     soMuch();
                     DefaultListModel model = (DefaultListModel) functionList.getModel();
                     OneCard el = new OneCard((ListElement) getCardValue().getSelectedItem(), (ListElement) getCardType().getSelectedItem());
-                    String Card = getCardType().getSelectedItem().toString() + " " + getCardValue().getSelectedItem().toString();                 
-                    floud();    
-                    SetImage(new File("tasks" + File.separator + "imgs" + File.separator + setPicture.get(Card) + ".PNG"));
                     ((DefaultListModel) functionList.getModel()).add(model.getSize(), el);
                     counter++;
-                    }
-                    
-                
+                }
+
+
             });
         }
         return addIncludeConditionButton;
@@ -391,66 +388,4 @@ public class CardGenerator extends BaseGeneratorUI {
         }
         return instance;
     }
-
-
-    private void floud() {
-        setPicture.put("бубей" + " двойка", "2bub");
-        setPicture.put("бубей" + " тройка", "3bub");
-        setPicture.put("бубей" + " четверка", "4bub");
-        setPicture.put("бубей" + " пятерка", "5bub");
-        setPicture.put("бубей" + " шестерка", "6bub");
-        setPicture.put("бубей" + " семерка", "7bub");
-        setPicture.put("бубей" + " восьмерка", "8bub");
-        setPicture.put("бубей" + " девятка", "9bub");
-        setPicture.put("бубей" + " десятка", "10bub");
-        setPicture.put("бубей" + " валет", "valet_bub");
-        setPicture.put("бубей" + " дама", "dam_bub");
-        setPicture.put("бубей" + " король", "king_bub");
-        setPicture.put("бубей" + " туз", "as_bub");
-
-        setPicture.put("червей" + " двойка", "2heart");
-        setPicture.put("червей" + " тройка", "3heart");
-        setPicture.put("червей" + " четверка", "4heart");
-        setPicture.put("червей" + " пятерка", "5heart");
-        setPicture.put("червей" + " шестерка", "6heart");
-        setPicture.put("червей" + " семерка", "7heart");
-        setPicture.put("червей" + " восьмерка", "8heart");
-        setPicture.put("червей" + " девятка", "9heart");
-        setPicture.put("червей" + " десятка", "10heart");
-        setPicture.put("червей" + " валет", "valet_heart");
-        setPicture.put("червей" + " дама", "dam_heart");
-        setPicture.put("червей" + " король", "king_heart");
-        setPicture.put("червей" + " туз", "as_heart");
-
-        setPicture.put("пик" + " двойка", "2pik");
-        setPicture.put("пик" + " тройка", "3pik");
-        setPicture.put("пик" + " четверка", "4pik");
-        setPicture.put("пик" + " пятерка", "5pik");
-        setPicture.put("пик" + " шестерка", "6pik");
-        setPicture.put("пик" + " семерка", "7pik");
-        setPicture.put("пик" + " восьмерка", "8pik");
-        setPicture.put("пик" + " девятка", "9pik");
-        setPicture.put("пик" + " десятка", "10pik");
-        setPicture.put("пик" + " валет", "valet_pik");
-        setPicture.put("пик" + " дама", "dam_pik");
-        setPicture.put("пик" + " король", "king_pik");
-        setPicture.put("пик" + " туз", "as_pik");
-
-        setPicture.put("треф" + " двойка", "2tref");
-        setPicture.put("треф" + " тройка", "3tref");
-        setPicture.put("треф" + " четверка", "4tref");
-        setPicture.put("треф" + " пятерка", "5tref");
-        setPicture.put("треф" + " шестерка", "6tref");
-        setPicture.put("треф" + " семерка", "7tref");
-        setPicture.put("треф" + " восьмерка", "8tref");
-        setPicture.put("треф" + " девятка", "9tref");
-        setPicture.put("треф" + " десятка", "10tref");
-        setPicture.put("треф" + " валет", "valet_tref");
-        setPicture.put("треф" + " дама", "dam_tref");
-        setPicture.put("треф" + " король", "king_tref");
-        setPicture.put("треф" + " туз", "as_tref");
-
-        setPicture.put("красный" + " джокер", "dj_red");
-        setPicture.put("черный" + " джокер", "dj_black");
-    }
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+}

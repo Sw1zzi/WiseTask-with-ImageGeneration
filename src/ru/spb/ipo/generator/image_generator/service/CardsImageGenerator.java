@@ -102,7 +102,6 @@ public class CardsImageGenerator {
      * Выбирает случайную рубашку карты
      */
     private void selectRandomCardBack() {
-        // Проверяем какие рубашки есть
         String[] possibleNames = {
                 "rubashka.png",
                 "rubashka1.png",
@@ -140,7 +139,6 @@ public class CardsImageGenerator {
                 return ImageIO.read(file);
             }
 
-            // Пробуем tasks/imgs
             file = new File("tasks/imgs/" + filename);
             if (file.exists()) {
                 return ImageIO.read(file);
@@ -164,7 +162,6 @@ public class CardsImageGenerator {
             return image;
         }
 
-        // Создаем простую рубашку
         return createSimpleCardBack();
     }
 
@@ -183,7 +180,6 @@ public class CardsImageGenerator {
             return image;
         }
 
-        // Если не нашли, создаем временную карту
         System.out.println("Карта не найдена, создаю временное изображение");
         return createTempCardImage(card.rank, card.suit);
     }
@@ -238,7 +234,6 @@ public class CardsImageGenerator {
         BufferedImage image = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = image.createGraphics();
 
-        // Фон рубашки
         Color[] backColors = {
                 new Color(30, 30, 120),
                 new Color(120, 30, 30),
@@ -264,11 +259,9 @@ public class CardsImageGenerator {
         BufferedImage image = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = image.createGraphics();
 
-        // Белый фон
         g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
 
-        // Цветная рамка
         if (suit.equalsIgnoreCase("HEARTS") || suit.equalsIgnoreCase("DIAMONDS")) {
             g2d.setColor(Color.RED);
         } else {
@@ -276,15 +269,12 @@ public class CardsImageGenerator {
         }
         g2d.drawRect(0, 0, CARD_WIDTH - 1, CARD_HEIGHT - 1);
 
-        // Символ масти
         String suitSymbol = getSuitSymbol(suit);
 
-        // Текст карты
         g2d.setFont(new Font("Arial", Font.BOLD, 12));
         g2d.drawString(rank, 5, 15);
         g2d.drawString(suitSymbol, 5, 30);
 
-        // Большой символ в центре
         g2d.setFont(new Font("Arial", Font.BOLD, 24));
         FontMetrics fm = g2d.getFontMetrics();
         int textWidth = fm.stringWidth(suitSymbol);
@@ -327,7 +317,6 @@ public class CardsImageGenerator {
         int deckStartY = 12;
         int cardSpacing = 5;
 
-        // Получаем параметры из контекста
         int deckSize = 36;
         int drawCount = 5;
 
@@ -341,21 +330,17 @@ public class CardsImageGenerator {
             System.out.println("Не удалось получить параметры из контекста: " + e.getMessage());
         }
 
-        // Количество карт для отображения
         int cardsToShow = Math.max(drawCount, targetCards.size());
         cardsToShow = Math.min(cardsToShow, 6);
 
-        // Рассчитываем позиции
         int totalCardsWidth = cardsToShow * CARD_WIDTH + (cardsToShow - 1) * cardSpacing;
         int resultStartX = IMAGE_WIDTH - 10 - totalCardsWidth;
         int resultStartY = verticalMargin;
 
-        // Позиции стрелки
         int arrowStartX = deckStartX + CARD_WIDTH + 8;
         int arrowEndX = resultStartX - 5;
         int arrowY = deckStartY + CARD_HEIGHT / 2;
 
-        // Рисуем все компоненты
         drawDeck(g2d, deckSize, deckStartX, deckStartY);
         drawArrow(g2d, arrowStartX, arrowEndX, arrowY, cardsToShow);
         drawResultCards(g2d, targetCards, resultStartX, resultStartY, cardsToShow, cardSpacing);
@@ -367,7 +352,6 @@ public class CardsImageGenerator {
     private void drawDeck(Graphics2D g2d, int deckSize, int x, int y) {
         Image cardBack = getCurrentCardBack();
 
-        // Рисуем стопку
         for (int i = 0; i < 3; i++) {
             int offsetX = i * 2;
             int offsetY = -i * 2;
@@ -382,7 +366,6 @@ public class CardsImageGenerator {
             }
         }
 
-        // Размер колоды
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Arial", Font.BOLD, 12));
         String sizeText = String.valueOf(deckSize);
@@ -393,13 +376,11 @@ public class CardsImageGenerator {
         int textX = centerX - textWidth / 2;
         int textY = centerY + fm.getAscent() / 2 - 5;
 
-        // Фон
         g2d.setColor(new Color(0, 0, 0, 180));
         int padding = 4;
         g2d.fillRoundRect(textX - padding, textY - fm.getAscent() - padding / 2,
                 textWidth + padding * 2, fm.getHeight() + padding, 5, 5);
 
-        // Текст
         g2d.setColor(Color.WHITE);
         g2d.drawString(sizeText, textX, textY);
     }
@@ -430,10 +411,8 @@ public class CardsImageGenerator {
             lineEndX = lineStartX + 50;
         }
 
-        // Линия
         g2d.drawLine(lineStartX, y, lineEndX, y);
 
-        // Наконечник
         int tipX = lineEndX + 10;
         int tipWidth = 14;
         int tipHeight = 10;
@@ -445,10 +424,8 @@ public class CardsImageGenerator {
 
         g2d.fill(arrowHead);
 
-        // Точка в начале
         g2d.fillOval(lineStartX - 4, y - 4, 8, 8);
 
-        // Подпись
         if (cardsToShow > 0) {
             g2d.setFont(new Font("Arial", Font.BOLD, 11));
             String cardWord;
@@ -482,24 +459,19 @@ public class CardsImageGenerator {
                                  int cardsToShow, int spacing) {
         System.out.println("Рисую " + cardsToShow + " карт. Целевых карт: " + targetCards.size());
 
-        // Создаем список для отображения
         List<SimpleCard> cardsToDisplay = new ArrayList<>(targetCards);
 
-        // Добиваем рубашками если нужно
         while (cardsToDisplay.size() < cardsToShow) {
             cardsToDisplay.add(null);
         }
 
-        // Перемешиваем
         Collections.shuffle(cardsToDisplay, random);
 
-        // Рисуем
         for (int i = 0; i < cardsToShow; i++) {
             int cardX = startX + i * (CARD_WIDTH + spacing);
             SimpleCard card = cardsToDisplay.get(i);
 
             if (card != null) {
-                // Конкретная карта
                 System.out.println("Карта " + (i+1) + ": " + card);
                 Image cardImage = getCardImage(card);
                 if (cardImage != null) {
@@ -508,7 +480,6 @@ public class CardsImageGenerator {
                     drawSimpleCard(g2d, cardX, startY, card.rank, card.suit);
                 }
             } else {
-                // Рубашка
                 Image cardBack = getCurrentCardBack();
                 if (cardBack != null) {
                     g2d.drawImage(cardBack, cardX, startY, CARD_WIDTH, CARD_HEIGHT, null);
@@ -524,11 +495,9 @@ public class CardsImageGenerator {
      * Рисует простую карту
      */
     private void drawSimpleCard(Graphics2D g2d, int x, int y, String rank, String suit) {
-        // Белый фон
         g2d.setColor(Color.WHITE);
         g2d.fillRoundRect(x, y, CARD_WIDTH, CARD_HEIGHT, 10, 10);
 
-        // Рамка
         if (suit.equalsIgnoreCase("HEARTS") || suit.equalsIgnoreCase("DIAMONDS")) {
             g2d.setColor(Color.RED);
         } else {
@@ -536,7 +505,6 @@ public class CardsImageGenerator {
         }
         g2d.drawRoundRect(x, y, CARD_WIDTH, CARD_HEIGHT, 10, 10);
 
-        // Текст
         g2d.setFont(new Font("Arial", Font.PLAIN, 10));
         g2d.drawString(rank, x + 5, y + 20);
         g2d.drawString(suit.substring(0, 1), x + 5, y + 35);

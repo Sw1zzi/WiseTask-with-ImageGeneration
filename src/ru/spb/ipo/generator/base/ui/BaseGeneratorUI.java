@@ -16,6 +16,7 @@ import ru.spb.ipo.generator.numbers.NumberGenerator;
 import ru.spb.ipo.generator.word.IndexWordGenerator;
 import ru.spb.ipo.generator.word.WordGenerator;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
@@ -24,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -517,7 +519,7 @@ public abstract class BaseGeneratorUI extends JFrame {
 
             if (context == null) {
                 System.out.println("Контекст не определен");
-                return; // Завершаем без сообщений
+                return;
             }
 
             // 5. Генерируем изображение
@@ -527,11 +529,32 @@ public abstract class BaseGeneratorUI extends JFrame {
             // 6. Отображаем изображение в интерфейсе
             displayGeneratedImage(generatedImage);
 
+            // 7. Сохраняем временную копию изображения
+            saveTemporaryImage(generatedImage);
+
         } catch (Exception ex) {
             showError("Ошибка при генерации изображения: \n" + ex.getMessage(),
                     "Ошибка генерации", ex);
         }
     }
+
+    /**
+     * Сохраняет временную копию изображения
+     */
+    private void saveTemporaryImage(BufferedImage image) {
+        try {
+            File tempDir = new File("temp_images");
+            if (!tempDir.exists()) {
+                tempDir.mkdir();
+            }
+            File tempFile = new File(tempDir, "last_generated_image.png");
+            ImageIO.write(image, "PNG", tempFile);
+            System.out.println("Временное изображение сохранено: " + tempFile.getAbsolutePath());
+        } catch (Exception e) {
+            System.out.println("Не удалось сохранить временное изображение: " + e.getMessage());
+        }
+    }
+
     /**
      * Отображает сгенерированное изображение в интерфейсе
      */
@@ -752,16 +775,23 @@ public abstract class BaseGeneratorUI extends JFrame {
         return saveItem;
     }
 
-    public void saveToFile(String str, File file) throws Exception {
+    public void saveToFile(String str, File xmlFile) throws Exception {
         OutputStreamWriter fw = null;
         try {
-            if (!file.getName().toLowerCase().endsWith(".xml")) {
-                file = new File(file.getAbsolutePath() + ".xml");
+            // 1. Сохраняем XML
+            if (!xmlFile.getName().toLowerCase().endsWith(".xml")) {
+                xmlFile = new File(xmlFile.getAbsolutePath() + ".xml");
             }
-            fw = new OutputStreamWriter(new FileOutputStream(file), "windows-1251");
+            fw = new OutputStreamWriter(new FileOutputStream(xmlFile), "windows-1251");
             fw.write(str);
             fw.close();
-            setActiveSave(file);
+            setActiveSave(xmlFile);
+
+            // 2. Если есть сгенерированное изображение - сохраняем его рядом
+            if (hasGeneratedImage()) {
+                saveCurrentImageAlongsideXml(xmlFile);
+            }
+
         } finally {
             if (fw != null) {
                 try {
@@ -770,6 +800,53 @@ public abstract class BaseGeneratorUI extends JFrame {
                     e2.printStackTrace();
                 }
             }
+        }
+    }
+
+    /**
+     * Проверяет, есть ли сгенерированное изображение в интерфейсе
+     */
+    private boolean hasGeneratedImage() {
+        // Проверяем, есть ли в списке изображений сгенерированное
+        for (Object imgName : imagesList) {
+            if (imgName.toString().contains("generated") ||
+                    imgName.toString().contains("сгенерирован")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Сохраняет текущее изображение из интерфейса рядом с XML
+     */
+    private void saveCurrentImageAlongsideXml(File xmlFile) {
+        try {
+            JPanel imagePanel = getImageListPanel();
+            if (imagePanel.getComponentCount() > 0) {
+                Component comp = imagePanel.getComponent(0);
+                if (comp instanceof JLabel) {
+                    JLabel label = (JLabel) comp;
+                    Icon icon = label.getIcon();
+                    if (icon instanceof ImageIcon) {
+                        ImageIcon imageIcon = (ImageIcon) icon;
+                        Image image = imageIcon.getImage();
+
+                        BufferedImage bufferedImage = new BufferedImage(
+                                image.getWidth(null),
+                                image.getHeight(null),
+                                BufferedImage.TYPE_INT_ARGB
+                        );
+                        Graphics2D g2 = bufferedImage.createGraphics();
+                        g2.drawImage(image, 0, 0, null);
+                        g2.dispose();
+
+                        saveImageAlongsideXml(bufferedImage, xmlFile);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Не удалось сохранить изображение: " + e.getMessage());
         }
     }
 
@@ -1328,5 +1405,30 @@ public abstract class BaseGeneratorUI extends JFrame {
             res[i] = (ComplexElement) jList.getModel().getElementAt(i);
         }
         return res;
+    }
+
+    /**
+     * Сохраняет изображение рядом с XML файлом
+     */
+    private File saveImageAlongsideXml(BufferedImage image, File xmlFile) throws IOException {
+        if (image == null || xmlFile == null) {
+            return null;
+        }
+
+        // Получаем имя XML файла без расширения
+        String xmlName = xmlFile.getName();
+        if (xmlName.toLowerCase().endsWith(".xml")) {
+            xmlName = xmlName.substring(0, xmlName.length() - 4);
+        }
+
+        // Создаем имя для файла изображения
+        String imageName = xmlName + "-изображение.png";
+        File imageFile = new File(xmlFile.getParentFile(), imageName);
+
+        // Сохраняем изображение
+        ImageIO.write(image, "PNG", imageFile);
+
+        System.out.println("Изображение сохранено: " + imageFile.getAbsolutePath());
+        return imageFile;
     }
 }
