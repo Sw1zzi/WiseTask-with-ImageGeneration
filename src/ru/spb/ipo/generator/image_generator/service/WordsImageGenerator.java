@@ -19,18 +19,14 @@ public class WordsImageGenerator {
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Рисуем фон
         drawBackground(g2d);
 
-        // Получаем параметры задачи
         String alphabet = context.getAlphabet();
         int wordLength = context.getWordLength();
         boolean uniqueLetters = context.isUniqueLetters();
 
-        // Рисуем информацию об алфавите и слове
         drawAlphabetAndWordInfo(g2d, alphabet, wordLength, uniqueLetters);
 
-        // Рисуем визуализацию позиций слова (только если длина > 0)
         if (wordLength > 0) {
             drawWordVisualization(g2d, wordLength);
         }
@@ -53,30 +49,26 @@ public class WordsImageGenerator {
         g2d.setFont(new Font("Arial", Font.BOLD, 14));
         g2d.setColor(Color.BLACK);
 
-        // Форматируем алфавит или показываем сообщение о пустом алфавите
         String alphabetText;
         if (alphabet == null || alphabet.isEmpty()) {
             alphabetText = "Алфавит: не задан";
-            g2d.setColor(Color.RED); // Красный цвет для предупреждения
+            g2d.setColor(Color.RED);
         } else {
             String formattedAlphabet = formatAlphabet(alphabet);
             alphabetText = "Алфавит: " + formattedAlphabet;
             g2d.setColor(Color.BLACK);
         }
 
-        // Ограничиваем длину строки (только для непустого алфавита)
         if (alphabet != null && !alphabet.isEmpty() && alphabetText.length() > 50) {
             int maxLength = 47;
             alphabetText = alphabetText.substring(0, maxLength) + "...}";
         }
 
-        // Рисуем алфавит
         int alphabetWidth = g2d.getFontMetrics().stringWidth(alphabetText);
         g2d.drawString(alphabetText, (IMAGE_WIDTH - alphabetWidth) / 2, titleY);
 
-        // Дополнительная информация: длина слова и уникальность букв
         int infoY = titleY + 25;
-        g2d.setColor(Color.BLACK); // Возвращаем черный цвет для остального текста
+        g2d.setColor(Color.BLACK);
 
         String lengthText = "Длина слова: " + (wordLength > 0 ? wordLength : "не задана");
         String uniqueText = uniqueLetters ? " | Буквы не повторяются" : " | Буквы могут повторяться";
@@ -112,17 +104,14 @@ public class WordsImageGenerator {
 
         int centerY = IMAGE_HEIGHT / 2 + 40;
 
-        // Рассчитываем позиции для прямоугольников
         int totalWidth = wordLength * (LETTER_SIZE + LETTER_SPACING) - LETTER_SPACING;
         int startX = (IMAGE_WIDTH - totalWidth) / 2;
 
-        // Рисуем прямоугольники для каждой позиции в слове
         for (int i = 0; i < wordLength; i++) {
             int boxX = startX + i * (LETTER_SIZE + LETTER_SPACING);
             drawLetterBox(g2d, boxX, centerY, i + 1);
         }
 
-        // Подпись под прямоугольниками
         g2d.setFont(new Font("Arial", Font.PLAIN, 10));
         g2d.setColor(Color.DARK_GRAY);
         String label = "Позиции букв в слове";
@@ -131,12 +120,10 @@ public class WordsImageGenerator {
     }
 
     private void drawLetterBox(Graphics2D g2d, int x, int y, int position) {
-        // Рисуем прямоугольник для буквы
         g2d.setColor(new Color(60, 60, 180));
         g2d.setStroke(new BasicStroke(2));
         g2d.drawRect(x, y - LETTER_SIZE, LETTER_SIZE, LETTER_SIZE);
 
-        // Номер позиции внутри прямоугольника
         g2d.setFont(new Font("Arial", Font.BOLD, 14));
         g2d.setColor(new Color(60, 60, 180));
 
@@ -145,16 +132,9 @@ public class WordsImageGenerator {
         int textWidth = fm.stringWidth(posText);
         int textHeight = fm.getAscent();
 
-        // Центрируем номер в прямоугольнике
         int textX = x + (LETTER_SIZE - textWidth) / 2;
         int textY = y - LETTER_SIZE + (LETTER_SIZE + textHeight) / 2 - 2;
 
         g2d.drawString(posText, textX, textY);
-
-        // Дополнительный номер позиции сверху
-        g2d.setFont(new Font("Arial", Font.BOLD, 10));
-        String smallPos = "[" + position + "]";
-        int smallWidth = g2d.getFontMetrics().stringWidth(smallPos);
-        g2d.drawString(smallPos, x + (LETTER_SIZE - smallWidth) / 2, y - LETTER_SIZE - 5);
     }
 }

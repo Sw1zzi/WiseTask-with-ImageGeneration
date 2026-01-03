@@ -45,7 +45,6 @@ public class DivisibilityParser {
 
         } catch (Exception e) {
             e.printStackTrace();
-            // Если CDSL парсинг не сработал, создаем контекст напрямую
             return createContextDirectly(taskTitle, taskText);
         }
     }
@@ -612,10 +611,8 @@ public class DivisibilityParser {
         try {
             ProblemContext context = new ProblemContext();
 
-            // Заполняем контекст
             enrichContextFromText(context, text, taskTitle);
 
-            // Генерируем CDSL код
             String cdslCode = analyzeAndConvertToCDSL(text);
 
             this.lastContext = context;
