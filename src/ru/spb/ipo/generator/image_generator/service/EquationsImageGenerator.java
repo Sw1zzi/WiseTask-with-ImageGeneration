@@ -11,28 +11,27 @@ public class EquationsImageGenerator {
     private static final int IMAGE_HEIGHT = 110;
     private static final int LEFT_MARGIN = 20;
     private static final int RIGHT_MARGIN = 20;
-
-    // Константа для порога количества неизвестных
-    private static final int SIGMA_THRESHOLD = 6;
+    private static final int SIGMA_THRESHOLD = 7;
 
     private Random random = new Random();
 
-    // Стили уравнений
     private enum EquationStyle {
-        CLASSIC,  // x₁ + x₂ + ... + xₙ = sum
-        SIGMA     // Σ xᵢ = sum (i=0..n)
+        CLASSIC,
+        SIGMA
     }
 
     public BufferedImage generateImage(ProblemContext context) {
         int unknowns = context.getUnknowns();
         EquationStyle style;
 
-        // Если количество неизвестных больше порога - используем только сигма-нотацию
-        if (unknowns > SIGMA_THRESHOLD) {
+        if (unknowns >= SIGMA_THRESHOLD) {
             style = EquationStyle.SIGMA;
         } else {
-            // Иначе случайно выбираем стиль (50/50)
-            style = random.nextBoolean() ? EquationStyle.CLASSIC : EquationStyle.SIGMA;
+            if (random.nextBoolean()) {
+                style = EquationStyle.CLASSIC;
+            } else {
+                style = EquationStyle.SIGMA;
+            }
         }
 
         BufferedImage image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -40,10 +39,8 @@ public class EquationsImageGenerator {
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Случайный фон для каждой генерации
-        drawBackground(g2d);
+        drawRandomBackground(g2d);
 
-        // Рисуем выбранный стиль
         if (style == EquationStyle.CLASSIC) {
             drawClassicEquation(g2d, context);
         } else {
@@ -54,33 +51,28 @@ public class EquationsImageGenerator {
         return image;
     }
 
-    private void drawBackground(Graphics2D g2d) {
-        // Используем математические символы
-        BackgroundGenerator.drawBackground(g2d, IMAGE_WIDTH, IMAGE_HEIGHT,
-                BackgroundGenerator.Style.SYMBOLS);
+    private void drawRandomBackground(Graphics2D g2d) {
+        BackgroundGenerator.Style[] styles = BackgroundGenerator.Style.values();
+        BackgroundGenerator.Style randomStyle = styles[random.nextInt(styles.length)];
+        BackgroundGenerator.drawBackground(g2d, IMAGE_WIDTH, IMAGE_HEIGHT, randomStyle);
     }
 
-    // ========== ВАРИАНТ 1: КЛАССИЧЕСКОЕ УРАВНЕНИЕ ==========
     private void drawClassicEquation(Graphics2D g2d, ProblemContext context) {
         int unknowns = context.getUnknowns();
         int sum = context.getSum();
 
-        // Основной шрифт
         g2d.setFont(new Font("Arial", Font.BOLD, 36));
         FontMetrics mainFontMetrics = g2d.getFontMetrics();
 
-        // Шрифт для индексов - ТЕПЕРЬ ЖИРНЫЙ (Font.BOLD)
-        Font indexFont = new Font("Arial", Font.BOLD, 14); // Font.PLAIN → Font.BOLD
+        Font indexFont = new Font("Arial", Font.BOLD, 14);
         FontMetrics indexFontMetrics = g2d.getFontMetrics(indexFont);
 
-        // Рассчитываем ширину всего уравнения
         int totalWidth = calculateClassicWidth(unknowns, sum, mainFontMetrics, indexFontMetrics);
         int maxAllowedWidth = IMAGE_WIDTH - LEFT_MARGIN - RIGHT_MARGIN;
 
         int startX;
         boolean isCentered;
 
-        // Решаем: центрировать или начинать слева
         if (totalWidth <= maxAllowedWidth) {
             startX = (IMAGE_WIDTH - totalWidth) / 2;
             isCentered = true;
@@ -93,7 +85,6 @@ public class EquationsImageGenerator {
 
         int currentX = startX;
 
-        // Рисуем уравнение: x₁ + x₂ + ... + xₙ = sum
         for (int i = 1; i <= unknowns; i++) {
             if (i > 1) {
                 g2d.setFont(new Font("Arial", Font.BOLD, 36));
@@ -102,13 +93,11 @@ public class EquationsImageGenerator {
                 currentX += mainFontMetrics.stringWidth("+") + 10;
             }
 
-            // Буква x
             g2d.setFont(new Font("Arial", Font.BOLD, 36));
             g2d.setColor(Color.BLACK);
             int xWidth = mainFontMetrics.stringWidth("x");
             g2d.drawString("x", currentX, centerY);
 
-            // Индекс внизу - ТЕПЕРЬ ЖИРНЫЙ
             g2d.setFont(indexFont);
             g2d.setColor(Color.BLACK);
             String indexStr = String.valueOf(i);
@@ -122,13 +111,11 @@ public class EquationsImageGenerator {
             currentX += xWidth + 12;
         }
 
-        // Знак равенства
         g2d.setFont(new Font("Arial", Font.BOLD, 36));
         g2d.setColor(Color.BLACK);
         g2d.drawString("=", currentX, centerY);
         currentX += mainFontMetrics.stringWidth("=") + 10;
 
-        // Сумма
         String sumStr = String.valueOf(sum);
         g2d.drawString(sumStr, currentX, centerY);
     }
@@ -152,24 +139,19 @@ public class EquationsImageGenerator {
         return totalWidth;
     }
 
-    // ========== ВАРИАНТ 2: СИГМА-НОТАЦИЯ ==========
     private void drawSigmaEquation(Graphics2D g2d, ProblemContext context) {
         int unknowns = context.getUnknowns();
         int sum = context.getSum();
 
-        // Основной шрифт
         g2d.setFont(new Font("Arial", Font.BOLD, 36));
         FontMetrics mainFM = g2d.getFontMetrics();
 
-        // Маленький шрифт - ТЕПЕРЬ ЖИРНЫЙ (Font.BOLD)
-        Font smallFont = new Font("Arial", Font.BOLD, 14); // Font.PLAIN → Font.BOLD
+        Font smallFont = new Font("Arial", Font.BOLD, 14);
         FontMetrics smallFM = g2d.getFontMetrics(smallFont);
 
-        // Пробуем загрузить символ суммы
         Image sigmaImage = loadSigmaImage();
         boolean hasSigmaImage = sigmaImage != null;
 
-        // Рассчитываем ширину
         int sigmaWidth = hasSigmaImage ? 40 : mainFM.stringWidth("Σ");
         int xWidth = mainFM.stringWidth("x");
         int iWidth = smallFM.stringWidth("i");
@@ -180,12 +162,11 @@ public class EquationsImageGenerator {
 
         int totalWidth = sigmaWidth + 5 + xWidth + iWidth + 10 + equalsWidth + 10 + sumWidth;
 
-        // Центрируем сигма-нотацию
         int startX = (IMAGE_WIDTH - totalWidth) / 2;
         int centerY = IMAGE_HEIGHT / 2 + 10;
         int currentX = startX;
 
-        // 1. Символ сигмы (Σ)
+        // Символ сигмы (Σ)
         if (hasSigmaImage) {
             g2d.drawImage(sigmaImage, currentX, centerY - 30, 40, 40, null);
             currentX += 40 + 5;
@@ -197,12 +178,12 @@ public class EquationsImageGenerator {
             currentX += mainFM.stringWidth("Σ") + 5;
         }
 
-        // 2. Буква x
+        // Буква x
         g2d.setFont(new Font("Arial", Font.BOLD, 36));
         g2d.setColor(Color.BLACK);
         g2d.drawString("x", currentX, centerY);
 
-        // 3. Индекс i (внизу справа от x) - ТЕПЕРЬ ЖИРНЫЙ
+        // Индекс i
         g2d.setFont(smallFont);
         g2d.setColor(Color.BLACK);
         int indexX = currentX + xWidth - iWidth/2 + 2;
@@ -211,26 +192,26 @@ public class EquationsImageGenerator {
 
         currentX += xWidth + 10;
 
-        // 4. Знак равенства
+        // Знак равенства
         g2d.setFont(new Font("Arial", Font.BOLD, 36));
         g2d.setColor(Color.BLACK);
         g2d.drawString("=", currentX, centerY);
         currentX += equalsWidth + 10;
 
-        // 5. Сумма
+        // Сумма
         String sumStr = String.valueOf(sum);
         g2d.drawString(sumStr, currentX, centerY);
 
-        // 6. НИЖНИЙ ТЕКСТ: i = 0 - ТЕПЕРЬ ЖИРНЫЙ и ВЫШЕ (centerY + 23 → centerY + 20)
+        // i = 0
         g2d.setFont(smallFont);
         g2d.setColor(Color.BLACK);
         int bottomX = startX + sigmaWidth/2 - bottomTextWidth/2;
-        int bottomY = centerY + 25; // Было 28, стало 20 - ПОДНЯЛИ ВЫШЕ
+        int bottomY = centerY + 20;
         g2d.drawString("i = 0", bottomX, bottomY);
 
-        // 7. ВЕРХНИЙ ТЕКСТ: n = unknowns - ТЕПЕРЬ ЖИРНЫЙ и ВЫШЕ (centerY - 20 → centerY - 25)
+        // n = unknowns
         int topX = startX + sigmaWidth/2 - topTextWidth/2;
-        int topY = centerY - 33; // Было -20, стало -25 - ПОДНЯЛИ ЕЩЕ ВЫШЕ
+        int topY = centerY - 33;
         g2d.drawString("n = " + unknowns, topX, topY);
     }
 

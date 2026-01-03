@@ -6,7 +6,6 @@ import java.util.Random;
 public class BackgroundGenerator {
     private static final Random random = new Random();
 
-    // Единая палитра фонов для всех генераторов
     private static final Color[] COMMON_BACKGROUNDS = {
             new Color(240, 245, 255),  // Светло-голубой
             new Color(245, 255, 240),  // Светло-зеленый
@@ -20,7 +19,6 @@ public class BackgroundGenerator {
             new Color(235, 245, 255)   // Очень светлый голубой
     };
 
-    // Стили фона
     public enum Style {
         SIMPLE,        // Простой однотонный фон
         GRID,          // Сетка
@@ -35,17 +33,13 @@ public class BackgroundGenerator {
      * Создает стандартный фон для изображения
      */
     public static void drawBackground(Graphics2D g2d, int width, int height, Style style) {
-        // Выбираем случайный цвет из общей палитры
         Color bgColor = COMMON_BACKGROUNDS[random.nextInt(COMMON_BACKGROUNDS.length)];
 
-        // Заливаем фон основным цветом
         g2d.setColor(bgColor);
         g2d.fillRect(0, 0, width, height);
 
-        // Добавляем узор в зависимости от стиля
         drawPattern(g2d, width, height, bgColor, style);
 
-        // Добавляем рамку
         drawBorder(g2d, width, height, bgColor);
     }
 
@@ -62,7 +56,6 @@ public class BackgroundGenerator {
      * Рисует узор на фоне - СЕТКА СИМВОЛОВ
      */
     private static void drawPattern(Graphics2D g2d, int width, int height, Color bgColor, Style style) {
-        // Установим цвет для символов - очень светлый
         g2d.setColor(new Color(0, 0, 0, 12));
 
         switch(style) {
@@ -85,7 +78,6 @@ public class BackgroundGenerator {
                 drawChessGrid(g2d, width, height);
                 break;
             case SIMPLE:
-                // Без узора - просто цвет
                 break;
         }
     }
@@ -93,12 +85,10 @@ public class BackgroundGenerator {
     private static void drawGrid(Graphics2D g2d, int width, int height) {
         g2d.setStroke(new BasicStroke(0.7f));
 
-        // Вертикальные линии
         for (int i = 25; i < width; i += 25) {
             g2d.drawLine(i, 0, i, height);
         }
 
-        // Горизонтальные линии
         for (int i = 25; i < height; i += 25) {
             g2d.drawLine(0, i, width, i);
         }
@@ -107,15 +97,12 @@ public class BackgroundGenerator {
     private static void drawNumberGrid(Graphics2D g2d, int width, int height) {
         g2d.setFont(new Font("Arial", Font.PLAIN, 10));
 
-        // Размер ячейки сетки
         int cellSize = 25;
         int cols = width / cellSize;
         int rows = height / cellSize;
 
-        // Создаем сетку цифр от 0 до 9
         for (int col = 0; col < cols; col++) {
             for (int row = 0; row < rows; row++) {
-                // Цифра зависит от позиции в сетке
                 int number = (col + row) % 10;
                 int x = col * cellSize + cellSize/2 - 3;
                 int y = row * cellSize + cellSize/2 + 3;
@@ -128,15 +115,12 @@ public class BackgroundGenerator {
         g2d.setFont(new Font("Arial", Font.PLAIN, 10));
         String letters = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
-        // Размер ячейки сетки
         int cellSize = 25;
         int cols = width / cellSize;
         int rows = height / cellSize;
 
-        // Создаем сетку букв
         for (int col = 0; col < cols; col++) {
             for (int row = 0; row < rows; row++) {
-                // Буква зависит от позиции в сетке
                 int index = (col * rows + row) % letters.length();
                 char letter = letters.charAt(index);
                 int x = col * cellSize + cellSize/2 - 3;
@@ -150,15 +134,12 @@ public class BackgroundGenerator {
         g2d.setFont(new Font("Arial", Font.PLAIN, 10));
         String[] symbols = {"+", "−", "×", "÷", "=", "√", "∑", "π", "∞"};
 
-        // Размер ячейки сетки
         int cellSize = 25;
         int cols = width / cellSize;
         int rows = height / cellSize;
 
-        // Создаем сетку символов
         for (int col = 0; col < cols; col++) {
             for (int row = 0; row < rows; row++) {
-                // Символ зависит от позиции в сетке
                 int index = (col + row * 2) % symbols.length;
                 String symbol = symbols[index];
                 int x = col * cellSize + cellSize/2 - 3;
@@ -172,19 +153,15 @@ public class BackgroundGenerator {
         g2d.setFont(new Font("Arial", Font.PLAIN, 11));
         String[] suits = {"♥", "♦", "♠", "♣"};
 
-        // Размер ячейки сетки
         int cellSize = 25;
         int cols = width / cellSize;
         int rows = height / cellSize;
 
-        // Создаем сетку мастей
         for (int col = 0; col < cols; col++) {
             for (int row = 0; row < rows; row++) {
-                // Масть зависит от позиции в сетке
                 int suitIndex = (col + row) % suits.length;
                 String suit = suits[suitIndex];
 
-                // Устанавливаем цвет в зависимости от масти
                 if (suit.equals("♥") || suit.equals("♦")) {
                     g2d.setColor(new Color(200, 0, 0, 20)); // Красный
                 } else {
@@ -195,7 +172,6 @@ public class BackgroundGenerator {
                 int y = row * cellSize + cellSize/2 + 3;
                 g2d.drawString(suit, x, y);
 
-                // Возвращаем стандартный цвет
                 g2d.setColor(new Color(0, 0, 0, 12));
             }
         }
@@ -206,7 +182,6 @@ public class BackgroundGenerator {
         Color light = new Color(0, 0, 0, 8);
         Color dark = new Color(0, 0, 0, 18);
 
-        // Шахматная доска
         for (int col = 0; col < width; col += cellSize) {
             for (int row = 0; row < height; row += cellSize) {
                 if ((col/cellSize + row/cellSize) % 2 == 0) {
@@ -220,12 +195,10 @@ public class BackgroundGenerator {
     }
 
     private static void drawBorder(Graphics2D g2d, int width, int height, Color bgColor) {
-        // Основная рамка
         g2d.setColor(bgColor.darker().darker());
         g2d.setStroke(new BasicStroke(1.5f));
         g2d.drawRect(1, 1, width - 3, height - 3);
 
-        // Внутренняя светлая линия для объема
         g2d.setColor(new Color(255, 255, 255, 100));
         g2d.setStroke(new BasicStroke(1f));
         g2d.drawRect(2, 2, width - 5, height - 5);
