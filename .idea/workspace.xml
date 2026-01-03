@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="WiseTasks:jar2" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="291ea0d6-2f5c-4c1d-9859-eb7c50282311" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="FixAll" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Sw1zzi&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Sw1zzi/WiseTask-with-ImageGeneration.git&quot;,
+    &quot;accountId&quot;: &quot;cfdf5b60-36c7-4c65-8286-28ff59c4ca62&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="36zAaZMmgFWJZITLlOaASdmQn23" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BasketGenerator.executor": "Run",
+    "Application.CardGenerator.executor": "Run",
+    "Application.ChessGenerator.executor": "Run",
+    "Application.DivGenerator.executor": "Run",
+    "Application.EquationGenerator.executor": "Run",
+    "Application.IndexWordGenerator.executor": "Run",
+    "Application.ModGenerator.executor": "Run",
+    "Application.NumberGenerator.executor": "Run",
+    "Application.WordGenerator.executor": "Run",
+    "Application.startup.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15429688",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Staff\Uni\3_sem\DiskProj\WiseTasks\src\ru\spb\ipo\generator\image_generator\service" />
+      <recent name="C:\Staff\Uni\3_sem\DiskProj\WiseTasks" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.startup">
+    <configuration name="CardGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.spb.ipo.generator.cards.CardGenerator" />
+      <module name="WiseTasks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.spb.ipo.generator.cards.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DivGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.spb.ipo.generator.digits.divs.DivGenerator" />
+      <module name="WiseTasks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.spb.ipo.generator.digits.divs.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.spb.ipo.generator.digits.mods.ModGenerator" />
+      <module name="WiseTasks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.spb.ipo.generator.digits.mods.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NumberGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.spb.ipo.generator.numbers.NumberGenerator" />
+      <module name="WiseTasks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.spb.ipo.generator.numbers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="startup" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.spb.ipo.generator.base.startup.startup" />
+      <module name="WiseTasks" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/engine/engine" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.spb.ipo.generator.base.startup.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.startup" />
+      <item itemvalue="Application.CardGenerator" />
+      <item itemvalue="Application.DivGenerator" />
+      <item itemvalue="Application.ModGenerator" />
+      <item itemvalue="Application.NumberGenerator" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.startup" />
+        <item itemvalue="Application.CardGenerator" />
+        <item itemvalue="Application.DivGenerator" />
+        <item itemvalue="Application.ModGenerator" />
+        <item itemvalue="Application.NumberGenerator" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.138" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.138" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="291ea0d6-2f5c-4c1d-9859-eb7c50282311" name="Changes" comment="" />
+      <created>1765999090755</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765999090755</updated>
+      <workItem from="1765999091839" duration="1874000" />
+      <workItem from="1766001042303" duration="2139000" />
+      <workItem from="1766003414269" duration="264000" />
+      <workItem from="1766005583168" duration="14906000" />
+      <workItem from="1766034576096" duration="1196000" />
+      <workItem from="1766079831835" duration="2509000" />
+      <workItem from="1766156113476" duration="7998000" />
+      <workItem from="1766177903227" duration="4234000" />
+      <workItem from="1766245901084" duration="10119000" />
+      <workItem from="1766344971654" duration="1719000" />
+      <workItem from="1766427829623" duration="1391000" />
+      <workItem from="1767455744899" duration="853000" />
+      <workItem from="1767464829997" duration="11322000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>

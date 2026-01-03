@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/engine/engine/lib/commons-beanutils.jar!/" />
+      <root url="jar://$PROJECT_DIR$/engine/engine/lib/commons-logging.jar!/" />
+      <root url="jar://$PROJECT_DIR$/engine/engine/lib/commons-digester-1.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TestExe">
+    <output-path>$PROJECT_DIR$/engine/engine</output-path>
+    <root id="archive" name="TestExe.jar">
+      <element id="extracted-dir" path="$PROJECT_DIR$/engine/engine/lib/commons-digester-1.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/engine/engine/lib/jaxb-core-2.3.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/engine/engine/lib/jaxb-impl-2.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/engine/engine/lib/javax.activation-api-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/engine/engine/lib/commons-logging.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/engine/engine/lib/jaxb-api-2.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/engine/engine/lib/commons-beanutils.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/engine/engine/lib/glassfish-corba-omgapi-4.2.1.jar" path-in-jar="/" />
+      <element id="library" level="project" name="jaxb-impl-2.3.1" />
+    </root>
+  </artifact>
+</component>
