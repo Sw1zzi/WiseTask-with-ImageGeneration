@@ -20,24 +20,19 @@ public class NumbersImageGenerator {
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Случайный фон
         drawBackground(g2d);
 
-        // Получаем параметры
         int digits = context.getDigits();
         int maxDigit = context.getMaxDigit();
         boolean firstNotZero = context.isFirstNotZero();
         boolean hasComparison = context.hasComparison();
 
-        // Рисуем заголовок
         drawTitle(g2d, digits, maxDigit, firstNotZero, context);
 
-        // Рисуем операцию сравнения (если есть)
         if (hasComparison) {
             drawComparison(g2d, context.getCompareLeft(), context.getCompareRight(),
                     context.getCompareOperator());
         } else {
-            // Или просто показываем набор цифр
             drawSimpleSet(g2d, digits);
         }
 
@@ -67,34 +62,40 @@ public class NumbersImageGenerator {
         int currentX = (IMAGE_WIDTH - getTitleWidth(g2d, digits, maxDigit, firstNotZero)) / 2;
         int titleY = 20;
 
-        // "Набор из "
         g2d.drawString(baseText, currentX, titleY);
         currentX += baseTextWidth;
 
-        // Количество цифр (красный)
         g2d.setColor(Color.RED);
         String digitsText = digits + "";
         g2d.drawString(digitsText, currentX, titleY);
         currentX += fm.stringWidth(digitsText);
 
-        // " цифр ("
         g2d.setColor(Color.BLACK);
-        String middleText = " цифр (";
-        g2d.drawString(middleText, currentX, titleY);
-        currentX += fm.stringWidth(middleText);
+        String prefixText = " цифр (";
+        g2d.drawString(prefixText, currentX, titleY);
+        currentX += fm.stringWidth(prefixText);
 
-        // Диапазон цифр (красный)
+        if (firstNotZero) {
+            g2d.setColor(Color.RED);
+            String oneText = "1-";
+            g2d.drawString(oneText, currentX, titleY);
+            currentX += fm.stringWidth(oneText);
+        } else {
+            g2d.setColor(Color.RED);
+            String zeroText = "0-";
+            g2d.drawString(zeroText, currentX, titleY);
+            currentX += fm.stringWidth(zeroText);
+        }
+
         g2d.setColor(Color.RED);
-        String rangeText = firstNotZero ? "1-" + maxDigit : "0-" + maxDigit;
-        g2d.drawString(rangeText, currentX, titleY);
-        currentX += fm.stringWidth(rangeText);
+        String maxDigitText = maxDigit + "";
+        g2d.drawString(maxDigitText, currentX, titleY);
+        currentX += fm.stringWidth(maxDigitText);
 
-        // ")"
         g2d.setColor(Color.BLACK);
         g2d.drawString(")", currentX, titleY);
         currentX += fm.stringWidth(")");
 
-        // Условие первой цифры
         g2d.setColor(Color.BLACK);
         String firstDigitText = firstNotZero ? " | первая ≠ 0" : " | первая может быть 0";
         g2d.drawString(firstDigitText, currentX, titleY);
@@ -107,7 +108,8 @@ public class NumbersImageGenerator {
         width += fm.stringWidth("Набор из ");
         width += fm.stringWidth(digits + "");
         width += fm.stringWidth(" цифр (");
-        width += fm.stringWidth(firstNotZero ? "1-" + maxDigit : "0-" + maxDigit);
+        width += fm.stringWidth(firstNotZero ? "1-" : "0-");
+        width += fm.stringWidth(maxDigit + "");
         width += fm.stringWidth(")");
         width += fm.stringWidth(firstNotZero ? " | первая ≠ 0" : " | первая может быть 0");
 
@@ -119,24 +121,19 @@ public class NumbersImageGenerator {
 
         int centerY = IMAGE_HEIGHT / 2 + 15;
 
-        // Левая часть
         int leftWidth = leftPositions.size() * ELEMENT_SIZE;
         int leftStartX = (IMAGE_WIDTH - (leftWidth + OPERATOR_WIDTH + rightPositions.size() * ELEMENT_SIZE)) / 2;
 
-        // Рисуем левые элементы (ЧЕРНЫЕ)
         for (int i = 0; i < leftPositions.size(); i++) {
             int posX = leftStartX + i * ELEMENT_SIZE;
             drawPositionElement(g2d, posX, centerY, leftPositions.get(i));
         }
 
-        // Оператор сравнения
         int operatorX = leftStartX + leftWidth + 5;
         drawComparisonOperator(g2d, operatorX, centerY, operator);
 
-        // Правая часть
         int rightStartX = operatorX + 25;
 
-        // Рисуем правые элементы (ЧЕРНЫЕ)
         for (int i = 0; i < rightPositions.size(); i++) {
             int posX = rightStartX + i * ELEMENT_SIZE;
             drawPositionElement(g2d, posX, centerY, rightPositions.get(i));
@@ -144,16 +141,13 @@ public class NumbersImageGenerator {
     }
 
     private void drawPositionElement(Graphics2D g2d, int x, int y, String position) {
-        // Только позиция черным цветом
         g2d.setFont(new Font("Arial", Font.BOLD, 20));
-        g2d.setColor(Color.BLACK); // <--- ИЗМЕНЕНО: черный вместо цветного
+        g2d.setColor(Color.BLACK);
         g2d.drawString(position, x, y);
 
-        // Убраны подписи "0-9"
     }
 
     private void drawComparisonOperator(Graphics2D g2d, int x, int y, String operator) {
-        // Оператор сравнения красным
         g2d.setFont(new Font("Arial", Font.BOLD, 24));
         g2d.setColor(Color.RED);
 
@@ -169,7 +163,6 @@ public class NumbersImageGenerator {
 
         for (int i = 0; i < digits; i++) {
             int posX = startX + i * ELEMENT_SIZE;
-            // Черные позиции
             g2d.setFont(new Font("Arial", Font.BOLD, 20));
             g2d.setColor(Color.BLACK);
             g2d.drawString("[" + (i+1) + "]", posX, centerY);
